@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Brand Colors */
+  --color-navy: #0B2447;
+  --color-teal: #00D2BE;
+  --color-light: #F4F7FA;
+  --color-gray: #E2E8F0;
+
+  /* Text Colors */
+  --color-text-primary: #0B2447;
+  --color-text-secondary: #64748b;
+  --color-text-muted: #94a3b8;
+
+  /* Background Colors */
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #F4F7FA;
+  --color-bg-accent: #00D2BE;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Custom utility for the dot pattern background */
+.bg-dots {
+  background-size: 20px 20px;
+}
