@@ -38,7 +38,7 @@ import {
 // ============================================
 const Hero: React.FC = () => {
   return (
-    <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden bg-slate-50">
+    <section className="relative pt-32 pb-12 lg:pt-40 lg:pb-32 overflow-hidden bg-slate-50">
       {/* 1. Dynamic Background Layer */}
       <div className="absolute inset-0 z-0">
         {/* Grid Pattern */}
@@ -51,7 +51,7 @@ const Hero: React.FC = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-14 items-center">
           {/* Left Column: Text Content */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -91,20 +91,22 @@ const Hero: React.FC = () => {
               business visible in the modern world.
             </p>
 
-            <div className="flex flex-wrap gap-4">
-              <button className="px-8 py-4 bg-neobyte-navy text-white font-bold rounded-xl hover:bg-neobyte-teal hover:text-neobyte-navy transition-all shadow-lg hover:shadow-neobyte-teal/30 flex items-center justify-center gap-2 group">
+            <div className="flex flex-wrap gap-2 md:gap-4 justify-center sm:justify-start">
+              {/* Button 1: Start a Project */}
+              <button className="px-6 py-3 md:px-8 md:py-4 text-sm md:text-base bg-neobyte-navy text-white font-bold rounded-xl hover:bg-neobyte-teal hover:text-neobyte-navy transition-all shadow-lg hover:shadow-neobyte-teal/30 flex items-center justify-center gap-2 group w-full sm:w-auto text-nowrap">
                 Start a Project
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />
               </button>
 
-              <button className="px-8 py-4 bg-white text-neobyte-navy font-bold rounded-xl border border-gray-200 hover:border-neobyte-teal hover:text-neobyte-teal transition-all shadow-sm flex items-center justify-center gap-2 group">
-                <Play className="w-4 h-4 fill-current group-hover:scale-110 transition-transform" />
+              {/* Button 2: View Showreel */}
+              <button className="px-6 py-3 md:px-8 md:py-4 text-sm md:text-base bg-white text-neobyte-navy font-bold rounded-xl border border-gray-200 hover:border-neobyte-teal hover:text-neobyte-teal transition-all shadow-sm flex items-center justify-center gap-2 group w-full sm:w-auto text-nowrap">
+                <Play className="w-3 h-3 md:w-4 md:h-4 fill-current group-hover:scale-110 transition-transform" />
                 View Showreel
               </button>
             </div>
 
             {/* Social Proof / Trust Mini-section */}
-            <div className="mt-10 pt-8 border-t border-gray-200 flex items-center gap-6">
+            <div className="lg:mt-5 pt-8 border-t border-gray-200 flex items-center gap-6">
               <div className="flex -space-x-3">
                 {[1, 2, 3, 4].map((i) => (
                   <img
@@ -132,7 +134,7 @@ const Hero: React.FC = () => {
             initial={{ opacity: 0, scale: 0.95, x: 30 }}
             animate={{ opacity: 1, scale: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative h-full min-h-[400px] lg:min-h-[600px] flex items-center justify-center lg:justify-end"
+            className="relative h-full sm:min-h-[400px] lg:min-h-[600px] flex items-center justify-center lg:justify-end"
           >
             {/* Main Image Container with Abstract Shapes */}
             <div className="relative w-full max-w-lg">
@@ -212,10 +214,9 @@ const Hero: React.FC = () => {
 };
 
 // ============================================
-// 2. CLIENTS TRUST (Logo Strip)
+// CLIENT TRUST (Infinite Marquee - Faster Speed)
 // ============================================
 const ClientTrust: React.FC = () => {
-  // Just using text placeholders for logos for simplicity
   const clients = [
     "TechCorp",
     "GlobalBank",
@@ -223,23 +224,55 @@ const ClientTrust: React.FC = () => {
     "EduSmart",
     "HealthPlus",
     "LogiChain",
+    "CyberSys",
+    "NetScale",
   ];
+
+  // Create seamless loop
+  const marqueeClients = [...clients, ...clients, ...clients];
+
   return (
-    <div className="bg-white py-12 border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-4 text-center">
-        <p className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-8">
-          Clients we worked with
+    <div className="bg-white py-12 border-b border-gray-100 overflow-hidden group">
+      {/* Added 'group' class for hover detection */}
+
+      <div className="max-w-7xl mx-auto px-4 text-center mb-8">
+        <p className="text-sm font-bold text-slate-400 uppercase tracking-widest">
+          Trusted by Industry Leaders
         </p>
-        <div className="flex flex-wrap justify-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-          {clients.map((client, i) => (
-            <span
+      </div>
+
+      <div className="relative w-full overflow-hidden">
+        {/* Left Gradient Mask */}
+        <div className="absolute top-0 left-0 w-20 md:w-40 h-full bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
+        {/* Right Gradient Mask */}
+        <div className="absolute top-0 right-0 w-20 md:w-40 h-full bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
+
+        {/* Marquee Track */}
+        <motion.div
+          className="flex whitespace-nowrap"
+          animate={{ x: "-33.33%" }}
+          transition={{
+            repeat: Infinity,
+            ease: "linear",
+            duration: 10, // <--- Speed up here (Lower number = Faster)
+          }}
+          // Optional: Pause on hover if you want
+          // style={{ cursor: "grab" }}
+          // whileHover={{ animationPlayState: "paused" }} // Note: Framer motion handles pause differently, simpler to keep it running or use useAnimation controls.
+          // For simple CSS-like pause, we can use a class or just keep it moving.
+          // Usually fast marquees look better moving constantly.
+        >
+          {marqueeClients.map((client, i) => (
+            <div
               key={i}
-              className="text-2xl font-black text-slate-300 hover:text-neobyte-navy cursor-default transition-colors"
+              className="inline-flex items-center mx-6 md:mx-12" // Reduced mobile gap slightly for better flow
             >
-              {client}
-            </span>
+              <span className="text-2xl md:text-3xl font-black text-slate-300 hover:text-neobyte-navy transition-colors cursor-default select-none">
+                {client}
+              </span>
+            </div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </div>
   );
@@ -250,9 +283,12 @@ const ClientTrust: React.FC = () => {
 // ============================================
 const AboutAgency: React.FC = () => {
   return (
-    <section id="about" className="py-24 bg-white overflow-hidden">
+    <section
+      id="about"
+      className="py-12 md:py-18 lg:py-24 bg-white overflow-hidden"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-10 gap-x-16 items-center">
           {/* Text Content */}
           <div>
             <span className="text-neobyte-teal font-bold tracking-wider uppercase text-sm">
@@ -269,7 +305,7 @@ const AboutAgency: React.FC = () => {
             </p>
 
             {/* Stats within text */}
-            <div className="grid grid-cols-2 gap-8 mb-8">
+            <div className="grid grid-cols-2 gap-8 mb-6">
               <div>
                 <h3 className="text-3xl font-bold text-neobyte-navy">250+</h3>
                 <p className="text-slate-500 mt-1">Projects Completed</p>
@@ -345,9 +381,12 @@ const ServicesList: React.FC = () => {
   ];
 
   return (
-    <section id="services" className="py-20 bg-neobyte-light/50">
+    <section
+      id="services"
+      className="py-12 md:py-18 lg:py-20 bg-neobyte-light/50"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-end mb-12">
+        <div className="flex justify-between items-end mb-8">
           <h2 className="text-3xl font-bold text-neobyte-navy">
             Our Core Services
           </h2>
@@ -359,11 +398,11 @@ const ServicesList: React.FC = () => {
           </a>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-4 gap-x-6">
           {services.map((s, idx) => (
             <div
               key={idx}
-              className="bg-white p-8 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group"
+              className="bg-white p-6 lg:p-8 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group"
             >
               <span className="text-4xl font-light text-gray-200 group-hover:text-neobyte-teal transition-colors mb-4 block">
                 {s.id}
@@ -388,12 +427,12 @@ const ServicesList: React.FC = () => {
 // ============================================
 const FeaturedCaseStudy: React.FC = () => {
   return (
-    <section className="py-24 bg-rose-600 relative overflow-hidden text-white">
+    <section className="py-12 md:py-18 lg:py-24 bg-rose-600 relative overflow-hidden text-white">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-white to-transparent pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
           <div>
             <div className="inline-block px-3 py-1 border border-white/30 rounded-full text-xs font-bold tracking-wider mb-6">
               FEATURED PROJECT
@@ -445,7 +484,7 @@ const FeaturedCaseStudy: React.FC = () => {
 // ============================================
 const VideoIntro: React.FC = () => {
   return (
-    <section className="py-24 bg-white">
+    <section className="py-12 md:py-18 lg:py-24 bg-white">
       <div className="max-w-4xl mx-auto px-4 text-center">
         <h2 className="text-2xl md:text-4xl font-bold text-neobyte-navy mb-6">
           How do we build your website?
@@ -503,9 +542,9 @@ const DevelopmentProcess: React.FC = () => {
   ];
 
   return (
-    <section id="process" className="py-24 bg-slate-50">
+    <section id="process" className="py-12 md:py-18 lg:py-24 bg-slate-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-16 text-center">
+        <div className="mb-12 md:mb-14 lg:mb-16 text-center">
           <span className="text-neobyte-teal font-bold tracking-wider uppercase">
             Workflow
           </span>
@@ -518,7 +557,7 @@ const DevelopmentProcess: React.FC = () => {
           {/* Timeline Line (Desktop) */}
           <div className="hidden lg:block absolute top-12 left-0 w-full h-0.5 bg-gray-200 -z-0"></div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 lg:gap-10 relative z-10">
             {steps.map((step, i) => (
               <div
                 key={i}
@@ -556,7 +595,7 @@ const TechStack: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 bg-white border-y border-gray-100">
+    <section className="py-14 md:py-16 bg-white border-y border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-8">
         <div className="md:w-1/3">
           <h3 className="text-2xl font-bold text-neobyte-navy">
@@ -606,7 +645,10 @@ const Blog: React.FC = () => {
   ];
 
   return (
-    <section id="insight" className="py-24 bg-neobyte-light/30">
+    <section
+      id="insight"
+      className="py-12 md:py-18 lg:py-24 bg-neobyte-light/30"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center mb-12">
           <h2 className="text-3xl font-bold text-neobyte-navy">
@@ -620,7 +662,7 @@ const Blog: React.FC = () => {
           </a>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           {posts.map((post, i) => (
             <div
               key={i}

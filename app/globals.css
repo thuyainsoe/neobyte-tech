@@ -2,26 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+/* py-12 md:py-18 lg:py-24 */
+/* vertical section - gap-8 */
+
 :root {
   /* Brand Colors */
-  --color-navy: #0B2447;
-  --color-teal: #00D2BE;
-  --color-light: #F4F7FA;
-  --color-gray: #E2E8F0;
+  --color-navy: #0b2447;
+  --color-teal: #00d2be;
+  --color-light: #f4f7fa;
+  --color-gray: #e2e8f0;
 
   /* Text Colors */
-  --color-text-primary: #0B2447;
+  --color-text-primary: #0b2447;
   --color-text-secondary: #64748b;
   --color-text-muted: #94a3b8;
 
   /* Background Colors */
   --color-bg-primary: #ffffff;
-  --color-bg-secondary: #F4F7FA;
-  --color-bg-accent: #00D2BE;
+  --color-bg-secondary: #f4f7fa;
+  --color-bg-accent: #00d2be;
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 /* Custom utility for the dot pattern background */

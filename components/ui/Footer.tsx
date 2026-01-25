@@ -2,10 +2,10 @@ import { Mail, MapPin, Phone } from "lucide-react";
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="bg-neobyte-navy text-white pt-20 pb-10">
+    <footer className="bg-neobyte-navy text-white pt-16 md:pt-20 pb-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Newsletter Box */}
-        <div className="bg-neobyte-teal rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 mb-20 shadow-2xl relative overflow-hidden">
+        <div className="bg-neobyte-teal rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 mb-14 md:mb-16 lg:mb-20 shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
           <div className="relative z-10 md:w-1/2">
             <h3 className="text-xl md:text-2xl font-bold text-neobyte-navy mb-2">
