@@ -482,30 +482,69 @@ const FeaturedCaseStudy: React.FC = () => {
 // ============================================
 // 6. VIDEO / EXPLANATION
 // ============================================
+// ============================================
+// 6. VIDEO / EXPLANATION (2-Column Layout)
+// ============================================
 const VideoIntro: React.FC = () => {
   return (
-    <section className="py-12 md:py-18 lg:py-24 bg-white">
-      <div className="max-w-4xl mx-auto px-4 text-center">
-        <h2 className="text-2xl md:text-4xl font-bold text-neobyte-navy mb-6">
-          How do we build your website?
-        </h2>
-        <p className="text-slate-600 mb-12">
-          See our behind-the-scenes process of transforming concepts into
-          functioning digital products.
-        </p>
+    <section className="py-12 md:py-18 lg:py-24 bg-white overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-center">
+          {/* Left Column: Text Content */}
+          <div className="text-left">
+            <span className="text-neobyte-teal font-bold tracking-wider uppercase text-sm mb-2 block">
+              Behind the Scenes
+            </span>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neobyte-navy mb-6 leading-tight">
+              How do we build <br /> your digital product?
+            </h2>
+            <p className="text-slate-600 text-lg mb-8 leading-relaxed">
+              It's not just about writing code; it's about understanding your
+              vision. See our transparent process of transforming rough concepts
+              into functioning, scalable digital products.
+            </p>
 
-        <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl group cursor-pointer">
-          <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors z-10"></div>
+            {/* Optional: Simple Bullet points to fill space nicely */}
+            <div className="space-y-4 mb-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-neobyte-teal">
+                  <span className="font-bold">01</span>
+                </div>
+                <p className="font-medium text-neobyte-navy">
+                  Strategic Planning
+                </p>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-neobyte-teal">
+                  <span className="font-bold">02</span>
+                </div>
+                <p className="font-medium text-neobyte-navy">
+                  Agile Development
+                </p>
+              </div>
+            </div>
+          </div>
 
-          <img
-            src="https://picsum.photos/1200/675?random=15"
-            alt="Video Thumbnail"
-            className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
-          />
+          {/* Right Column: Video Thumbnail */}
+          <div className="relative">
+            {/* Decor Blob */}
+            <div className="absolute -top-10 -right-10 w-40 h-40 bg-neobyte-teal/20 rounded-full blur-3xl -z-10"></div>
+            <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl -z-10"></div>
 
-          <div className="absolute inset-0 flex items-center justify-center z-20">
-            <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-              <Play className="w-8 h-8 text-neobyte-navy fill-current ml-1" />
+            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl group cursor-pointer border-4 border-white">
+              <div className="absolute inset-0 bg-neobyte-navy/20 group-hover:bg-neobyte-navy/10 transition-colors z-10"></div>
+
+              <img
+                src="https://picsum.photos/1200/675?random=15"
+                alt="Video Thumbnail"
+                className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+              />
+
+              <div className="absolute inset-0 flex items-center justify-center z-20">
+                <div className="w-20 h-20 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                  <Play className="w-8 h-8 text-neobyte-navy fill-current ml-1" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
