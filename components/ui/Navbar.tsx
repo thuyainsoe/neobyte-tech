@@ -1,6 +1,5 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -8,7 +7,6 @@ export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // Lock body scroll when menu is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -26,24 +24,10 @@ export const Navbar: React.FC = () => {
   const navLinks = [
     { name: "About", href: "/about" },
     { name: "Services", href: "/services" },
-    { name: "Case Studies", href: "#work" },
+    { name: "Our Work", href: "/our-work" },
     { name: "Process", href: "#process" },
     { name: "Insight", href: "#insight" },
   ];
-
-  // Animation variants for menu items
-  const menuVariants = {
-    closed: { opacity: 0, x: -20 }, // Changed from y to x for side slide feel
-    open: (i: number) => ({
-      opacity: 1,
-      x: 0,
-      transition: {
-        delay: 0.1 + i * 0.1,
-        duration: 0.4,
-        ease: "easeOut",
-      },
-    }),
-  };
 
   return (
     <nav
@@ -55,7 +39,6 @@ export const Navbar: React.FC = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center relative z-50">
-          {/* Logo */}
           <div className="flex items-center">
             <a
               href="/"
@@ -65,7 +48,6 @@ export const Navbar: React.FC = () => {
             </a>
           </div>
 
-          {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
               <a
@@ -86,7 +68,6 @@ export const Navbar: React.FC = () => {
             </a>
           </div>
 
-          {/* Mobile Menu Toggle Button */}
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -102,62 +83,38 @@ export const Navbar: React.FC = () => {
         </div>
       </div>
 
-      {/* Full Screen Mobile Menu Overlay */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: "100%" }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: "100%" }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 bg-white z-40 flex flex-col justify-center md:hidden overflow-hidden"
-          >
-            {/* Decorative Background Text */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
-              <span className="text-[25vh] font-black text-neobyte-navy/5 opacity-10 -rotate-12 whitespace-nowrap transform scale-150 origin-center">
-                NEOBYTE
-              </span>
-            </div>
+      {isOpen && (
+        <div className="fixed inset-0 bg-white z-40 flex flex-col justify-center md:hidden overflow-hidden transition-all duration-300">
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
+            <span className="text-[25vh] font-black text-neobyte-navy/5 opacity-10 -rotate-12 whitespace-nowrap transform scale-150 origin-center">
+              NEOBYTE
+            </span>
+          </div>
 
-            {/* Menu Items Container - ALIGNED LEFT */}
-            <div className="relative z-10 flex flex-col items-start gap-6 w-full px-8 sm:px-12">
-              {navLinks.map((link, i) => (
-                <motion.a
-                  key={link.name}
-                  custom={i}
-                  // @ts-ignore
-                  variants={menuVariants}
-                  initial="closed"
-                  animate="open"
-                  href={link.href}
-                  onClick={() => setIsOpen(false)}
-                  // FONT SIZE REDUCED to text-3xl (was 4xl), LEFT ALIGNED
-                  className="text-3xl font-bold text-neobyte-navy hover:text-neobyte-teal transition-colors tracking-tight"
-                >
-                  {link.name}
-                </motion.a>
-              ))}
-
-              <motion.div
-                custom={navLinks.length}
-                // @ts-ignore
-                variants={menuVariants}
-                initial="closed"
-                animate="open"
-                className="mt-6"
+          <div className="relative z-10 flex flex-col items-start gap-6 w-full px-8 sm:px-12">
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                onClick={() => setIsOpen(false)}
+                className="text-3xl font-bold text-neobyte-navy hover:text-neobyte-teal transition-colors tracking-tight"
               >
-                <a
-                  href="#contact"
-                  onClick={() => setIsOpen(false)}
-                  className="px-8 py-3 bg-neobyte-navy text-white text-base font-bold rounded-full hover:bg-neobyte-teal hover:text-neobyte-navy transition-all duration-300 shadow-xl flex items-center gap-3"
-                >
-                  Let's Talk <ArrowRight className="w-4 h-4" />
-                </a>
-              </motion.div>
+                {link.name}
+              </a>
+            ))}
+
+            <div className="mt-6">
+              <a
+                href="#contact"
+                onClick={() => setIsOpen(false)}
+                className="px-8 py-3 bg-neobyte-navy text-white text-base font-bold rounded-full hover:bg-neobyte-teal hover:text-neobyte-navy transition-all duration-300 shadow-xl flex items-center gap-3"
+              >
+                Let's Talk <ArrowRight className="w-4 h-4" />
+              </a>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+        </div>
+      )}
     </nav>
   );
 };
