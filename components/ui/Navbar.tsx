@@ -28,8 +28,8 @@ export const Navbar: React.FC = () => {
     { name: "About", href: "/about" },
     { name: "Services", href: "/services" },
     { name: "Our Work", href: "/our-work" },
-    { name: "Process", href: "#process" },
-    { name: "Insight", href: "#insight" },
+    // { name: "Process", href: "#process" },
+    // { name: "Insight", href: "#insight" },
   ];
 
   return (
@@ -66,7 +66,7 @@ export const Navbar: React.FC = () => {
               </Link>
             ))}
             <Link
-              href="#contact"
+              href="/contact"
               className="px-6 py-2.5 bg-neobyte-navy text-white text-sm font-semibold rounded-full hover:bg-neobyte-teal hover:text-neobyte-navy transition-all duration-300 shadow-md flex items-center gap-2 group"
             >
               Let's Talk{" "}
@@ -115,7 +115,7 @@ export const Navbar: React.FC = () => {
 
             <div className="mt-6">
               <Link
-                href="#contact"
+                href="/contact"
                 onClick={() => setIsOpen(false)}
                 className="px-8 py-3 bg-neobyte-navy text-white text-base font-bold rounded-full hover:bg-neobyte-teal hover:text-neobyte-navy transition-all duration-300 shadow-xl flex items-center gap-3"
               >
