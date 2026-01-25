@@ -137,20 +137,19 @@ const Hero: React.FC = () => {
             {/* Main Image Container with Abstract Shapes */}
             <div className="relative w-full max-w-lg">
               {/* Decorative Back Shape */}
-              <div className="absolute -top-10 -right-10 w-full h-full bg-gradient-to-br from-gray-200 to-slate-100 rounded-[2rem] transform rotate-6 -z-10 border border-white"></div>
+              <div className="absolute -top-10 -right-10 w-full h-full bg-gradient-to-br from-gray-200 to-slate-100 rounded-[2rem] transform rotate-6 -z-10 border border-white hidden sm:block"></div>
 
-              {/* Main Visual Image (City + Tech Concept) */}
+              {/* Main Visual Image */}
               <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
                 <img
                   src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?q=80&w=2070&auto=format&fit=crop"
                   alt="City Architecture"
                   className="w-full h-auto object-cover opacity-90"
                 />
-                {/* Overlay Gradient for Text readability if needed */}
                 <div className="absolute inset-0 bg-neobyte-navy/20 mix-blend-multiply"></div>
               </div>
 
-              {/* Floating Card 1: Stats */}
+              {/* Floating Card 1: Stats (Growth) */}
               <motion.div
                 animate={{ y: [0, -15, 0] }}
                 transition={{
@@ -158,20 +157,24 @@ const Hero: React.FC = () => {
                   duration: 6,
                   ease: "easeInOut",
                 }}
-                className="absolute -left-12 top-10 bg-white/90 backdrop-blur-md p-4 rounded-xl shadow-xl border border-white/50 max-w-[180px]"
+                // Mobile: left-2 top-4 scale-90 (အတွင်းဘက်ကပ်)
+                // Desktop: lg:-left-12 lg:top-10 lg:scale-100 (အပြင်ဘက်ထုတ်)
+                className="absolute left-2 top-4 scale-90 origin-top-left lg:-left-12 lg:top-10 lg:scale-100 bg-white/90 backdrop-blur-md p-4 rounded-xl shadow-xl border border-white/50 max-w-[160px] lg:max-w-[180px] z-20"
               >
                 <div className="flex items-center gap-3 mb-2">
                   <div className="p-2 bg-green-100 text-green-600 rounded-lg">
-                    <BarChart3 className="w-5 h-5" />
+                    <BarChart3 className="w-4 h-4 lg:w-5 lg:h-5" />
                   </div>
-                  <span className="font-bold text-neobyte-navy text-sm">
+                  <span className="font-bold text-neobyte-navy text-xs lg:text-sm">
                     Growth
                   </span>
                 </div>
                 <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
                   <div className="h-full bg-green-500 w-[85%]"></div>
                 </div>
-                <p className="text-xs text-slate-500 mt-2">+124% Engagement</p>
+                <p className="text-[10px] lg:text-xs text-slate-500 mt-2">
+                  +124% Engagement
+                </p>
               </motion.div>
 
               {/* Floating Card 2: Status */}
@@ -183,17 +186,21 @@ const Hero: React.FC = () => {
                   ease: "easeInOut",
                   delay: 1,
                 }}
-                className="absolute -right-8 bottom-20 bg-neobyte-navy p-4 rounded-xl shadow-2xl border border-gray-700 text-white flex items-center gap-4"
+                // Mobile: right-2 bottom-4 scale-90 (အတွင်းဘက်ကပ်)
+                // Desktop: lg:-right-8 lg:bottom-20 lg:scale-100 (အပြင်ဘက်ထုတ်)
+                className="absolute right-2 bottom-4 scale-90 origin-bottom-right lg:-right-8 lg:bottom-20 lg:scale-100 bg-neobyte-navy p-4 rounded-xl shadow-2xl border border-gray-700 text-white flex items-center gap-4 z-20"
               >
                 <div className="relative">
                   <div className="w-3 h-3 bg-green-400 rounded-full animate-ping absolute top-0 right-0"></div>
-                  <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center">
-                    <Globe className="w-5 h-5 text-neobyte-teal" />
+                  <div className="w-8 h-8 lg:w-10 lg:h-10 bg-white/10 rounded-full flex items-center justify-center">
+                    <Globe className="w-4 h-4 lg:w-5 lg:h-5 text-neobyte-teal" />
                   </div>
                 </div>
                 <div>
-                  <p className="text-xs text-gray-400">System Status</p>
-                  <p className="font-bold text-sm">All Systems Operational</p>
+                  <p className="text-[10px] lg:text-xs text-gray-400">
+                    System Status
+                  </p>
+                  <p className="font-bold text-xs lg:text-sm">Operational</p>
                 </div>
               </motion.div>
             </div>

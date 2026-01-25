@@ -109,8 +109,8 @@ const AboutHero: React.FC = () => {
           >
             {/* Image Container */}
             <div className="relative w-full max-w-lg">
-              {/* Decorative Back Shape (Rotated) */}
-              <div className="absolute -top-6 -right-6 w-full h-full bg-gradient-to-bl from-neobyte-teal/20 to-blue-100 rounded-[2rem] transform rotate-3 -z-10 border border-white/50"></div>
+              {/* Decorative Back Shape (Rotated) - Hidden on mobile to prevent overflow */}
+              <div className="absolute -top-6 -right-6 w-full h-full bg-gradient-to-bl from-neobyte-teal/20 to-blue-100 rounded-[2rem] transform rotate-3 -z-10 border border-white/50 hidden sm:block"></div>
 
               {/* Main Image */}
               <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
@@ -130,16 +130,18 @@ const AboutHero: React.FC = () => {
                   duration: 5,
                   ease: "easeInOut",
                 }}
-                className="absolute -left-8 top-12 bg-white p-4 rounded-xl shadow-xl border border-gray-100 flex items-center gap-3 max-w-[200px]"
+                // Mobile: left-2 top-4 scale-90
+                // Desktop: lg:-left-8 lg:top-12 lg:scale-100
+                className="absolute left-2 top-4 scale-90 origin-top-left lg:-left-8 lg:top-12 lg:scale-100 bg-white p-4 rounded-xl shadow-xl border border-gray-100 flex items-center gap-3 max-w-[180px] lg:max-w-[200px] z-20"
               >
-                <div className="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600">
-                  <Award className="w-5 h-5" />
+                <div className="w-8 h-8 lg:w-10 lg:h-10 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600">
+                  <Award className="w-4 h-4 lg:w-5 lg:h-5" />
                 </div>
                 <div>
-                  <p className="text-xs text-slate-400 font-bold">
+                  <p className="text-[10px] lg:text-xs text-slate-400 font-bold">
                     Award Winner
                   </p>
-                  <p className="text-sm font-bold text-neobyte-navy">
+                  <p className="text-xs lg:text-sm font-bold text-neobyte-navy">
                     Best Tech Agency
                   </p>
                 </div>
@@ -154,7 +156,9 @@ const AboutHero: React.FC = () => {
                   ease: "easeInOut",
                   delay: 1,
                 }}
-                className="absolute -right-4 bottom-10 bg-neobyte-navy text-white p-4 rounded-xl shadow-xl flex items-center gap-3"
+                // Mobile: right-2 bottom-4 scale-90
+                // Desktop: lg:-right-4 lg:bottom-10 lg:scale-100
+                className="absolute right-2 bottom-4 scale-90 origin-bottom-right lg:-right-4 lg:bottom-10 lg:scale-100 bg-neobyte-navy text-white p-4 rounded-xl shadow-xl flex items-center gap-3 z-20"
               >
                 <div className="flex -space-x-3">
                   <img
@@ -174,10 +178,12 @@ const AboutHero: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <p className="text-xs text-neobyte-teal font-bold">
+                  <p className="text-[10px] lg:text-xs text-neobyte-teal font-bold">
                     Global Team
                   </p>
-                  <p className="text-xs text-gray-300">Working Remotely</p>
+                  <p className="text-[10px] lg:text-xs text-gray-300">
+                    Working Remotely
+                  </p>
                 </div>
               </motion.div>
             </div>
