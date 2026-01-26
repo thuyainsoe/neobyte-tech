@@ -595,10 +595,34 @@ const FeaturedCaseStudy: React.FC = () => {
 // ============================================
 // 6. VIDEO / EXPLANATION (2-Column Layout)
 // ============================================
+
 const VideoIntro: React.FC = () => {
   return (
-    <section className="py-12 md:py-18 lg:py-24 bg-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-12 md:py-18 lg:py-24 bg-white relative overflow-hidden">
+      {/* --- SECTION BACKGROUND DECORATION START --- */}
+
+      {/* 1. Top-Left Large Faint Square */}
+      <div
+        className="absolute -top-20 -left-20 w-96 h-96 bg-neobyte-teal opacity-[0.03] rounded-[3rem] rotate-12 pointer-events-none"
+        aria-hidden="true"
+      ></div>
+
+      {/* 2. Bottom-Right Outlined Square */}
+      <div
+        className="absolute -bottom-32 -right-20 w-[30rem] h-[30rem] border-2 border-neobyte-navy opacity-[0.05] rounded-[4rem] -rotate-12 pointer-events-none"
+        aria-hidden="true"
+      ></div>
+
+      {/* 3. Small Floating Square (Center-Left) */}
+      <div
+        className="absolute top-1/2 left-10 w-16 h-16 bg-neobyte-navy opacity-[0.04] rounded-xl rotate-45 pointer-events-none"
+        aria-hidden="true"
+      ></div>
+
+      {/* --- SECTION BACKGROUND DECORATION END --- */}
+
+      {/* Main Content Container - Added relative and z-10 to stay above background */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-center">
           {/* Left Column: Text Content */}
           <div className="text-left">
@@ -637,8 +661,8 @@ const VideoIntro: React.FC = () => {
 
           {/* Right Column: Video Thumbnail */}
           <div className="relative">
-            {/* Decor Blob */}
-            <div className="absolute -top-10 -right-10 w-40 h-40 bg-neobyte-teal/20 rounded-full blur-3xl -z-10"></div>
+            {/* Local Decor Blobs for Video (Kept these as they are nice) */}
+            <div className="absolute -top-10 -right-10 w-40 h-40 bg-neobyte-teal/20 rounded-full blur-3xl -z-10 animate-pulse"></div>
             <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl -z-10"></div>
 
             <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl group cursor-pointer border-4 border-white">
