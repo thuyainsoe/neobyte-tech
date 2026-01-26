@@ -27,10 +27,6 @@ import {
 } from "lucide-react";
 
 // ============================================
-// NAVBAR COMPONENT (Kept mostly same)
-// ============================================
-
-// ============================================
 // 1. HERO SECTION (City Theme)
 // ============================================
 // ============================================
@@ -144,7 +140,7 @@ const Hero: React.FC = () => {
               {/* Main Visual Image */}
               <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
                 <img
-                  src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?q=80&w=2070&auto=format&fit=crop"
+                  src="/images/hero.png"
                   alt="City Architecture"
                   className="w-full h-auto object-cover opacity-90"
                 />
@@ -285,9 +281,19 @@ const AboutAgency: React.FC = () => {
   return (
     <section
       id="about"
-      className="py-12 md:py-18 lg:py-24 bg-white overflow-hidden"
+      // Added 'relative' here to act as anchor for the decorative circle
+      className="relative py-12 md:py-18 lg:py-24 bg-white overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* ========================================= */}
+      {/* DECORATIVE CIRCLE (Top Right)             */}
+      {/* ========================================= */}
+      <div className="absolute -top-20 -right-20 w-80 h-80 bg-neobyte-teal/10 rounded-full pointer-events-none mix-blend-multiply" />
+
+      {/* Optional: Add a second smaller ring for more detail if you like, otherwise remove this line */}
+      <div className="absolute -top-10 -right-10 w-60 h-60 border-[20px] border-neobyte-navy/5 rounded-full pointer-events-none" />
+
+      {/* Main Content Container - Added 'relative z-10' to ensure text stays above the circle */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-10 gap-x-16 items-center">
           {/* Text Content */}
           <div>
@@ -329,7 +335,7 @@ const AboutAgency: React.FC = () => {
             <div className="absolute top-0 right-0 w-2/3 h-full bg-gray-100 rounded-3xl -z-10 transform translate-x-10 -translate-y-10"></div>
 
             <img
-              src="https://picsum.photos/600/700?random=2"
+              src="/images/about-agency.png"
               alt="Office Team"
               className="rounded-2xl shadow-xl w-full object-cover h-[500px]"
             />
@@ -352,7 +358,6 @@ const AboutAgency: React.FC = () => {
     </section>
   );
 };
-
 // ============================================
 // 4. SERVICES OVERVIEW (Clean Typographic)
 // ============================================
@@ -422,57 +427,151 @@ const ServicesList: React.FC = () => {
   );
 };
 
-// ============================================
-// 5. FEATURED CASE STUDY (Colored/Dark Section)
-// ============================================
+// 1. Data Setup - Project ၃ ခုစာ Data တွေ ဒီမှာပြင်ပါ
+const projects = [
+  {
+    id: 1,
+    title: "SATS HK",
+    description:
+      "A revolutionary logistics platform connecting Hong Kong's busiest trade routes with AI-driven route optimization.",
+    stats: [
+      "40% Increase in Efficiency",
+      "Real-time Tracking System",
+      "Seamless Mobile Experience",
+    ],
+    image: "/images/projects/project-2.png",
+    color: "bg-rose-600", // Background color
+    btnColor: "text-rose-600", // Button text color
+    accent: "bg-rose-500", // Decorative blob color
+  },
+  {
+    id: 2,
+    title: "FinTech Pro",
+    description:
+      "Empowering banking institutions with blockchain security and lightning-fast transaction processing.",
+    stats: [
+      "2M+ Daily Transactions",
+      "Zero Security Breaches",
+      "Integrated Crypto Wallet",
+    ],
+    image: "/images/projects/project-1.png",
+    color: "bg-blue-900", // Navy Blue
+    btnColor: "text-blue-900",
+    accent: "bg-blue-700",
+  },
+  {
+    id: 3,
+    title: "EcoGrow App",
+    description:
+      "Smart agriculture solution using IoT sensors to monitor crop health and automate irrigation systems.",
+    stats: [
+      "30% Water Saved",
+      "Remote Farm Monitoring",
+      "AI Harvest Prediction",
+    ],
+    image: "/images/projects/project-3.png",
+    color: "bg-emerald-600", // Green
+    btnColor: "text-emerald-600",
+    accent: "bg-emerald-500",
+  },
+];
+
 const FeaturedCaseStudy: React.FC = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // 2. Auto Loop Logic
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % projects.length);
+    }, 4000); // Bro လိုချင်တဲ့ 2sec ဆိုရင် ဒီမှာ 2000 ပြောင်းပါ (UX အရ 4000-5000 လောက်ထားတာ ပိုကောင်းပါတယ်)
+
+    return () => clearInterval(timer);
+  }, []);
+
+  // Manual Click on Dot
+  const handleDotClick = (index: number) => {
+    setCurrentIndex(index);
+  };
+
   return (
-    <section className="py-12 md:py-18 lg:py-24 bg-rose-600 relative overflow-hidden text-white">
+    // Background Color Transition wrapper
+    <section
+      className={`py-12 md:py-18 lg:py-24 relative overflow-hidden text-white transition-colors duration-700 ease-in-out ${projects[currentIndex].color}`}
+    >
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-white to-transparent pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
-          <div>
-            <div className="inline-block px-3 py-1 border border-white/30 rounded-full text-xs font-bold tracking-wider mb-6">
-              FEATURED PROJECT
-            </div>
-            <h2 className="text-4xl lg:text-5xl font-black mb-6">SATS HK</h2>
-            <p className="text-rose-100 text-lg mb-8 max-w-md">
-              A revolutionary logistics platform connecting Hong Kong's busiest
-              trade routes with AI-driven route optimization.
-            </p>
-            <ul className="space-y-3 mb-10">
-              <li className="flex items-center gap-3">
-                <CheckCircle2 className="w-5 h-5 text-white" /> 40% Increase in
-                Efficiency
-              </li>
-              <li className="flex items-center gap-3">
-                <CheckCircle2 className="w-5 h-5 text-white" /> Real-time
-                Tracking System
-              </li>
-              <li className="flex items-center gap-3">
-                <CheckCircle2 className="w-5 h-5 text-white" /> Seamless Mobile
-                Experience
-              </li>
-            </ul>
-            <button className="px-8 py-4 bg-white text-rose-600 font-bold rounded-lg hover:bg-rose-50 transition-colors shadow-lg">
-              View Case Study
-            </button>
-          </div>
+        {/* AnimatePresence for Fade In/Out Effect */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentIndex} // Key change triggers animation
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.5 }}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center"
+          >
+            {/* Left Content */}
+            <div>
+              <div className="inline-block px-3 py-1 border border-white/30 rounded-full text-xs font-bold tracking-wider mb-6">
+                FEATURED PROJECT
+              </div>
+              <h2 className="text-4xl lg:text-5xl font-black mb-6">
+                {projects[currentIndex].title}
+              </h2>
+              <p className="text-white/90 text-lg mb-8 max-w-md h-24">
+                {projects[currentIndex].description}
+              </p>
 
-          <div className="relative mt-10 lg:mt-0">
-            {/* Device Mockups */}
-            <div className="relative z-10 transform lg:rotate-[-5deg] hover:rotate-0 transition-transform duration-700 ease-out">
-              <img
-                src="https://picsum.photos/800/600?random=88"
-                alt="SATS HK Mockup"
-                className="rounded-xl shadow-2xl border-4 border-white/10"
-              />
+              <ul className="space-y-3 mb-10">
+                {projects[currentIndex].stats.map((stat, idx) => (
+                  <li key={idx} className="flex items-center gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-white" />
+                    {stat}
+                  </li>
+                ))}
+              </ul>
+
+              <button
+                className={`px-8 py-4 bg-white font-bold rounded-lg hover:opacity-90 transition-all shadow-lg ${projects[currentIndex].btnColor}`}
+              >
+                View Case Study
+              </button>
             </div>
-            {/* Decorative Circle */}
-            <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-rose-500 rounded-full blur-3xl -z-0"></div>
-          </div>
+
+            {/* Right Image Content */}
+            <div className="relative mt-10 lg:mt-0">
+              {/* Device Mockup */}
+              <div className="relative z-10 transform lg:rotate-[-5deg] hover:rotate-0 transition-transform duration-700 ease-out">
+                <img
+                  src={projects[currentIndex].image}
+                  alt={projects[currentIndex].title}
+                  className="rounded-xl shadow-2xl border-4 border-white/10 w-full h-auto object-cover max-h-[400px]"
+                />
+              </div>
+              {/* Decorative Circle that changes color */}
+              <div
+                className={`absolute -bottom-10 -right-10 w-64 h-64 rounded-full blur-3xl -z-0 transition-colors duration-500 ${projects[currentIndex].accent}`}
+              ></div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* 3. Vertical Dot Pagination (Right Side) */}
+        <div className="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col gap-4 z-20">
+          {projects.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => handleDotClick(index)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 border border-white ${
+                index === currentIndex
+                  ? "bg-white scale-125"
+                  : "bg-white/20 hover:bg-white/50"
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
         </div>
       </div>
     </section>

@@ -74,7 +74,7 @@ const ServiceHero: React.FC = () => {
             >
               {/* This represents "Bob" - A 3D Character */}
               <img
-                src="https://ouch-cdn2.icons8.com/r_z-1h-yL2hL3yC2h1yC2h.png?filename=3d-business-man-working-at-desk-with-laptop.png"
+                src="/images/hero.png"
                 // Alternatively use a URL like: "https://static.vecteezy.com/system/resources/previews/010/871/619/original/3d-avatar-character-business-man-working-on-laptop-png.png"
                 alt="Bob the Developer"
                 className="w-full h-auto drop-shadow-2xl"

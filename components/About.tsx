@@ -115,7 +115,7 @@ const AboutHero: React.FC = () => {
               {/* Main Image */}
               <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
                 <img
-                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop"
+                  src="/images/about-meeting.png"
                   alt="Neobyte Team Meeting"
                   className="w-full h-auto object-cover"
                 />
