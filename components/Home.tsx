@@ -407,17 +407,28 @@ const ServicesList: React.FC = () => {
           {services.map((s, idx) => (
             <div
               key={idx}
-              className="bg-white p-6 lg:p-8 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group"
+              // Added 'group', 'relative', and 'overflow-hidden'
+              className="bg-white p-6 lg:p-8 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group relative overflow-hidden"
             >
-              <span className="text-4xl font-light text-gray-200 group-hover:text-neobyte-teal transition-colors mb-4 block">
-                {s.id}
-              </span>
-              <h3 className="text-xl font-bold text-neobyte-navy mb-3 group-hover:translate-x-1 transition-transform">
-                {s.title}
-              </h3>
-              <p className="text-slate-500 text-sm leading-relaxed">{s.desc}</p>
-              <div className="mt-6 w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-neobyte-navy group-hover:text-white transition-colors">
-                <ArrowRight className="w-4 h-4 -rotate-45 group-hover:rotate-0 transition-transform" />
+              {/* --- DECORATIVE SHAPE START --- */}
+              {/* Top-Right positioning with rotation and teal color */}
+              <div className="absolute -top-10 -right-10 w-32 h-32 bg-neobyte-teal opacity-[0.03] rounded-[2rem] rotate-12 pointer-events-none transition-all duration-500 group-hover:rotate-45 group-hover:scale-110 group-hover:opacity-10"></div>
+              {/* --- DECORATIVE SHAPE END --- */}
+
+              {/* Wrapped content in relative z-10 to sit above the shape */}
+              <div className="relative z-10">
+                <span className="text-4xl font-light text-gray-200 group-hover:text-neobyte-teal transition-colors mb-4 block">
+                  {s.id}
+                </span>
+                <h3 className="text-xl font-bold text-neobyte-navy mb-3 group-hover:translate-x-1 transition-transform">
+                  {s.title}
+                </h3>
+                <p className="text-slate-500 text-sm leading-relaxed">
+                  {s.desc}
+                </p>
+                <div className="mt-6 w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-neobyte-navy group-hover:text-white transition-colors">
+                  <ArrowRight className="w-4 h-4 -rotate-45 group-hover:rotate-0 transition-transform" />
+                </div>
               </div>
             </div>
           ))}
@@ -699,17 +710,29 @@ const DevelopmentProcess: React.FC = () => {
             {steps.map((step, i) => (
               <div
                 key={i}
-                className="bg-white p-8 rounded-xl shadow-md border border-gray-100 hover:-translate-y-2 transition-transform duration-300"
+                // 'group' class added here for hover effects
+                // 'relative' and 'overflow-hidden' added to contain the background shape
+                className="group bg-white p-8 rounded-xl shadow-md border border-gray-100 hover:-translate-y-2 transition-all duration-300 relative overflow-hidden"
               >
-                <div className="w-24 h-24 bg-neobyte-navy text-white rounded-full flex items-center justify-center text-2xl font-bold mb-6 mx-auto lg:mx-0 ring-8 ring-slate-50">
-                  {step.num}
+                {/* --- DECORATIVE BACKGROUND SHAPE START --- */}
+                <div
+                  className="absolute -bottom-8 -right-8 w-40 h-40 bg-neobyte-navy opacity-5 rotate-[120deg] rounded-3xl pointer-events-none transition-transform duration-500 group-hover:rotate-[135deg] group-hover:scale-110"
+                  aria-hidden="true"
+                ></div>
+                {/* --- DECORATIVE BACKGROUND SHAPE END --- */}
+
+                {/* Content Wrapper with relative z-10 to stay above the background shape */}
+                <div className="relative z-10">
+                  <div className="w-24 h-24 bg-neobyte-navy text-white rounded-full flex items-center justify-center text-2xl font-bold mb-6 mx-auto lg:mx-0 ring-8 ring-slate-50 transition-transform duration-300 group-hover:scale-105">
+                    {step.num}
+                  </div>
+                  <h3 className="text-xl font-bold text-neobyte-navy mb-2 text-center lg:text-left">
+                    {step.title}
+                  </h3>
+                  <p className="text-slate-500 text-center lg:text-left text-sm">
+                    {step.text}
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold text-neobyte-navy mb-2 text-center lg:text-left">
-                  {step.title}
-                </h3>
-                <p className="text-slate-500 text-center lg:text-left text-sm">
-                  {step.text}
-                </p>
               </div>
             ))}
           </div>
