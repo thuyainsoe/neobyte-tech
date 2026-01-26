@@ -306,9 +306,9 @@ const CoreValues: React.FC = () => {
 const TeamSection: React.FC = () => {
   const team = [
     {
-      name: "Alex Morgan",
+      name: "Ako Aung",
       role: "CEO & Founder",
-      img: "https://i.pravatar.cc/300?img=11",
+      img: "/images/profile/ceo.jpg",
     },
     {
       name: "Sarah Jenkins",
