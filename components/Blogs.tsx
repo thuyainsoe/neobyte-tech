@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Search, Calendar, Clock, User, Mail } from "lucide-react";
+import Link from "next/link";
 
 // Navbar နဲ့ Footer ကို ရှိပြီးသားဆီကနေ import လုပ်ပါ
 // import { Navbar } from "./Navbar";
@@ -95,9 +96,11 @@ const FeaturedPost: React.FC = () => {
                   <Clock className="w-4 h-4" /> 5 min read
                 </span>
               </div>
-              <h2 className="text-3xl font-bold text-white mb-4 group-hover:text-neobyte-teal transition-colors cursor-pointer">
-                The Rise of AI in Modern Web Development
-              </h2>
+              <Link href="/blogs/featured">
+                <h2 className="text-3xl font-bold text-white mb-4 group-hover:text-neobyte-teal transition-colors cursor-pointer">
+                  The Rise of AI in Modern Web Development
+                </h2>
+              </Link>
               <p className="text-gray-300 mb-8 leading-relaxed">
                 Artificial Intelligence is no longer just a buzzword. It's
                 reshaping how we build, deploy, and interact with web
@@ -117,9 +120,11 @@ const FeaturedPost: React.FC = () => {
                     <p className="text-gray-400 text-xs">Head of Tech</p>
                   </div>
                 </div>
-                <button className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-neobyte-teal hover:text-neobyte-navy transition-all">
-                  <ArrowRight className="w-5 h-5" />
-                </button>
+                <Link href="/blogs/featured">
+                  <button className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-neobyte-teal hover:text-neobyte-navy transition-all">
+                    <ArrowRight className="w-5 h-5" />
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -249,16 +254,18 @@ const BlogGrid: React.FC = () => {
               viewport={{ once: true }}
               className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 border border-gray-100 group flex flex-col h-full"
             >
-              <div className="relative h-56 overflow-hidden">
-                <img
-                  src={post.image}
-                  alt={post.title}
-                  className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
-                />
-                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-neobyte-navy uppercase tracking-wide shadow-sm">
-                  {post.category}
+              <Link href={`/blogs/${post.id}`}>
+                <div className="relative h-56 overflow-hidden">
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-neobyte-navy uppercase tracking-wide shadow-sm">
+                    {post.category}
+                  </div>
                 </div>
-              </div>
+              </Link>
 
               <div className="p-6 flex flex-col flex-grow">
                 <div className="flex items-center gap-3 text-xs text-slate-400 mb-3">
@@ -271,9 +278,11 @@ const BlogGrid: React.FC = () => {
                   </span>
                 </div>
 
-                <h3 className="text-xl font-bold text-neobyte-navy mb-3 group-hover:text-neobyte-teal transition-colors line-clamp-2 cursor-pointer">
-                  {post.title}
-                </h3>
+                <Link href={`/blogs/${post.id}`}>
+                  <h3 className="text-xl font-bold text-neobyte-navy mb-3 group-hover:text-neobyte-teal transition-colors line-clamp-2 cursor-pointer">
+                    {post.title}
+                  </h3>
+                </Link>
 
                 <p className="text-slate-500 text-sm leading-relaxed mb-6 line-clamp-3 flex-grow">
                   {post.excerpt}
@@ -289,13 +298,13 @@ const BlogGrid: React.FC = () => {
                       {post.author}
                     </span>
                   </div>
-                  <a
-                    href="#"
+                  <Link
+                    href={`/blogs/${post.id}`}
                     className="text-neobyte-navy font-bold text-sm hover:text-neobyte-teal transition-colors flex items-center gap-1 group/btn"
                   >
                     Read{" "}
                     <ArrowRight className="w-3 h-3 group-hover/btn:translate-x-1 transition-transform" />
-                  </a>
+                  </Link>
                 </div>
               </div>
             </motion.div>
