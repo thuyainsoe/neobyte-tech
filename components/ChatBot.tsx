@@ -20,6 +20,33 @@ type Message = {
   timestamp: Date;
 };
 
+// Parse URLs into clickable <a> elements
+const renderMessageText = (text: string, isUser: boolean) => {
+  // 1. URL Pattern (http or https) ကို ရှာမယ့် Regex
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+
+  return text.split(urlRegex).map((part, i) => {
+    // 2. အကယ်၍ URL ဖြစ်နေရင် <a> tag နဲ့ ထုတ်ပေးမယ်
+    if (part.match(urlRegex)) {
+      return (
+        <a
+          key={i}
+          href={part}
+          target="_blank" // New Tab မှာ ဖွင့်ရန်
+          rel="noopener noreferrer" // Security အတွက် မရှိမဖြစ်ပါ
+          className={`underline font-semibold ${
+            isUser ? "text-white" : "text-neobyte-teal hover:text-neobyte-navy"
+          } transition-colors break-all`} // break-all က link ရှည်ရင် အောက်ကြောင်းဆင်းအောင်ပါ
+        >
+          {part}
+        </a>
+      );
+    }
+    // 3. ရိုးရိုးစာဆိုရင် ဒီတိုင်းပြန်ပေးမယ်
+    return <React.Fragment key={i}>{part}</React.Fragment>;
+  });
+};
+
 const ChatBot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
@@ -140,7 +167,7 @@ const ChatBot: React.FC = () => {
                         : "bg-white text-gray-700 border border-gray-100 rounded-tl-none"
                     }`}
                   >
-                    {msg.text}
+                    {renderMessageText(msg.text, msg.sender === "user")}
                     <div
                       className={`text-[9px] mt-1 opacity-70 ${msg.sender === "user" ? "text-white" : "text-gray-400"}`}
                     >
