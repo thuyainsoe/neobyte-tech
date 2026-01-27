@@ -194,10 +194,10 @@ const Hero: React.FC<HeroProps> = ({ data, loading }) => {
                 </div>
                 <div>
                   <p className="text-[10px] lg:text-xs text-gray-400">
-                    {data?.hero_stats[0]?.label || "User Engagement"}
+                    {data?.hero_stats[1]?.label || "User Engagement"}
                   </p>
                   <p className="font-bold text-xs lg:text-sm">
-                    {data?.hero_stats[0]?.value || "Operational"}
+                    {data?.hero_stats[1]?.value || "Operational"}
                   </p>
                 </div>
               </div>
