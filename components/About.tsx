@@ -4,7 +4,6 @@ import React from "react";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
-  CheckCircle2,
   Users,
   Award,
   Globe,
@@ -123,13 +122,13 @@ const AboutHero: React.FC = () => {
               </div>
 
               {/* Floating Card 1: Awards/Recognition */}
-              <motion.div
-                animate={{ y: [0, -10, 0] }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 5,
-                  ease: "easeInOut",
-                }}
+              <div
+                // animate={{ y: [0, -10, 0] }}
+                // transition={{
+                //   repeat: Infinity,
+                //   duration: 5,
+                //   ease: "easeInOut",
+                // }}
                 // Mobile: left-2 top-4 scale-90
                 // Desktop: lg:-left-8 lg:top-12 lg:scale-100
                 className="absolute left-2 top-4 scale-90 origin-top-left lg:-left-8 lg:top-12 lg:scale-100 bg-white p-4 rounded-xl shadow-xl border border-gray-100 flex items-center gap-3 max-w-[180px] lg:max-w-[200px] z-20"
@@ -145,17 +144,17 @@ const AboutHero: React.FC = () => {
                     Best Tech Agency
                   </p>
                 </div>
-              </motion.div>
+              </div>
 
               {/* Floating Card 2: Team Spirit */}
-              <motion.div
-                animate={{ y: [0, 10, 0] }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 6,
-                  ease: "easeInOut",
-                  delay: 1,
-                }}
+              <div
+                // animate={{ y: [0, 10, 0] }}
+                // transition={{
+                //   repeat: Infinity,
+                //   duration: 6,
+                //   ease: "easeInOut",
+                //   delay: 1,
+                // }}
                 // Mobile: right-2 bottom-4 scale-90
                 // Desktop: lg:-right-4 lg:bottom-10 lg:scale-100
                 className="absolute right-2 bottom-4 scale-90 origin-bottom-right lg:-right-4 lg:bottom-10 lg:scale-100 bg-neobyte-navy text-white p-4 rounded-xl shadow-xl flex items-center gap-3 z-20"
@@ -185,7 +184,7 @@ const AboutHero: React.FC = () => {
                     Working Remotely
                   </p>
                 </div>
-              </motion.div>
+              </div>
             </div>
           </motion.div>
         </div>
@@ -306,24 +305,24 @@ const CoreValues: React.FC = () => {
 const TeamSection: React.FC = () => {
   const team = [
     {
-      name: "Ako Aung",
+      name: "Aung Htet Nay",
       role: "CEO & Founder",
       img: "/images/profile/ceo.jpg",
     },
     {
-      name: "Sarah Jenkins",
+      name: "Nay Htet Aung",
       role: "Head of Design",
-      img: "https://i.pravatar.cc/300?img=5",
+      img: "/images/profile/ceo1.jpg",
     },
     {
-      name: "David Chen",
+      name: "Aung Nay Htet",
       role: "Lead Developer",
-      img: "https://i.pravatar.cc/300?img=3",
+      img: "/images/profile/ceo2.jpg",
     },
     {
-      name: "Emily Watson",
+      name: "Htet Nay Aung",
       role: "Product Manager",
-      img: "https://i.pravatar.cc/300?img=9",
+      img: "/images/profile/ceo3.png",
     },
   ];
 

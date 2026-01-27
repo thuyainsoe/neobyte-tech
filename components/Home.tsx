@@ -60,7 +60,7 @@ const Hero: React.FC = () => {
               DIGITAL INNOVATION HUB
             </div>
 
-            <h1 className="text-5xl lg:text-7xl font-black text-neobyte-navy leading-[1.1] mb-6">
+            <h1 className="text-5xl lg:text-6xl font-black text-neobyte-navy leading-[1.1] mb-6">
               Building the <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-neobyte-teal to-blue-600 relative">
                 Digital City
@@ -81,7 +81,7 @@ const Hero: React.FC = () => {
               of Tomorrow.
             </h1>
 
-            <p className="text-lg text-slate-600 mb-8 leading-relaxed pr-0 lg:pr-10">
+            <p className="text-base text-slate-600 mb-8 leading-relaxed pr-0 lg:pr-10">
               We construct high-performance digital infrastructure. From
               skyline-shaping strategies to pixel-perfect designs, we make your
               business visible in the modern world.
@@ -148,13 +148,7 @@ const Hero: React.FC = () => {
               </div>
 
               {/* Floating Card 1: Stats (Growth) */}
-              <motion.div
-                animate={{ y: [0, -15, 0] }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 6,
-                  ease: "easeInOut",
-                }}
+              <div
                 // Mobile: left-2 top-4 scale-90 (အတွင်းဘက်ကပ်)
                 // Desktop: lg:-left-12 lg:top-10 lg:scale-100 (အပြင်ဘက်ထုတ်)
                 className="absolute left-2 top-4 scale-90 origin-top-left lg:-left-12 lg:top-10 lg:scale-100 bg-white/90 backdrop-blur-md p-4 rounded-xl shadow-xl border border-white/50 max-w-[160px] lg:max-w-[180px] z-20"
@@ -173,17 +167,10 @@ const Hero: React.FC = () => {
                 <p className="text-[10px] lg:text-xs text-slate-500 mt-2">
                   +124% Engagement
                 </p>
-              </motion.div>
+              </div>
 
               {/* Floating Card 2: Status */}
-              <motion.div
-                animate={{ y: [0, 15, 0] }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 5,
-                  ease: "easeInOut",
-                  delay: 1,
-                }}
+              <div
                 // Mobile: right-2 bottom-4 scale-90 (အတွင်းဘက်ကပ်)
                 // Desktop: lg:-right-8 lg:bottom-20 lg:scale-100 (အပြင်ဘက်ထုတ်)
                 className="absolute right-2 bottom-4 scale-90 origin-bottom-right lg:-right-8 lg:bottom-20 lg:scale-100 bg-neobyte-navy p-4 rounded-xl shadow-2xl border border-gray-700 text-white flex items-center gap-4 z-20"
@@ -200,7 +187,7 @@ const Hero: React.FC = () => {
                   </p>
                   <p className="font-bold text-xs lg:text-sm">Operational</p>
                 </div>
-              </motion.div>
+              </div>
             </div>
           </motion.div>
         </div>

@@ -67,9 +67,9 @@ const ServiceHero: React.FC = () => {
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-gradient-to-tr from-blue-100 to-neobyte-teal/20 rounded-full blur-3xl -z-10"></div>
 
             {/* Bob Container with Float Animation */}
-            <motion.div
-              animate={{ y: [0, -20, 0] }}
-              transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+            <div
+              // animate={{ y: [0, -20, 0] }}
+              // transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
               className="relative w-[350px] md:w-[450px]"
             >
               {/* This represents "Bob" - A 3D Character */}
@@ -81,22 +81,22 @@ const ServiceHero: React.FC = () => {
               />
 
               {/* Floating Tech Icons around Bob */}
-              <motion.div
-                animate={{ y: [0, 15, 0], rotate: [0, 10, 0] }}
-                transition={{ repeat: Infinity, duration: 5, delay: 0.5 }}
+              <div
+                // animate={{ y: [0, 15, 0], rotate: [0, 10, 0] }}
+                // transition={{ repeat: Infinity, duration: 5, delay: 0.5 }}
                 className="absolute -left-4 top-20 bg-white p-3 rounded-xl shadow-lg border border-gray-100"
               >
                 <Code className="w-6 h-6 text-blue-500" />
-              </motion.div>
+              </div>
 
-              <motion.div
-                animate={{ y: [0, -15, 0], rotate: [0, -10, 0] }}
-                transition={{ repeat: Infinity, duration: 6, delay: 1 }}
+              <div
+                // animate={{ y: [0, -15, 0], rotate: [0, -10, 0] }}
+                // transition={{ repeat: Infinity, duration: 6, delay: 1 }}
                 className="absolute -right-4 bottom-32 bg-white p-3 rounded-xl shadow-lg border border-gray-100"
               >
                 <Database className="w-6 h-6 text-neobyte-teal" />
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
           </motion.div>
         </div>
       </div>
