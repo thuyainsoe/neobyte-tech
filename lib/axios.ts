@@ -2,8 +2,7 @@ import axios from "axios";
 
 // Create axios instance with base URL from environment
 const api = axios.create({
-  // ⚠️ Strapi URL အပြည့်မထည့်ရပါ (Rewrites အလုပ်လုပ်ဖို့ Relative Path သုံးရမယ်)
-  baseURL: "", // သို့မဟုတ် "/" ထားလိုက်ပါ
+  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337",
   headers: {
     "Content-Type": "application/json",
   },

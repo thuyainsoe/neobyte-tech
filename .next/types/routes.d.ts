@@ -6,13 +6,14 @@ type AppRouteHandlerRoutes = "/api/chat"
 type PageRoutes = never
 type LayoutRoutes = "/"
 type RedirectRoutes = never
-type RewriteRoutes = never
+type RewriteRoutes = "/api/[[...path]]" | "/uploads/[[...path]]"
 type Routes = AppRoutes | PageRoutes | LayoutRoutes | RedirectRoutes | RewriteRoutes | AppRouteHandlerRoutes
 
 
 interface ParamMap {
   "/": {}
   "/about": {}
+  "/api/[[...path]]": { "path"?: string[]; }
   "/api/chat": {}
   "/blogs": {}
   "/blogs/[id]": { "id": string; }
@@ -22,6 +23,7 @@ interface ParamMap {
   "/services": {}
   "/store": {}
   "/store/[id]": { "id": string; }
+  "/uploads/[[...path]]": { "path"?: string[]; }
 }
 
 

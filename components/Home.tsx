@@ -893,7 +893,7 @@ const Home: React.FC = () => {
     const fetchHomePageData = async () => {
       try {
         setLoading(true);
-        const response = await api.get<StrapiResponse<HomePage>>(
+        const response = await api.get(
           "/api/home-page?populate[herosection][populate]=*",
         );
 
