@@ -282,7 +282,7 @@ const ProductDetail: React.FC = () => {
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`flex-1 py-4 text-sm font-bold uppercase tracking-wider border-b-2 transition-colors ${
+                  className={`flex-1 py-4 text-xs lg:text-sm font-bold uppercase tracking-wider border-b-2 transition-colors ${
                     activeTab === tab
                       ? "border-neobyte-teal text-neobyte-teal bg-gray-50"
                       : "border-transparent text-gray-500 hover:text-neobyte-navy"
