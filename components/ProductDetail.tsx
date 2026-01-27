@@ -144,7 +144,7 @@ const ProductDetail: React.FC = () => {
               <div className="bg-gray-50 p-4 rounded-lg mb-6 flex items-center justify-between">
                 <div>
                   <div className="flex items-baseline gap-3">
-                    <span className="text-3xl font-black text-neobyte-teal">
+                    <span className="text-3xl font-semibold text-neobyte-teal">
                       ${PRODUCT.price}
                     </span>
                     <span className="text-sm text-gray-400 line-through">
@@ -170,7 +170,7 @@ const ProductDetail: React.FC = () => {
               <div className="space-y-4 mb-6">
                 {/* Color */}
                 <div>
-                  <span className="text-sm font-bold text-gray-700 block mb-2">
+                  <span className="text-sm font-medium text-gray-700 block mb-2">
                     Color:{" "}
                     <span className="text-neobyte-teal">{selectedColor}</span>
                   </span>
@@ -181,7 +181,7 @@ const ProductDetail: React.FC = () => {
                         onClick={() => setSelectedColor(color)}
                         className={`px-3 py-1.5 text-sm rounded border transition-all ${
                           selectedColor === color
-                            ? "border-neobyte-teal bg-neobyte-teal/5 text-neobyte-teal font-bold ring-1 ring-neobyte-teal"
+                            ? "border-neobyte-teal bg-neobyte-teal/5 text-neobyte-teal font-medium ring-1 ring-neobyte-teal"
                             : "border-gray-200 text-gray-600 hover:border-gray-400"
                         }`}
                       >
@@ -193,7 +193,7 @@ const ProductDetail: React.FC = () => {
 
                 {/* Switches */}
                 <div>
-                  <span className="text-sm font-bold text-gray-700 block mb-2">
+                  <span className="text-sm font-medium text-gray-700 block mb-2">
                     Switch Type:{" "}
                     <span className="text-neobyte-teal">{selectedSwitch}</span>
                   </span>
@@ -204,7 +204,7 @@ const ProductDetail: React.FC = () => {
                         onClick={() => setSelectedSwitch(sw)}
                         className={`px-3 py-1.5 text-sm rounded border transition-all ${
                           selectedSwitch === sw
-                            ? "border-neobyte-teal bg-neobyte-teal/5 text-neobyte-teal font-bold ring-1 ring-neobyte-teal"
+                            ? "border-neobyte-teal bg-neobyte-teal/5 text-neobyte-teal font-medium ring-1 ring-neobyte-teal"
                             : "border-gray-200 text-gray-600 hover:border-gray-400"
                         }`}
                       >
