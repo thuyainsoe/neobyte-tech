@@ -25,6 +25,8 @@ import {
   MoveRight,
   Globe,
 } from "lucide-react";
+import api from "@/lib/axios";
+import type { StrapiResponse, HomePage, HeroSection } from "@/types/strapi";
 
 // ============================================
 // 1. HERO SECTION (City Theme)
@@ -32,7 +34,12 @@ import {
 // ============================================
 // REVISED HERO COMPONENT (2-Column & Rich Background)
 // ============================================
-const Hero: React.FC = () => {
+interface HeroProps {
+  data?: any;
+  loading?: boolean;
+}
+
+const Hero: React.FC<HeroProps> = ({ data, loading }) => {
   return (
     <section className="relative pt-32 pb-12 lg:pt-40 lg:pb-32 overflow-hidden bg-slate-50">
       {/* 1. Dynamic Background Layer */}
@@ -57,13 +64,13 @@ const Hero: React.FC = () => {
           >
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-gray-200 shadow-sm text-xs font-bold text-neobyte-navy mb-6">
               <span className="flex h-2 w-2 rounded-full bg-neobyte-teal animate-pulse"></span>
-              DIGITAL INNOVATION HUB
+              {data?.hero_badge || "DIGITAL INNOVATION HUB!"}
             </div>
 
             <h1 className="text-5xl lg:text-6xl font-black text-neobyte-navy leading-[1.1] mb-6">
-              Building the <br />
+              {data?.hero_title_start || "Building the"} <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-neobyte-teal to-blue-600 relative">
-                Digital City
+                {data?.hero_title_mid || "Digital City"}
                 {/* Underline Decoration */}
                 <svg
                   className="absolute w-full h-3 -bottom-2 left-0 text-neobyte-teal opacity-60"
@@ -78,26 +85,25 @@ const Hero: React.FC = () => {
                   />
                 </svg>
               </span>{" "}
-              of Tomorrow.
+              {data?.hero_title_end || "of Tomorrow."}
             </h1>
 
             <p className="text-base text-slate-600 mb-8 leading-relaxed pr-0 lg:pr-10">
-              We construct high-performance digital infrastructure. From
-              skyline-shaping strategies to pixel-perfect designs, we make your
-              business visible in the modern world.
+              {data?.hero_description ||
+                "We construct high-performance digital infrastructure. From skyline-shaping strategies to pixel-perfect designs, we make your business visible in the modern world."}
             </p>
 
             <div className="flex flex-wrap gap-2 md:gap-4 justify-center sm:justify-start">
               {/* Button 1: Start a Project */}
               <button className="px-6 py-3 md:px-8 md:py-4 text-sm md:text-base bg-neobyte-navy text-white font-bold rounded-xl hover:bg-neobyte-teal hover:text-neobyte-navy transition-all shadow-lg hover:shadow-neobyte-teal/30 flex items-center justify-center gap-2 group w-full sm:w-auto text-nowrap">
-                Start a Project
+                {data?.buttons[0]?.label || "Start a Project"}
                 <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />
               </button>
 
               {/* Button 2: View Showreel */}
               <button className="px-6 py-3 md:px-8 md:py-4 text-sm md:text-base bg-white text-neobyte-navy font-bold rounded-xl border border-gray-200 hover:border-neobyte-teal hover:text-neobyte-teal transition-all shadow-sm flex items-center justify-center gap-2 group w-full sm:w-auto text-nowrap">
                 <Play className="w-3 h-3 md:w-4 md:h-4 fill-current group-hover:scale-110 transition-transform" />
-                View Showreel
+                {data?.buttons[1]?.label || "View Showreel"}
               </button>
             </div>
 
@@ -119,7 +125,8 @@ const Hero: React.FC = () => {
               <div>
                 <div className="flex text-yellow-400 text-sm">★★★★★</div>
                 <p className="text-xs font-bold text-slate-500">
-                  Trusted by global brands
+                  {data?.trust_text ||
+                    "Rated 5 Stars by 2,000+ clients worldwide"}
                 </p>
               </div>
             </div>
@@ -140,8 +147,12 @@ const Hero: React.FC = () => {
               {/* Main Visual Image */}
               <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
                 <img
-                  src="/images/hero.png"
-                  alt="City Architecture"
+                  src={
+                    data?.hero_image?.url
+                      ? `${process.env.NEXT_PUBLIC_API_URL}${data.hero_image.url}`
+                      : "/images/hero.png"
+                  }
+                  alt={data?.hero_image?.alternativeText || "Hero Image"}
                   className="w-full h-auto object-cover opacity-90"
                 />
                 <div className="absolute inset-0 bg-neobyte-navy/20 mix-blend-multiply"></div>
@@ -158,14 +169,14 @@ const Hero: React.FC = () => {
                     <BarChart3 className="w-4 h-4 lg:w-5 lg:h-5" />
                   </div>
                   <span className="font-bold text-neobyte-navy text-xs lg:text-sm">
-                    Growth
+                    {data?.hero_stats[0]?.label || "User Engagement"}
                   </span>
                 </div>
                 <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
                   <div className="h-full bg-green-500 w-[85%]"></div>
                 </div>
                 <p className="text-[10px] lg:text-xs text-slate-500 mt-2">
-                  +124% Engagement
+                  {data?.hero_stats[0]?.value || "85% Increase in 6 Months"}
                 </p>
               </div>
 
@@ -183,9 +194,11 @@ const Hero: React.FC = () => {
                 </div>
                 <div>
                   <p className="text-[10px] lg:text-xs text-gray-400">
-                    System Status
+                    {data?.hero_stats[0]?.label || "User Engagement"}
                   </p>
-                  <p className="font-bold text-xs lg:text-sm">Operational</p>
+                  <p className="font-bold text-xs lg:text-sm">
+                    {data?.hero_stats[0]?.value || "Operational"}
+                  </p>
                 </div>
               </div>
             </div>
@@ -873,9 +886,34 @@ const Blog: React.FC = () => {
 // MAIN HOME COMPONENT
 // ============================================
 const Home: React.FC = () => {
+  const [heroData, setHeroData] = useState<any>(undefined);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchHomePageData = async () => {
+      try {
+        setLoading(true);
+        const response = await api.get<StrapiResponse<HomePage>>(
+          "/api/home-page?populate[herosection][populate]=*",
+        );
+
+        const homePageData = response.data.data.herosection;
+        setHeroData(homePageData);
+      } catch (error) {
+        console.error("Error fetching home page data:", error);
+        // Use default/fallback data on error
+        setHeroData(undefined);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchHomePageData();
+  }, []);
+
   return (
     <main>
-      <Hero />
+      <Hero data={heroData} loading={loading} />
       <ClientTrust />
       <AboutAgency />
       <ServicesList />
