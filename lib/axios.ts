@@ -2,7 +2,8 @@ import axios from "axios";
 
 // Create axios instance with base URL from environment
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337",
+  // ⚠️ Strapi URL အပြည့်မထည့်ရပါ (Rewrites အလုပ်လုပ်ဖို့ Relative Path သုံးရမယ်)
+  baseURL: "", // သို့မဟုတ် "/" ထားလိုက်ပါ
   headers: {
     "Content-Type": "application/json",
   },
@@ -20,7 +21,7 @@ api.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  }
+  },
 );
 
 // Response interceptor (optional - for error handling)
@@ -32,7 +33,7 @@ api.interceptors.response.use(
     // Handle errors globally
     console.error("API Error:", error.response?.data || error.message);
     return Promise.reject(error);
-  }
+  },
 );
 
 export default api;
