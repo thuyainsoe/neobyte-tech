@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Menu,
@@ -27,6 +27,7 @@ import {
 } from "lucide-react";
 import api from "@/lib/axios";
 import type { StrapiResponse, HomePage, HeroSection } from "@/types/strapi";
+import { useLanguage } from "@/context/LanguageContext";
 
 // ============================================
 // 1. HERO SECTION (City Theme)
@@ -888,28 +889,29 @@ const Blog: React.FC = () => {
 const Home: React.FC = () => {
   const [heroData, setHeroData] = useState<any>(undefined);
   const [loading, setLoading] = useState(true);
+  const { locale } = useLanguage();
+
+  const fetchHomePageData = useCallback(async () => {
+    try {
+      setLoading(true);
+      const response = await api.get(
+        `/api/home-page?populate[herosection][populate]=*&locale=${locale}`,
+      );
+
+      const homePageData = response.data.data.herosection;
+      setHeroData(homePageData);
+    } catch (error) {
+      console.error("Error fetching home page data:", error);
+      // Use default/fallback data on error
+      setHeroData(undefined);
+    } finally {
+      setLoading(false);
+    }
+  }, [locale]);
 
   useEffect(() => {
-    const fetchHomePageData = async () => {
-      try {
-        setLoading(true);
-        const response = await api.get(
-          "/api/home-page?populate[herosection][populate]=*",
-        );
-
-        const homePageData = response.data.data.herosection;
-        setHeroData(homePageData);
-      } catch (error) {
-        console.error("Error fetching home page data:", error);
-        // Use default/fallback data on error
-        setHeroData(undefined);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchHomePageData();
-  }, []);
+  }, [fetchHomePageData]);
 
   return (
     <main>

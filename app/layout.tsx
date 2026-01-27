@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { Providers } from "@/context/Providers";
 import { Navbar } from "@/components/ui/Navbar";
 import { Footer } from "@/components/ui/Footer";
 import CookieConsent from "@/components/CookieConsent";
@@ -22,13 +23,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="min-h-screen bg-slate-50 text-slate-800 font-sans selection:bg-neobyte-teal/30">
-          <Navbar />
-          {children}
-          <Footer />
-          <CookieConsent />
-          <ChatBot />
-        </div>
+        <Providers>
+          <div className="min-h-screen bg-slate-50 text-slate-800 font-sans selection:bg-neobyte-teal/30">
+            <Navbar />
+            {children}
+            <Footer />
+            <CookieConsent />
+            <ChatBot />
+          </div>
+        </Providers>
       </body>
     </html>
   );

@@ -4,22 +4,7 @@ import { ArrowRight, Menu, X, ChevronDown, ShoppingCart } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation"; // Active Link စစ်ဖို့အတွက်
-
-// Language Data
-const languages = [
-  {
-    code: "en",
-    label: "EN",
-    flag: "https://flagcdn.com/w40/us.png",
-    name: "English",
-  },
-  {
-    code: "mm",
-    label: "MM",
-    flag: "https://flagcdn.com/w40/mm.png",
-    name: "Myanmar",
-  },
-];
+import { useLanguage, languages } from "@/context/LanguageContext";
 
 export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,8 +13,8 @@ export const Navbar: React.FC = () => {
   // Active Path Detection
   const pathname = usePathname();
 
-  // Language State
-  const [currentLang, setCurrentLang] = useState(languages[0]);
+  // Language State (from global context)
+  const { currentLang, setCurrentLang, t } = useLanguage();
   const [isLangOpen, setIsLangOpen] = useState(false);
   const langDropdownRef = useRef<HTMLDivElement>(null);
 
@@ -67,11 +52,11 @@ export const Navbar: React.FC = () => {
   }, []);
 
   const navLinks = [
-    { name: "About", href: "/about" },
-    { name: "Services", href: "/services" },
-    { name: "Our Work", href: "/our-work" },
-    { name: "Blogs", href: "/blogs" },
-    { name: "Store", href: "/store" },
+    { name: t.nav.about, href: "/about" },
+    { name: t.nav.services, href: "/services" },
+    { name: t.nav.ourWork, href: "/our-work" },
+    { name: t.nav.blogs, href: "/blogs" },
+    { name: t.nav.store, href: "/store" },
   ];
 
   return (
@@ -186,7 +171,7 @@ export const Navbar: React.FC = () => {
               href="/contact"
               className="px-5 py-2.5 bg-neobyte-navy text-white text-sm font-semibold rounded-full hover:bg-neobyte-teal hover:text-neobyte-navy transition-all duration-300 shadow-md flex items-center gap-2 group"
             >
-              Let's Talk{" "}
+              {t.nav.letsTalk}{" "}
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
@@ -255,7 +240,7 @@ export const Navbar: React.FC = () => {
             {/* Mobile Language Switcher */}
             <div className="flex flex-col gap-3">
               <span className="text-sm font-bold text-slate-400 uppercase tracking-wider">
-                Select Language
+                {t.nav.selectLanguage}
               </span>
               <div className="flex gap-4">
                 {languages.map((lang) => (
@@ -285,7 +270,7 @@ export const Navbar: React.FC = () => {
                 onClick={() => setIsOpen(false)}
                 className="w-full justify-center px-8 py-4 bg-neobyte-navy text-white text-base font-bold rounded-full hover:bg-neobyte-teal hover:text-neobyte-navy transition-all duration-300 shadow-xl flex items-center gap-3"
               >
-                Let's Talk <ArrowRight className="w-4 h-4" />
+                {t.nav.letsTalk} <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
