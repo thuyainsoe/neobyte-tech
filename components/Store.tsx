@@ -13,6 +13,7 @@ import {
   SlidersHorizontal,
   ChevronRight,
 } from "lucide-react";
+import Link from "next/link";
 
 // ============================================
 // 1. MOCK DATA & CONFIG
@@ -197,79 +198,86 @@ const Store: React.FC = () => {
             {/* PRODUCT GRID */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4">
               {PRODUCTS.map((product) => (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3 }}
-                  key={product.id}
-                  className="group bg-white border border-gray-100 hover:border-neobyte-teal/50 hover:shadow-xl transition-all duration-300 rounded-xl overflow-hidden flex flex-col cursor-pointer relative"
-                >
-                  {/* Image Area */}
-                  <div className="aspect-square relative overflow-hidden bg-gray-100">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                    {/* Wishlist Button */}
-                    <button className="absolute top-2 right-2 p-1.5 rounded-full bg-white/80 text-gray-400 hover:text-red-500 hover:bg-white transition-colors">
-                      <Heart size={14} />
-                    </button>
+                <Link key={product.id} href={`/store/${product.id}`}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="group bg-white border border-gray-100 hover:border-neobyte-teal/50 hover:shadow-xl transition-all duration-300 rounded-xl overflow-hidden flex flex-col cursor-pointer relative h-full"
+                  >
+                    {/* Image Area */}
+                    <div className="aspect-square relative overflow-hidden bg-gray-100">
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                      {/* Wishlist Button */}
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                        }}
+                        className="absolute top-2 right-2 p-1.5 rounded-full bg-white/80 text-gray-400 hover:text-red-500 hover:bg-white transition-colors z-10"
+                      >
+                        <Heart size={14} />
+                      </button>
 
-                    {/* Discount Badge */}
-                    {product.originalPrice && (
-                      <div className="absolute top-2 left-2 bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">
-                        SALE
-                      </div>
-                    )}
-                  </div>
+                      {/* Discount Badge */}
+                      {product.originalPrice && (
+                        <div className="absolute top-2 left-2 bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">
+                          SALE
+                        </div>
+                      )}
+                    </div>
 
-                  {/* Product Info - Compact Padding */}
-                  <div className="p-3 flex flex-col flex-1">
-                    <span className="text-[10px] text-gray-400 uppercase tracking-wide mb-1">
-                      {product.brand}
-                    </span>
+                    {/* Product Info - Compact Padding */}
+                    <div className="p-3 flex flex-col flex-1">
+                      <span className="text-[10px] text-gray-400 uppercase tracking-wide mb-1">
+                        {product.brand}
+                      </span>
 
-                    <h3 className="text-xs md:text-sm font-bold text-neobyte-navy leading-tight mb-2 line-clamp-2 min-h-[2.5em]">
-                      {product.name}
-                    </h3>
+                      <h3 className="text-xs md:text-sm font-bold text-neobyte-navy leading-tight mb-2 line-clamp-2 min-h-[2.5em]">
+                        {product.name}
+                      </h3>
 
-                    {/* Price */}
-                    <div className="mt-auto">
-                      <div className="flex items-baseline gap-2 mb-2">
-                        <span className="text-neobyte-teal font-black text-sm md:text-base">
-                          ${product.price}
-                        </span>
-                        {product.originalPrice && (
-                          <span className="text-[10px] text-gray-400 line-through decoration-gray-400">
-                            ${product.originalPrice}
+                      {/* Price */}
+                      <div className="mt-auto">
+                        <div className="flex items-baseline gap-2 mb-2">
+                          <span className="text-neobyte-teal font-black text-sm md:text-base">
+                            ${product.price}
                           </span>
-                        )}
-                      </div>
+                          {product.originalPrice && (
+                            <span className="text-[10px] text-gray-400 line-through decoration-gray-400">
+                              ${product.originalPrice}
+                            </span>
+                          )}
+                        </div>
 
-                      {/* Rating Row */}
-                      <div className="flex items-center justify-between border-t border-gray-50 pt-2">
-                        <div className="flex items-center gap-1">
-                          <Star
-                            size={10}
-                            className="fill-yellow-400 text-yellow-400"
-                          />
-                          <span className="text-[10px] text-gray-500 font-medium">
-                            {product.rating}
+                        {/* Rating Row */}
+                        <div className="flex items-center justify-between border-t border-gray-50 pt-2">
+                          <div className="flex items-center gap-1">
+                            <Star
+                              size={10}
+                              className="fill-yellow-400 text-yellow-400"
+                            />
+                            <span className="text-[10px] text-gray-500 font-medium">
+                              {product.rating}
+                            </span>
+                          </div>
+                          <span className="text-[10px] text-gray-400">
+                            {product.sold} sold
                           </span>
                         </div>
-                        <span className="text-[10px] text-gray-400">
-                          {product.sold} sold
-                        </span>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Quick Add Button (Visible on Hover for Desktop) */}
-                  <div className="absolute inset-x-0 bottom-0 bg-neobyte-navy text-white text-center py-2 text-xs font-bold uppercase translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                    Add to Cart
-                  </div>
-                </motion.div>
+                    {/* Quick Add Button (Visible on Hover for Desktop) */}
+                    <div className="absolute inset-x-0 bottom-0 bg-neobyte-navy text-white text-center py-2 text-xs font-bold uppercase translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                      Add to Cart
+                    </div>
+                  </motion.div>
+                </Link>
               ))}
             </div>
 
