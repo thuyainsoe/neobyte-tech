@@ -293,7 +293,7 @@ const Store: React.FC = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.5 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black z-[60] lg:hidden"
+              className="fixed inset-0 bg-black z-[110] lg:hidden"
               onClick={() => setMobileFilterOpen(false)}
             />
             <motion.div
@@ -301,7 +301,7 @@ const Store: React.FC = () => {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "tween", duration: 0.3 }}
-              className="fixed top-0 right-0 h-full w-[85%] max-w-sm bg-white z-[70] shadow-2xl lg:hidden flex flex-col"
+              className="fixed top-0 right-0 h-full w-[85%] max-w-sm bg-white z-[120] shadow-2xl lg:hidden flex flex-col"
             >
               <div className="p-5 border-b border-gray-100 flex justify-between items-center bg-gray-50">
                 <h2 className="font-bold text-lg text-neobyte-navy">Filters</h2>
