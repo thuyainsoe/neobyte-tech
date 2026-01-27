@@ -1,9 +1,9 @@
 "use client";
 
-import { ArrowRight, Menu, X, ChevronDown } from "lucide-react";
+import { ArrowRight, Menu, X, ChevronDown, ShoppingCart } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
-import Image from "next/image"; // Image optimization အတွက်
+import { usePathname } from "next/navigation"; // Active Link စစ်ဖို့အတွက်
 
 // Language Data
 const languages = [
@@ -25,10 +25,16 @@ export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
+  // Active Path Detection
+  const pathname = usePathname();
+
   // Language State
   const [currentLang, setCurrentLang] = useState(languages[0]);
   const [isLangOpen, setIsLangOpen] = useState(false);
   const langDropdownRef = useRef<HTMLDivElement>(null);
+
+  // Mock Cart Count (နောက်ပိုင်း Context/Redux နဲ့ ချိတ်ပါ)
+  const cartCount = 3;
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -65,13 +71,14 @@ export const Navbar: React.FC = () => {
     { name: "Services", href: "/services" },
     { name: "Our Work", href: "/our-work" },
     { name: "Blogs", href: "/blogs" },
+    { name: "Store", href: "/store" },
   ];
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${
         scrolled
-          ? "bg-white/95 backdrop-blur-md shadow-lg py-3"
+          ? "bg-white/90 backdrop-blur-md shadow-lg py-3 border-b border-gray-100"
           : "bg-transparent py-5"
       }`}
     >
@@ -90,16 +97,42 @@ export const Navbar: React.FC = () => {
 
           {/* --- Desktop Menu --- */}
           <div className="hidden md:flex items-center space-x-6">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className="text-sm font-medium text-slate-600 hover:text-neobyte-navy transition-colors relative group"
-              >
-                {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-neobyte-teal transition-all group-hover:w-full"></span>
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className={`text-sm font-medium transition-colors relative group ${
+                    isActive
+                      ? "text-neobyte-teal font-bold"
+                      : "text-slate-600 hover:text-neobyte-navy"
+                  }`}
+                >
+                  {link.name}
+                  {/* Active Indicator Underline */}
+                  <span
+                    className={`absolute -bottom-1 left-0 h-0.5 bg-neobyte-teal transition-all duration-300 ${isActive ? "w-full" : "w-0 group-hover:w-full"}`}
+                  ></span>
+                </Link>
+              );
+            })}
+
+            {/* Divider */}
+            <div className="h-6 w-px bg-gray-200 mx-2"></div>
+
+            {/* --- Cart Icon (New Addition) --- */}
+            <Link
+              href="/cart"
+              className="relative p-2 text-slate-600 hover:text-neobyte-teal transition-colors"
+            >
+              <ShoppingCart className="w-5 h-5" />
+              {cartCount > 0 && (
+                <span className="absolute top-0 right-0 w-4 h-4 bg-red-500 text-white text-[10px] flex items-center justify-center rounded-full font-bold shadow-sm animate-in zoom-in">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
 
             {/* --- Desktop Language Switcher --- */}
             <div className="relative" ref={langDropdownRef}>
@@ -158,9 +191,20 @@ export const Navbar: React.FC = () => {
             </Link>
           </div>
 
-          {/* --- Mobile Menu Toggle Button --- */}
-          <div className="md:hidden flex items-center gap-4">
-            {/* Optional: Mobile Language Switcher (Visible on bar OR inside menu - I put it inside menu below, but you can put it here too) */}
+          {/* --- Mobile Menu Toggle & Cart --- */}
+          <div className="md:hidden flex items-center gap-3">
+            {/* Mobile Cart Icon (Always visible) */}
+            <Link
+              href="/cart"
+              className="relative p-2 text-neobyte-navy hover:text-neobyte-teal transition-colors"
+            >
+              <ShoppingCart className="w-6 h-6" />
+              {cartCount > 0 && (
+                <span className="absolute top-0 right-0 w-4 h-4 bg-red-500 text-white text-[10px] flex items-center justify-center rounded-full font-bold shadow-sm">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
 
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -188,16 +232,23 @@ export const Navbar: React.FC = () => {
 
           {/* Menu Items Container */}
           <div className="relative z-10 flex flex-col items-start gap-6 w-full px-8 sm:px-12 pt-10">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                onClick={() => setIsOpen(false)}
-                className="text-3xl font-bold text-neobyte-navy hover:text-neobyte-teal transition-colors tracking-tight"
-              >
-                {link.name}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setIsOpen(false)}
+                  className={`text-3xl font-bold transition-colors tracking-tight ${
+                    isActive
+                      ? "text-neobyte-teal"
+                      : "text-neobyte-navy hover:text-neobyte-teal"
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              );
+            })}
 
             <hr className="w-full border-gray-100 my-2" />
 
