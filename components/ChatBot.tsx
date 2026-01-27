@@ -20,29 +20,6 @@ type Message = {
   timestamp: Date;
 };
 
-// Mock Auto-Reply Logic (နောက်ပိုင်း AI API ချိတ်လို့ရပါတယ်)
-const getBotResponse = (input: string): string => {
-  const lowerInput = input.toLowerCase();
-  if (
-    lowerInput.includes("hello") ||
-    lowerInput.includes("hi") ||
-    lowerInput.includes("မင်္ဂလာပါ")
-  )
-    return "Hello! Welcome to Neobyte. How can I help you today?";
-  if (
-    lowerInput.includes("price") ||
-    lowerInput.includes("cost") ||
-    lowerInput.includes("ဈေး")
-  )
-    return "Our pricing depends on the project scope. You can check our Store page for hardware prices!";
-  if (lowerInput.includes("service") || lowerInput.includes("web"))
-    return "We offer Web Development, Mobile Apps, and UI/UX Design services.";
-  if (lowerInput.includes("contact") || lowerInput.includes("ph"))
-    return "You can reach us at +959-123456789 or email info@neobyte.com";
-
-  return "Thanks for your message! Our support team will get back to you shortly.";
-};
-
 const ChatBot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
@@ -67,7 +44,7 @@ const ChatBot: React.FC = () => {
     e?.preventDefault();
     if (!inputValue.trim()) return;
 
-    // 1. User Message
+    // 1. User Message ပြမယ်
     const userMsg: Message = {
       id: Date.now().toString(),
       text: inputValue,
@@ -77,19 +54,39 @@ const ChatBot: React.FC = () => {
 
     setMessages((prev) => [...prev, userMsg]);
     setInputValue("");
-    setIsTyping(true);
+    setIsTyping(true); // Typing indicator စပြမယ်
 
-    // 2. Simulate Bot Delay (Thinking time)
-    setTimeout(() => {
+    try {
+      // 2. Next.js API ကို လှမ်းပို့မယ် (Regex မသုံးတော့ဘူး)
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userMsg.text }),
+      });
+
+      const data = await response.json();
+
+      // 3. AI ပြန်ဖြေတဲ့စာကို ပြမယ်
       const botReply: Message = {
         id: (Date.now() + 1).toString(),
-        text: getBotResponse(userMsg.text),
+        text: data.reply, // OpenAI က ပြန်လာတဲ့စာ
         sender: "bot",
         timestamp: new Date(),
       };
+
       setMessages((prev) => [...prev, botReply]);
-      setIsTyping(false);
-    }, 1500);
+    } catch (error) {
+      // Error တက်ရင်
+      const errorMsg: Message = {
+        id: (Date.now() + 1).toString(),
+        text: "Sorry, something went wrong. Please try again.",
+        sender: "bot",
+        timestamp: new Date(),
+      };
+      setMessages((prev) => [...prev, errorMsg]);
+    } finally {
+      setIsTyping(false); // Typing indicator ပိတ်မယ်
+    }
   };
 
   return (
