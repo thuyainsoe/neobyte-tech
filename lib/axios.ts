@@ -1,8 +1,9 @@
 import axios from "axios";
 
-// Create axios instance with base URL from environment
+// Create axios instance — no baseURL so all requests use relative paths
+// and go through Next.js rewrites (configured in next.config.js).
+// This avoids mixed content (HTTP/HTTPS) and CORS issues in production.
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337",
   headers: {
     "Content-Type": "application/json",
   },

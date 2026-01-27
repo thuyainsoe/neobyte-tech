@@ -1,14 +1,16 @@
 /** @type {import('next').NextConfig} */
+const STRAPI_URL = process.env.STRAPI_URL || "http://localhost:1337";
+
 const nextConfig = {
   async rewrites() {
     return [
       {
-        source: "/api/:path*", // Frontend က /api/xxx လို့ခေါ်ရင်
-        destination: "http://143.198.197.70:1338/api/:path*", // Strapi ဆီ လှမ်းပို့မယ်
+        source: "/api/:path*",
+        destination: `${STRAPI_URL}/api/:path*`,
       },
       {
-        source: "/uploads/:path*", // ပုံတွေအတွက်
-        destination: "http://143.198.197.70:1338/uploads/:path*",
+        source: "/uploads/:path*",
+        destination: `${STRAPI_URL}/uploads/:path*`,
       },
     ];
   },

@@ -149,7 +149,7 @@ const Hero: React.FC<HeroProps> = ({ data, loading }) => {
                 <img
                   src={
                     data?.hero_image?.url
-                      ? `${process.env.NEXT_PUBLIC_API_URL}${data.hero_image.url}`
+                      ? data.hero_image.url
                       : "/images/hero.png"
                   }
                   alt={data?.hero_image?.alternativeText || "Hero Image"}
