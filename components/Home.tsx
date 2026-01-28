@@ -174,7 +174,7 @@ const Hero: React.FC<HeroProps> = ({ data, loading }) => {
                   </span>
                 </div>
                 <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
-                  <div className="h-full bg-green-500 w-[85%]"></div>
+                  <div className="h-full bg-green-500 w-[100%]"></div>
                 </div>
                 <p className="text-[10px] lg:text-xs text-slate-500 mt-2">
                   {data?.hero_stats[0]?.value || "85% Increase in 6 Months"}
