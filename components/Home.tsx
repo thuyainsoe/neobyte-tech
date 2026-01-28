@@ -2,31 +2,34 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+
 import {
-  Menu,
-  X,
+  SiNextdotjs,
+  SiReact,
+  SiTypescript,
+  SiStrapi,
+  SiTailwindcss,
+  SiNodedotjs,
+  SiPostgresql,
+  SiVercel,
+  SiDocker,
+  SiFramer,
+} from "react-icons/si";
+import {
   ArrowRight,
   Play,
   CheckCircle2,
   Users,
   Code,
   Database,
-  Shield,
   BarChart3,
-  Send,
-  Mail,
-  MapPin,
-  Phone,
   Cpu,
   Cloud,
   Layers,
   Zap,
-  PenTool,
-  MoveRight,
   Globe,
 } from "lucide-react";
 import api from "@/lib/axios";
-import type { StrapiResponse, HomePage, HeroSection } from "@/types/strapi";
 import { useLanguage } from "@/context/LanguageContext";
 
 // ============================================
@@ -275,10 +278,125 @@ const ClientTrust: React.FC = () => {
   );
 };
 
+const TechStackTicker: React.FC = ({ data }: any) => {
+  const technologies = [
+    {
+      name: "Next.js",
+      icon: SiNextdotjs,
+      color: "hover:text-black", // Next.js is black
+    },
+    {
+      name: "React",
+      icon: SiReact,
+      color: "hover:text-[#61DAFB]", // React Blue
+    },
+    {
+      name: "TypeScript",
+      icon: SiTypescript,
+      color: "hover:text-[#3178C6]", // TS Blue
+    },
+    {
+      name: "Strapi",
+      icon: SiStrapi,
+      color: "hover:text-[#4945FF]", // Strapi Purple
+    },
+    {
+      name: "Tailwind",
+      icon: SiTailwindcss,
+      color: "hover:text-[#06B6D4]", // Tailwind Cyan
+    },
+    {
+      name: "Node.js",
+      icon: SiNodedotjs,
+      color: "hover:text-[#339933]", // Node Green
+    },
+    {
+      name: "PostgreSQL",
+      icon: SiPostgresql,
+      color: "hover:text-[#4169E1]", // Postgres Blue
+    },
+    {
+      name: "Vercel",
+      icon: SiVercel,
+      color: "hover:text-black", // Vercel Black
+    },
+    {
+      name: "Docker",
+      icon: SiDocker,
+      color: "hover:text-[#2496ED]", // Docker Blue
+    },
+    {
+      name: "Framer",
+      icon: SiFramer,
+      color: "hover:text-[#0055FF]", // Framer Blue
+    },
+  ];
+
+  // Create seamless loop (3 sets)
+  const marqueeTech = [
+    ...technologies,
+    ...technologies,
+    ...technologies,
+    ...technologies,
+    ...technologies,
+    ...technologies,
+  ];
+
+  return (
+    <div className="bg-white py-16 border-b border-gray-100 overflow-hidden select-none">
+      <div className="max-w-7xl mx-auto px-4 text-center mb-10">
+        <p className="text-sm font-bold text-slate-400 uppercase tracking-widest flex items-center justify-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-neobyte-teal animate-pulse"></span>
+          Powered by Modern Technologies
+        </p>
+      </div>
+
+      <div className="relative w-full overflow-hidden">
+        {/* Gradients for smooth fade effect */}
+        <div className="absolute top-0 left-0 w-24 h-full bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
+        <div className="absolute top-0 right-0 w-24 h-full bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
+
+        {/* Marquee Track */}
+        <motion.div
+          className="flex items-center"
+          initial={{ x: 0 }}
+          animate={{ x: "-33.33%" }}
+          transition={{
+            repeat: Infinity,
+            ease: "linear",
+            duration: 30, // Adjust speed here
+          }}
+        >
+          {marqueeTech.map((tech, i) => (
+            <div
+              key={i}
+              className="flex flex-col items-center justify-center mx-8 md:mx-12 group cursor-default"
+            >
+              {/* ICON AREA */}
+              <div
+                className={`text-4xl md:text-5xl text-slate-300 transition-colors duration-300 ${tech.color} mb-3`}
+              >
+                <tech.icon />
+              </div>
+
+              {/* TEXT AREA */}
+              <span className="text-sm font-semibold text-slate-300 group-hover:text-neobyte-navy transition-colors duration-300">
+                {tech.name}
+              </span>
+            </div>
+          ))}
+        </motion.div>
+      </div>
+    </div>
+  );
+};
+
 // ============================================
 // 3. ABOUT / AGENCY INTRO
 // ============================================
-const AboutAgency: React.FC = () => {
+const AboutAgency = ({ data }: any) => {
+  console.log(data, "data");
+
   return (
     <section
       id="about"
@@ -299,27 +417,37 @@ const AboutAgency: React.FC = () => {
           {/* Text Content */}
           <div>
             <span className="text-neobyte-teal font-bold tracking-wider uppercase text-sm">
-              Who We Are
+              {data?.badge || "Who We Are"}
             </span>
             <h2 className="text-3xl lg:text-4xl font-bold text-neobyte-navy mt-4 mb-6 leading-tight">
-              We Are The Best Digital <br /> Creative Consulting Agency
+              {data?.title || "We Are The Best Digital"} <br />{" "}
+              {data?.title2 || "Creative Consulting Agency"}
             </h2>
             <p className="text-slate-600 text-lg leading-relaxed mb-8">
-              Neobyte isn't just a development shop; we are your strategic
+              {data?.description ||
+                `Neobyte isn't just a development shop; we are your strategic
               partners. We blend creative vision with technical precision to
               solve complex business problems. Our team of experts is dedicated
-              to delivering excellence in every pixel and line of code.
+              to delivering excellence in every pixel and line of code.`}
             </p>
 
             {/* Stats within text */}
             <div className="grid grid-cols-2 gap-8 mb-6">
               <div>
-                <h3 className="text-3xl font-bold text-neobyte-navy">250+</h3>
-                <p className="text-slate-500 mt-1">Projects Completed</p>
+                <h3 className="text-3xl font-bold text-neobyte-navy">
+                  {data?.stats[0]?.label || "250+"}
+                </h3>
+                <p className="text-slate-500 mt-1">
+                  {data?.stats[0]?.value || "Projects Completed"}
+                </p>
               </div>
               <div>
-                <h3 className="text-3xl font-bold text-neobyte-navy">15+</h3>
-                <p className="text-slate-500 mt-1">Years Experience</p>
+                <h3 className="text-3xl font-bold text-neobyte-navy">
+                  {data?.stats[1]?.label || "15+"}
+                </h3>
+                <p className="text-slate-500 mt-1">
+                  {data?.stats[1]?.value || "Years Experience"}
+                </p>
               </div>
             </div>
 
@@ -327,7 +455,8 @@ const AboutAgency: React.FC = () => {
               href="#contact"
               className="text-neobyte-navy font-bold border-b-2 border-neobyte-teal pb-1 inline-flex items-center gap-2 hover:gap-4 transition-all"
             >
-              Read Our Story <ArrowRight className="w-4 h-4" />
+              {data?.button?.label || "Read Our Story"}{" "}
+              <ArrowRight className="w-4 h-4" />
             </a>
           </div>
 
@@ -336,7 +465,9 @@ const AboutAgency: React.FC = () => {
             <div className="absolute top-0 right-0 w-2/3 h-full bg-gray-100 rounded-3xl -z-10 transform translate-x-10 -translate-y-10"></div>
 
             <img
-              src="/images/about-agency.png"
+              src={
+                data?.image?.url ? data.image.url : "/images/about-agency.png"
+              }
               alt="Office Team"
               className="rounded-2xl shadow-xl w-full object-cover h-[500px]"
             />
@@ -347,10 +478,13 @@ const AboutAgency: React.FC = () => {
                 <div className="p-2 bg-neobyte-teal rounded-full text-neobyte-navy">
                   <Users className="w-5 h-5" />
                 </div>
-                <span className="font-bold text-lg">Top Rated</span>
+                <span className="font-bold text-lg">
+                  {data?.stats[2]?.label || "Top Rated"}
+                </span>
               </div>
               <p className="text-sm text-gray-300">
-                Consistently voted as the top digital agency for startup growth.
+                {data?.stats[2]?.value ||
+                  "Consistently voted as the top digital agency for startup growth."}
               </p>
             </div>
           </div>
@@ -887,7 +1021,7 @@ const Blog: React.FC = () => {
 // MAIN HOME COMPONENT
 // ============================================
 const Home: React.FC = () => {
-  const [heroData, setHeroData] = useState<any>(undefined);
+  const [data, setData] = useState<any>(undefined);
   const [loading, setLoading] = useState(true);
   const { locale } = useLanguage();
 
@@ -895,15 +1029,15 @@ const Home: React.FC = () => {
     try {
       setLoading(true);
       const response = await api.get(
-        `/api/home-page?populate[herosection][populate]=*&locale=${locale}`,
+        // &populate[HomeWhoWeAre][populate]=* ကို ကြားထဲမှာ ထပ်ထည့်လိုက်တာပါ
+        `/api/home-page?populate[herosection][populate]=*&populate[HomeWhoWeAre][populate]=*&locale=${locale}`,
       );
 
-      const homePageData = response.data.data.herosection;
-      setHeroData(homePageData);
+      setData(response.data.data);
     } catch (error) {
       console.error("Error fetching home page data:", error);
       // Use default/fallback data on error
-      setHeroData(undefined);
+      setData(undefined);
     } finally {
       setLoading(false);
     }
@@ -915,9 +1049,9 @@ const Home: React.FC = () => {
 
   return (
     <main>
-      <Hero data={heroData} loading={loading} />
-      <ClientTrust />
-      <AboutAgency />
+      <Hero data={data?.herosection} loading={loading} />
+      <TechStackTicker />
+      <AboutAgency data={data?.HomeWhoWeAre} />
       <ServicesList />
       <FeaturedCaseStudy />
       <VideoIntro />
