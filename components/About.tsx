@@ -428,3 +428,5 @@ const About: React.FC = () => {
 };
 
 export default About;
+
+// A retro 8-bit pixel art portrait, framed as a bust-style passport photograph. The character is a young man with light brown skin, dark wavy pixelated hair, and clear square-framed glasses. He is wearing a simple dark grey t-shirt and holding an open book with a brown cover and off-white pages at his chest. The background is a solid, vibrant red rendered in large, chunky pixels. The overall resolution is low.

@@ -687,7 +687,7 @@ const FeaturedCaseStudy = ({ data }: any) => {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 1.5 }}
             className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center"
           >
             {/* Left Content */}
@@ -1090,48 +1090,3 @@ const Home: React.FC = () => {
 };
 
 export default Home;
-
-// const projects = [
-//   {
-//     id: 1,
-//     title: "JBL Audio Experience",
-//     // "အသံအရည်အသွေးကို ပုံရိပ်များနှင့်တကွ ခံစားနိုင်မည့် E-commerce Platform"
-//     description: "အရည်အသွေးမြင့် အသံစွမ်းဆောင်ရည်ကို ပုံရိပ်တွေနဲ့တကွ ခံစားနားဆင်နိုင်မယ့် E-commerce Platform တစ်ခုဖြစ်ပါတယ်။ ခေတ်မီ Dark-Themed UI ကိုသုံးထားပြီး ကုန်ပစ္စည်းတွေရဲ့ Quality ကို ပေါ်လွင်အောင် ဖန်တီးထားပါတယ်။",
-//     stats: [
-//       "Custom Audio Visualization", // နည်းပညာ Term မို့ ဒီအတိုင်းထားတာ ပိုမိုက်ပါတယ်
-//       "လွယ်ကူလျင်မြန်သော Checkout စနစ်",
-//       "3D စနစ်ဖြင့် ကြည့်ရှုနိုင်ခြင်း"
-//     ],
-//     color: "bg-[#1a0b2e]",
-//     accent: "bg-orange-500",
-//     image: "/path/to/jbl-screenshot.jpg",
-//   },
-//   {
-//     id: 2,
-//     title: "Fototapety Interiors",
-//     // "အဆင့်မြင့် အိမ်တွင်းအလှဆင် ဒီဇိုင်း Catalog"
-//     description: "စုံလင်လှပတဲ့ Wallpaper ဒီဇိုင်းတွေကို တစ်နေရာတည်းမှာ ရွေးချယ်နိုင်မယ့် အဆင့်မြင့် Interior Design Catalog ပါ။ စိတ်ခံစားမှု (Mood) အလိုက် ခွဲခြားပြသထားပြီး လိုချင်တဲ့ပုံစံကို အလွယ်တကူ ရှာဖွေနိုင်အောင် စီစဉ်ပေးထားပါတယ်။",
-//     stats: [
-//       "Advanced Filtering System",
-//       "ရုပ်ထွက်ကြည်လင်သော Gallery စနစ်",
-//       "CMS Integration"
-//     ],
-//     color: "bg-stone-900",
-//     accent: "bg-emerald-500",
-//     image: "/path/to/fototapety-screenshot.jpg",
-//   },
-//   {
-//     id: 3,
-//     title: "Ethan Carter Portfolio",
-//     // "ခေတ်ရှေ့ပြေး Cyberpunk ပုံစံ Portfolio"
-//     description: "Senior Web Developer တစ်ဦးအတွက် ဖန်တီးပေးထားသော ခေတ်ရှေ့ပြေး Portfolio ဝဘ်ဆိုက်ဖြစ်ပါတယ်။ React နှင့် TypeScript နည်းပညာများကို အသားပေးထားပြီး Cyberpunk ဒီဇိုင်းပုံစံဖြင့် ကျွမ်းကျင်မှုကို ပေါ်လွင်စေရန် ရေးဆွဲထားပါသည်။",
-//     stats: [
-//       "Cyberpunk UI/UX Design",
-//       "SEO နှင့် Performance ကောင်းမွန်ခြင်း",
-//       "React & TypeScript Architecture"
-//     ],
-//     color: "bg-slate-950",
-//     accent: "bg-cyan-400",
-//     image: "/path/to/ethan-screenshot.jpg",
-//   },
-// ];
