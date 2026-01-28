@@ -760,89 +760,126 @@ const FeaturedCaseStudy = ({ data }: any) => {
 
 const VideoIntro: React.FC = () => {
   return (
-    <section className="py-12 md:py-18 lg:py-24 bg-white relative overflow-hidden">
-      {/* --- SECTION BACKGROUND DECORATION START --- */}
+    <section className="relative py-12 md:py-18 lg:py-24 overflow-hidden min-h-[600px] flex items-center">
+      {/* --- BACKGROUND VIDEO SECTION START --- */}
+      <div className="absolute inset-0 w-full h-full z-0">
+        {/* 1. Video Element with Blur */}
+        {/* blur-[2px] ထည့်လိုက်တာက စာဖတ်ရပိုရှင်းစေပြီး Modern look ရစေပါတယ် */}
+        <video
+          className="w-full h-full object-cover blur-[2px] scale-105"
+          autoPlay
+          loop
+          muted
+          playsInline
+        >
+          <source src="/images/video.mp4" type="video/mp4" />
+        </video>
 
-      {/* 1. Top-Left Large Faint Square */}
-      <div
-        className="absolute -top-20 -left-20 w-96 h-96 bg-neobyte-teal opacity-[0.03] rounded-[3rem] rotate-12 pointer-events-none"
-        aria-hidden="true"
-      ></div>
+        {/* 2. Gradient Overlay (The Magic Fix) */}
+        {/* ဘယ်ဘက် (စာရှိတဲ့ဘက်) ကို အမဲ 90% ထားပြီး ညာဘက်ကို 80% လောက်လျှော့ထားပါတယ် */}
+        {/* mix-blend-multiply ကိုဖြုတ်ပြီး Normal Gradient သုံးတာက စာအတွက် ပိုစိတ်ချရပါတယ် */}
+        <div className="absolute inset-0 bg-gradient-to-r from-neobyte-navy via-neobyte-navy/95 to-neobyte-navy/90 z-10"></div>
 
-      {/* 2. Bottom-Right Outlined Square */}
-      <div
-        className="absolute -bottom-32 -right-20 w-[30rem] h-[30rem] border-2 border-neobyte-navy opacity-[0.05] rounded-[4rem] -rotate-12 pointer-events-none"
-        aria-hidden="true"
-      ></div>
+        {/* Optional: Dot Pattern Overlay for Texture (Tech Vibe ပိုရအောင်ပါ) */}
+        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px] z-10"></div>
+      </div>
+      {/* --- BACKGROUND VIDEO SECTION END --- */}
 
-      {/* 3. Small Floating Square (Center-Left) */}
-      <div
-        className="absolute top-1/2 left-10 w-16 h-16 bg-neobyte-navy opacity-[0.04] rounded-xl rotate-45 pointer-events-none"
-        aria-hidden="true"
-      ></div>
-
-      {/* --- SECTION BACKGROUND DECORATION END --- */}
-
-      {/* Main Content Container - Added relative and z-10 to stay above background */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      {/* Main Content Container */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-center">
-          {/* Left Column: Text Content */}
+          {/* ======================= LEFT COLUMN ======================= */}
           <div className="text-left">
-            <span className="text-neobyte-teal font-bold tracking-wider uppercase text-sm mb-2 block">
+            <span className="text-neobyte-teal font-bold tracking-wider uppercase text-sm mb-2 block [text-shadow:_0_2px_8px_rgb(0_0_0_/_60%)]">
               Behind the Scenes
             </span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neobyte-navy mb-6 leading-tight">
+
+            {/* Drop Shadow ထည့်ထားပါတယ် */}
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight [text-shadow:_0_4px_12px_rgb(0_0_0_/_60%)]">
               How do we build <br /> your digital product?
             </h2>
-            <p className="text-slate-600 text-lg mb-8 leading-relaxed">
+
+            <p className="text-white/90 text-lg mb-8 leading-relaxed [text-shadow:_0_2px_8px_rgb(0_0_0_/_50%)]">
               It's not just about writing code; it's about understanding your
               vision. See our transparent process of transforming rough concepts
               into functioning, scalable digital products.
             </p>
 
-            {/* Optional: Simple Bullet points to fill space nicely */}
+            {/* Bullet points */}
             <div className="space-y-4 mb-4">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-neobyte-teal">
-                  <span className="font-bold">01</span>
+                <div className="w-10 h-10 rounded-full bg-neobyte-teal/20 border border-neobyte-teal/50 flex items-center justify-center text-neobyte-teal backdrop-blur-md">
+                  <span className="font-bold text-white text-sm">01</span>
                 </div>
-                <p className="font-medium text-neobyte-navy">
+                <p className="font-medium text-white [text-shadow:_0_2px_8px_rgb(0_0_0_/_50%)]">
                   Strategic Planning
                 </p>
               </div>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-neobyte-teal">
-                  <span className="font-bold">02</span>
+                <div className="w-10 h-10 rounded-full bg-neobyte-teal/20 border border-neobyte-teal/50 flex items-center justify-center text-neobyte-teal backdrop-blur-md">
+                  <span className="font-bold text-white text-sm">02</span>
                 </div>
-                <p className="font-medium text-neobyte-navy">
+                <p className="font-medium text-white [text-shadow:_0_2px_8px_rgb(0_0_0_/_50%)]">
                   Agile Development
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Video Thumbnail */}
-          <div className="relative">
-            {/* Local Decor Blobs for Video (Kept these as they are nice) */}
-            <div className="absolute -top-10 -right-10 w-40 h-40 bg-neobyte-teal/20 rounded-full blur-3xl -z-10 animate-pulse"></div>
-            <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl -z-10"></div>
+          {/* ======================= RIGHT COLUMN (Tech Viz) ======================= */}
+          <div className="relative h-[400px] flex items-center justify-center">
+            {/* 1. Central Glowing Core */}
+            <motion.div
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0.5, 0.8, 0.5],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="absolute w-32 h-32 bg-neobyte-teal rounded-full blur-[60px] z-0"
+            />
 
-            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl group cursor-pointer border-4 border-white">
-              <div className="absolute inset-0 bg-neobyte-navy/20 group-hover:bg-neobyte-navy/10 transition-colors z-10"></div>
+            {/* 2. Inner Rotating Ring */}
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              className="absolute w-48 h-48 border border-neobyte-teal/30 rounded-full z-10 flex items-center justify-center"
+            >
+              <div className="absolute top-0 -mt-1.5 w-3 h-3 bg-neobyte-teal rounded-full shadow-[0_0_10px_rgba(20,184,166,0.8)]"></div>
+            </motion.div>
 
-              <img
-                src="https://picsum.photos/1200/675?random=15"
-                alt="Video Thumbnail"
-                className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
-              />
+            {/* 3. Outer Rotating Ring */}
+            <motion.div
+              animate={{ rotate: -360 }}
+              transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+              className="absolute w-72 h-72 border border-white/10 rounded-full z-10 flex items-center justify-center border-dashed"
+            >
+              <div className="absolute bottom-0 -mb-2 w-4 h-4 bg-white rounded-full shadow-[0_0_15px_rgba(255,255,255,0.6)]"></div>
+              <div className="absolute top-1/2 right-0 -mr-2 w-2 h-2 bg-neobyte-teal rounded-full"></div>
+            </motion.div>
 
-              <div className="absolute inset-0 flex items-center justify-center z-20">
-                <div className="w-20 h-20 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                  <Play className="w-8 h-8 text-neobyte-navy fill-current ml-1" />
-                </div>
-              </div>
+            {/* 4. Center Icon */}
+            <div className="relative z-20 bg-neobyte-navy/50 p-6 rounded-2xl border border-neobyte-teal/30 backdrop-blur-md shadow-2xl">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="w-12 h-12 text-neobyte-teal"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <line x1="2" y1="12" x2="22" y2="12" />
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+              </svg>
             </div>
           </div>
+          {/* ======================= END RIGHT COLUMN ======================= */}
         </div>
       </div>
     </section>
@@ -1081,8 +1118,9 @@ const Home: React.FC = () => {
       <AboutAgency data={data?.HomeWhoWeAre} />
       <ServicesList data={data?.HomeCoreServices} />
       <FeaturedCaseStudy data={data?.HomeProjectsSection} />
-      <VideoIntro />
+
       <DevelopmentProcess />
+      <VideoIntro />
       <TechStack />
       <Blog />
     </main>
