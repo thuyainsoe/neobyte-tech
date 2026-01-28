@@ -578,52 +578,52 @@ const ServicesList = ({ data }: any) => {
   );
 };
 
-// 1. Data Setup - Project ၃ ခုစာ Data တွေ ဒီမှာပြင်ပါ
+// Project Data တွေကို ပုံ ၃ ပုံနဲ့ ကိုက်ညီအောင် ပြင်ဆင်ထားပါတယ်
 const projects = [
   {
     id: 1,
-    title: "SATS HK",
+    title: "JBL Audio Experience", // Screenshot 1
     description:
-      "A revolutionary logistics platform connecting Hong Kong's busiest trade routes with AI-driven route optimization.",
+      "Immersive e-commerce platform with high-fidelity audio visualization. Designed to showcase product sound quality visually through a modern, dark-themed UI.",
     stats: [
-      "40% Increase in Efficiency",
-      "Real-time Tracking System",
-      "Seamless Mobile Experience",
+      "Custom Audio Visualization",
+      "Seamless Checkout Flow",
+      "Interactive 3D Product View",
     ],
-    image: "/images/projects/project-2.png",
-    color: "bg-rose-600", // Background color
-    btnColor: "text-rose-600", // Button text color
-    accent: "bg-rose-500", // Decorative blob color
+    // Deep Indigo/Purple background to match JBL vibe
+    color: "bg-[#1a0b2e]",
+    accent: "bg-orange-500", // Orange glow
+    image: "/images/projects/jbl.png", // ပုံထည့်ရန်
   },
   {
     id: 2,
-    title: "FinTech Pro",
+    title: "Fototapety Interiors", // Screenshot 2
     description:
-      "Empowering banking institutions with blockchain security and lightning-fast transaction processing.",
+      "A sophisticated interior design catalog featuring diverse wallpaper collections. Focuses on elegant filtering, mood-based categorization, and inspirational galleries.",
     stats: [
-      "2M+ Daily Transactions",
-      "Zero Security Breaches",
-      "Integrated Crypto Wallet",
+      "Advanced Filtering System",
+      "High-Res Gallery Optimization",
+      "CMS Integration",
     ],
-    image: "/images/projects/project-1.png",
-    color: "bg-blue-900", // Navy Blue
-    btnColor: "text-blue-900",
-    accent: "bg-blue-700",
+    // Warm Dark Stone background (White text ပေါ်အောင် Dark Stone သုံးထားပါတယ်)
+    color: "bg-stone-900",
+    accent: "bg-emerald-500", // Green/Nature glow
+    image: "/images/projects/fototapety.png", // ပုံထည့်ရန်
   },
   {
     id: 3,
-    title: "EcoGrow App",
+    title: "Ethan Carter Portfolio", // Screenshot 3
     description:
-      "Smart agriculture solution using IoT sensors to monitor crop health and automate irrigation systems.",
+      "A futuristic personal portfolio for a Senior Web Developer. Built with a cyberpunk aesthetic to demonstrate mastery in React, TypeScript, and modern scalable frameworks.",
     stats: [
-      "30% Water Saved",
-      "Remote Farm Monitoring",
-      "AI Harvest Prediction",
+      "Cyberpunk UI/UX Design",
+      "SEO & Performance Optimized",
+      "React & TypeScript Architecture",
     ],
-    image: "/images/projects/project-3.png",
-    color: "bg-emerald-600", // Green
-    btnColor: "text-emerald-600",
-    accent: "bg-emerald-500",
+    // Deep Slate/Cyber Blue background
+    color: "bg-slate-950",
+    accent: "bg-cyan-400", // Cyber Blue glow
+    image: "/images/projects/ethancarter.png", // ပုံထည့်ရန်
   },
 ];
 
@@ -634,7 +634,7 @@ const FeaturedCaseStudy: React.FC = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % projects.length);
-    }, 4000); // Bro လိုချင်တဲ့ 2sec ဆိုရင် ဒီမှာ 2000 ပြောင်းပါ (UX အရ 4000-5000 လောက်ထားတာ ပိုကောင်းပါတယ်)
+    }, 4000);
 
     return () => clearInterval(timer);
   }, []);
@@ -671,7 +671,7 @@ const FeaturedCaseStudy: React.FC = () => {
               <h2 className="text-4xl lg:text-5xl font-black mb-6">
                 {projects[currentIndex].title}
               </h2>
-              <p className="text-white/90 text-lg mb-8 max-w-md h-24">
+              <p className="text-white/90 text-lg mb-8 max-w-md min-h-[80px]">
                 {projects[currentIndex].description}
               </p>
 
@@ -684,11 +684,7 @@ const FeaturedCaseStudy: React.FC = () => {
                 ))}
               </ul>
 
-              <button
-                className={`px-8 py-4 bg-white font-bold rounded-lg hover:opacity-90 transition-all shadow-lg ${projects[currentIndex].btnColor}`}
-              >
-                View Case Study
-              </button>
+              {/* Button Section Removed as requested */}
             </div>
 
             {/* Right Image Content */}
@@ -703,7 +699,7 @@ const FeaturedCaseStudy: React.FC = () => {
               </div>
               {/* Decorative Circle that changes color */}
               <div
-                className={`absolute -bottom-10 -right-10 w-64 h-64 rounded-full blur-3xl -z-0 transition-colors duration-500 ${projects[currentIndex].accent}`}
+                className={`absolute -bottom-10 -right-10 w-64 h-64 rounded-full blur-3xl -z-0 transition-colors duration-500 opacity-60 ${projects[currentIndex].accent}`}
               ></div>
             </div>
           </motion.div>
