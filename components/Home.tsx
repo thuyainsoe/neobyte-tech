@@ -639,8 +639,8 @@ const FeaturedCaseStudy = ({ data }: any) => {
       // ဥပမာ - [{ item: "text" }] ဆိုရင် stat.item လို့ယူရပါမယ်။
       // လောလောဆယ် string array လို့ယူဆထားပါတယ်
       stats: project.stats?.map((el: any) => el?.label) || [],
-      color: project.background_color || "bg-slate-900",
-      accent: project.accent_color || "bg-emerald-500", // Default accent added
+      color: project.color || "bg-slate-900",
+      accent: project.accent || "bg-emerald-500", // Default accent added
       // Strapi image url handling (check formats if needed)
       image: project.image?.url || "",
     }));
@@ -687,7 +687,7 @@ const FeaturedCaseStudy = ({ data }: any) => {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 1.5 }}
+            transition={{ duration: 0.5 }}
             className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center"
           >
             {/* Left Content */}
