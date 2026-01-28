@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import {
@@ -495,8 +495,6 @@ const AboutAgency = ({ data }: any) => {
 // 4. SERVICES OVERVIEW (Clean Typographic)
 // ============================================
 const ServicesList = ({ data }: any) => {
-  console.log(data);
-
   const services = data?.service_cards?.map((service: any, index: any) => ({
     id: `0${index + 1}`,
     title: service.title,
@@ -579,84 +577,113 @@ const ServicesList = ({ data }: any) => {
 };
 
 // Project Data တွေကို ပုံ ၃ ပုံနဲ့ ကိုက်ညီအောင် ပြင်ဆင်ထားပါတယ်
-const projects = [
-  {
-    id: 1,
-    title: "JBL Audio Experience", // Screenshot 1
-    description:
-      "Immersive e-commerce platform with high-fidelity audio visualization. Designed to showcase product sound quality visually through a modern, dark-themed UI.",
-    stats: [
-      "Custom Audio Visualization",
-      "Seamless Checkout Flow",
-      "Interactive 3D Product View",
-    ],
-    // Deep Indigo/Purple background to match JBL vibe
-    color: "bg-[#1a0b2e]",
-    accent: "bg-orange-500", // Orange glow
-    image: "/images/projects/jbl.png", // ပုံထည့်ရန်
-  },
-  {
-    id: 2,
-    title: "Fototapety Interiors", // Screenshot 2
-    description:
-      "A sophisticated interior design catalog featuring diverse wallpaper collections. Focuses on elegant filtering, mood-based categorization, and inspirational galleries.",
-    stats: [
-      "Advanced Filtering System",
-      "High-Res Gallery Optimization",
-      "CMS Integration",
-    ],
-    // Warm Dark Stone background (White text ပေါ်အောင် Dark Stone သုံးထားပါတယ်)
-    color: "bg-stone-900",
-    accent: "bg-emerald-500", // Green/Nature glow
-    image: "/images/projects/fototapety.png", // ပုံထည့်ရန်
-  },
-  {
-    id: 3,
-    title: "Ethan Carter Portfolio", // Screenshot 3
-    description:
-      "A futuristic personal portfolio for a Senior Web Developer. Built with a cyberpunk aesthetic to demonstrate mastery in React, TypeScript, and modern scalable frameworks.",
-    stats: [
-      "Cyberpunk UI/UX Design",
-      "SEO & Performance Optimized",
-      "React & TypeScript Architecture",
-    ],
-    // Deep Slate/Cyber Blue background
-    color: "bg-slate-950",
-    accent: "bg-cyan-400", // Cyber Blue glow
-    image: "/images/projects/ethancarter.png", // ပုံထည့်ရန်
-  },
-];
+// const projects = [
+//   {
+//     id: 1,
+//     title: "JBL Audio Experience", // Screenshot 1
+//     description:
+//       "Immersive e-commerce platform with high-fidelity audio visualization. Designed to showcase product sound quality visually through a modern, dark-themed UI.",
+//     stats: [
+//       "Custom Audio Visualization",
+//       "Seamless Checkout Flow",
+//       "Interactive 3D Product View",
+//     ],
+//     // Deep Indigo/Purple background to match JBL vibe
+//     color: "bg-[#1a0b2e]",
+//     accent: "bg-orange-500", // Orange glow
+//     image: "/images/projects/jbl.png", // ပုံထည့်ရန်
+//   },
+//   {
+//     id: 2,
+//     title: "Fototapety Interiors", // Screenshot 2
+//     description:
+//       "A sophisticated interior design catalog featuring diverse wallpaper collections. Focuses on elegant filtering, mood-based categorization, and inspirational galleries.",
+//     stats: [
+//       "Advanced Filtering System",
+//       "High-Res Gallery Optimization",
+//       "CMS Integration",
+//     ],
+//     // Warm Dark Stone background (White text ပေါ်အောင် Dark Stone သုံးထားပါတယ်)
+//     color: "bg-stone-900",
+//     accent: "bg-emerald-500", // Green/Nature glow
+//     image: "/images/projects/fototapety.png", // ပုံထည့်ရန်
+//   },
+//   {
+//     id: 3,
+//     title: "Ethan Carter Portfolio", // Screenshot 3
+//     description:
+//       "A futuristic personal portfolio for a Senior Web Developer. Built with a cyberpunk aesthetic to demonstrate mastery in React, TypeScript, and modern scalable frameworks.",
+//     stats: [
+//       "Cyberpunk UI/UX Design",
+//       "SEO & Performance Optimized",
+//       "React & TypeScript Architecture",
+//     ],
+//     // Deep Slate/Cyber Blue background
+//     color: "bg-slate-950",
+//     accent: "bg-cyan-400", // Cyber Blue glow
+//     image: "/images/projects/ethancarter.png", // ပုံထည့်ရန်
+//   },
+// ];
 
-const FeaturedCaseStudy: React.FC = () => {
+const FeaturedCaseStudy = ({ data }: any) => {
+  // 1. Data Transformation (အပေါ်ဆုံးမှာ ထားပါ)
+  const projects = useMemo(() => {
+    // Data မရှိသေးရင် Empty Array ပြန်မယ်
+    if (!data?.projects || !Array.isArray(data.projects)) return [];
+
+    return data.projects.map((project: any) => ({
+      id: project.id,
+      title: project.title,
+      description: project.description,
+      // API ကလာတဲ့ features က object array ဖြစ်နေရင် string ပြန်ယူဖို့လိုပါတယ်
+      // ဥပမာ - [{ item: "text" }] ဆိုရင် stat.item လို့ယူရပါမယ်။
+      // လောလောဆယ် string array လို့ယူဆထားပါတယ်
+      stats: project.stats?.map((el: any) => el?.label) || [],
+      color: project.background_color || "bg-slate-900",
+      accent: project.accent_color || "bg-emerald-500", // Default accent added
+      // Strapi image url handling (check formats if needed)
+      image: project.image?.url || "",
+    }));
+  }, [data]); // data ပြောင်းတိုင်း projects ကို update လုပ်မယ်
+
   const [currentIndex, setCurrentIndex] = useState(0);
 
   // 2. Auto Loop Logic
   useEffect(() => {
+    // Projects မရှိသေးရင် timer မစဘူး
+    if (projects.length === 0) return;
+
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % projects.length);
     }, 4000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [projects.length]); // projects.length ပြောင်းလဲမှ effect ကို reset လုပ်မယ်
 
   // Manual Click on Dot
   const handleDotClick = (index: number) => {
     setCurrentIndex(index);
   };
 
+  // 3. Loading State / Guard Clause
+  // Data မရောက်သေးရင် ဘာမှမပြဘဲ နေမယ် (သို့မဟုတ် Loading Spinner ထည့်လို့ရပါတယ်)
+  if (projects.length === 0) {
+    return null;
+  }
+
+  // Current Project Data
+  const currentProject = projects[currentIndex];
+
   return (
-    // Background Color Transition wrapper
     <section
-      className={`py-12 md:py-18 lg:py-24 relative overflow-hidden text-white transition-colors duration-700 ease-in-out ${projects[currentIndex].color}`}
+      className={`py-12 md:py-18 lg:py-24 relative overflow-hidden text-white transition-colors duration-700 ease-in-out ${currentProject?.color}`}
     >
-      {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-white to-transparent pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* AnimatePresence for Fade In/Out Effect */}
         <AnimatePresence mode="wait">
           <motion.div
-            key={currentIndex} // Key change triggers animation
+            key={currentIndex}
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
@@ -669,45 +696,44 @@ const FeaturedCaseStudy: React.FC = () => {
                 FEATURED PROJECT
               </div>
               <h2 className="text-4xl lg:text-5xl font-black mb-6">
-                {projects[currentIndex].title}
+                {currentProject?.title}
               </h2>
               <p className="text-white/90 text-lg mb-8 max-w-md min-h-[80px]">
-                {projects[currentIndex].description}
+                {currentProject?.description}
               </p>
 
               <ul className="space-y-3 mb-10">
-                {projects[currentIndex].stats.map((stat, idx) => (
+                {currentProject?.stats.map((stat: any, idx: number) => (
                   <li key={idx} className="flex items-center gap-3">
                     <CheckCircle2 className="w-5 h-5 text-white" />
-                    {stat}
+                    {/* Strapi က features ကို Component အနေနဲ့လာရင် string မဟုတ်တာဖြစ်နိုင်လို့ check ထားတာပါ */}
+                    {typeof stat === "string" ? stat : stat?.name || "Feature"}
                   </li>
                 ))}
               </ul>
-
-              {/* Button Section Removed as requested */}
             </div>
 
             {/* Right Image Content */}
             <div className="relative mt-10 lg:mt-0">
-              {/* Device Mockup */}
               <div className="relative z-10 transform lg:rotate-[-5deg] hover:rotate-0 transition-transform duration-700 ease-out">
-                <img
-                  src={projects[currentIndex].image}
-                  alt={projects[currentIndex].title}
-                  className="rounded-xl shadow-2xl border-4 border-white/10 w-full h-auto object-cover max-h-[400px]"
-                />
+                {currentProject?.image && (
+                  <img
+                    src={`${currentProject.image}`} // လိုအပ်ရင် Strapi URL prefix ထည့်ပါ
+                    alt={currentProject.title}
+                    className="rounded-xl shadow-2xl border-4 border-white/10 w-full h-auto object-cover max-h-[400px]"
+                  />
+                )}
               </div>
-              {/* Decorative Circle that changes color */}
               <div
-                className={`absolute -bottom-10 -right-10 w-64 h-64 rounded-full blur-3xl -z-0 transition-colors duration-500 opacity-60 ${projects[currentIndex].accent}`}
+                className={`absolute -bottom-10 -right-10 w-64 h-64 rounded-full blur-3xl -z-0 transition-colors duration-500 opacity-60 ${currentProject?.accent}`}
               ></div>
             </div>
           </motion.div>
         </AnimatePresence>
 
-        {/* 3. Vertical Dot Pagination (Right Side) */}
+        {/* Vertical Dot Pagination */}
         <div className="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col gap-4 z-20">
-          {projects.map((_, index) => (
+          {projects.map((_: any, index: number) => (
             <button
               key={index}
               onClick={() => handleDotClick(index)}
@@ -1030,8 +1056,8 @@ const Home: React.FC = () => {
     try {
       setLoading(true);
       const response = await api.get(
-        // &populate[HomeWhoWeAre][populate]=* ကို ကြားထဲမှာ ထပ်ထည့်လိုက်တာပါ
-        `/api/home-page?populate[herosection][populate]=*&populate[HomeWhoWeAre][populate]=*&populate[HomeCoreServices][populate]=*&locale=${locale}`,
+        // ...HomeProjectsSection][populate]=* ပြီးရင် & ခံဖို့လိုပါတယ်
+        `/api/home-page?populate[herosection][populate]=*&populate[HomeWhoWeAre][populate]=*&populate[HomeCoreServices][populate]=*&populate[HomeProjectsSection][populate][projects][populate]=*&locale=${locale}`,
       );
 
       setData(response.data.data);
@@ -1054,7 +1080,7 @@ const Home: React.FC = () => {
       <TechStackTicker />
       <AboutAgency data={data?.HomeWhoWeAre} />
       <ServicesList data={data?.HomeCoreServices} />
-      <FeaturedCaseStudy />
+      <FeaturedCaseStudy data={data?.HomeProjectsSection} />
       <VideoIntro />
       <DevelopmentProcess />
       <TechStack />
@@ -1064,3 +1090,48 @@ const Home: React.FC = () => {
 };
 
 export default Home;
+
+// const projects = [
+//   {
+//     id: 1,
+//     title: "JBL Audio Experience",
+//     // "အသံအရည်အသွေးကို ပုံရိပ်များနှင့်တကွ ခံစားနိုင်မည့် E-commerce Platform"
+//     description: "အရည်အသွေးမြင့် အသံစွမ်းဆောင်ရည်ကို ပုံရိပ်တွေနဲ့တကွ ခံစားနားဆင်နိုင်မယ့် E-commerce Platform တစ်ခုဖြစ်ပါတယ်။ ခေတ်မီ Dark-Themed UI ကိုသုံးထားပြီး ကုန်ပစ္စည်းတွေရဲ့ Quality ကို ပေါ်လွင်အောင် ဖန်တီးထားပါတယ်။",
+//     stats: [
+//       "Custom Audio Visualization", // နည်းပညာ Term မို့ ဒီအတိုင်းထားတာ ပိုမိုက်ပါတယ်
+//       "လွယ်ကူလျင်မြန်သော Checkout စနစ်",
+//       "3D စနစ်ဖြင့် ကြည့်ရှုနိုင်ခြင်း"
+//     ],
+//     color: "bg-[#1a0b2e]",
+//     accent: "bg-orange-500",
+//     image: "/path/to/jbl-screenshot.jpg",
+//   },
+//   {
+//     id: 2,
+//     title: "Fototapety Interiors",
+//     // "အဆင့်မြင့် အိမ်တွင်းအလှဆင် ဒီဇိုင်း Catalog"
+//     description: "စုံလင်လှပတဲ့ Wallpaper ဒီဇိုင်းတွေကို တစ်နေရာတည်းမှာ ရွေးချယ်နိုင်မယ့် အဆင့်မြင့် Interior Design Catalog ပါ။ စိတ်ခံစားမှု (Mood) အလိုက် ခွဲခြားပြသထားပြီး လိုချင်တဲ့ပုံစံကို အလွယ်တကူ ရှာဖွေနိုင်အောင် စီစဉ်ပေးထားပါတယ်။",
+//     stats: [
+//       "Advanced Filtering System",
+//       "ရုပ်ထွက်ကြည်လင်သော Gallery စနစ်",
+//       "CMS Integration"
+//     ],
+//     color: "bg-stone-900",
+//     accent: "bg-emerald-500",
+//     image: "/path/to/fototapety-screenshot.jpg",
+//   },
+//   {
+//     id: 3,
+//     title: "Ethan Carter Portfolio",
+//     // "ခေတ်ရှေ့ပြေး Cyberpunk ပုံစံ Portfolio"
+//     description: "Senior Web Developer တစ်ဦးအတွက် ဖန်တီးပေးထားသော ခေတ်ရှေ့ပြေး Portfolio ဝဘ်ဆိုက်ဖြစ်ပါတယ်။ React နှင့် TypeScript နည်းပညာများကို အသားပေးထားပြီး Cyberpunk ဒီဇိုင်းပုံစံဖြင့် ကျွမ်းကျင်မှုကို ပေါ်လွင်စေရန် ရေးဆွဲထားပါသည်။",
+//     stats: [
+//       "Cyberpunk UI/UX Design",
+//       "SEO နှင့် Performance ကောင်းမွန်ခြင်း",
+//       "React & TypeScript Architecture"
+//     ],
+//     color: "bg-slate-950",
+//     accent: "bg-cyan-400",
+//     image: "/path/to/ethan-screenshot.jpg",
+//   },
+// ];
