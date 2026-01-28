@@ -364,7 +364,7 @@ const TechStackTicker: React.FC = ({ data }: any) => {
           transition={{
             repeat: Infinity,
             ease: "linear",
-            duration: 30, // Adjust speed here
+            duration: 10, // Adjust speed here
           }}
         >
           {marqueeTech.map((tech, i) => (
@@ -395,8 +395,6 @@ const TechStackTicker: React.FC = ({ data }: any) => {
 // 3. ABOUT / AGENCY INTRO
 // ============================================
 const AboutAgency = ({ data }: any) => {
-  console.log(data, "data");
-
   return (
     <section
       id="about"
@@ -496,8 +494,14 @@ const AboutAgency = ({ data }: any) => {
 // ============================================
 // 4. SERVICES OVERVIEW (Clean Typographic)
 // ============================================
-const ServicesList: React.FC = () => {
-  const services = [
+const ServicesList = ({ data }: any) => {
+  console.log(data);
+
+  const services = data?.service_cards?.map((service: any, index: any) => ({
+    id: `0${index + 1}`,
+    title: service.title,
+    desc: service.description,
+  })) || [
     {
       id: "01",
       title: "Web Design & UI/UX",
@@ -528,18 +532,19 @@ const ServicesList: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-end mb-8">
           <h2 className="text-3xl font-bold text-neobyte-navy">
-            Our Core Services
+            {data?.title || "Our Core Services"}
           </h2>
           <a
             href="#"
             className="hidden md:flex items-center gap-2 text-neobyte-teal font-bold hover:underline"
           >
-            View All Services <ArrowRight className="w-4 h-4" />
+            {data?.view_all_button?.label || "View All Services"}{" "}
+            <ArrowRight className="w-4 h-4" />
           </a>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-4 gap-x-6">
-          {services.map((s, idx) => (
+          {services.map((s: any, idx: any) => (
             <div
               key={idx}
               // Added 'group', 'relative', and 'overflow-hidden'
@@ -1030,7 +1035,7 @@ const Home: React.FC = () => {
       setLoading(true);
       const response = await api.get(
         // &populate[HomeWhoWeAre][populate]=* ကို ကြားထဲမှာ ထပ်ထည့်လိုက်တာပါ
-        `/api/home-page?populate[herosection][populate]=*&populate[HomeWhoWeAre][populate]=*&locale=${locale}`,
+        `/api/home-page?populate[herosection][populate]=*&populate[HomeWhoWeAre][populate]=*&populate[HomeCoreServices][populate]=*&locale=${locale}`,
       );
 
       setData(response.data.data);
@@ -1052,7 +1057,7 @@ const Home: React.FC = () => {
       <Hero data={data?.herosection} loading={loading} />
       <TechStackTicker />
       <AboutAgency data={data?.HomeWhoWeAre} />
-      <ServicesList />
+      <ServicesList data={data?.HomeCoreServices} />
       <FeaturedCaseStudy />
       <VideoIntro />
       <DevelopmentProcess />
