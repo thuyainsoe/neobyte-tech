@@ -305,25 +305,25 @@ const CoreValues: React.FC = () => {
 const TeamSection: React.FC = () => {
   const team = [
     {
-      name: "Aung Htet Nay",
-      role: "CEO & Founder",
-      img: "/images/profile/ceo.jpg",
+      name: "Aung",
+      role: "DevOps Engineer",
+      img: "/images/profile/aung.jpeg",
     },
     {
-      name: "Nay Htet Aung",
-      role: "Head of Design",
-      img: "/images/profile/ceo1.jpg",
+      name: "Thu",
+      role: "Frontend Developer",
+      img: "/images/profile/thu.jpeg",
     },
-    {
-      name: "Aung Nay Htet",
-      role: "Lead Developer",
-      img: "/images/profile/ceo2.jpg",
-    },
-    {
-      name: "Htet Nay Aung",
-      role: "Product Manager",
-      img: "/images/profile/ceo3.png",
-    },
+    // {
+    //   name: "Aung Nay Htet",
+    //   role: "Lead Developer",
+    //   img: "/images/profile/ceo2.jpg",
+    // },
+    // {
+    //   name: "Htet Nay Aung",
+    //   role: "Product Manager",
+    //   img: "/images/profile/ceo3.png",
+    // },
   ];
 
   return (
@@ -351,7 +351,7 @@ const TeamSection: React.FC = () => {
                 <img
                   src={member.img}
                   alt={member.name}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
 
                 {/* Social Overlay */}
