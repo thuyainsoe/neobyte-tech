@@ -139,7 +139,7 @@ const FeaturedPost: React.FC = () => {
 // ============================================
 const BlogGrid: React.FC = () => {
   // Dummy Data for Blog Posts
-  const posts = [
+  const posts: any = [
     {
       id: 1,
       title: "10 CSS Tricks You Need to Know",
@@ -246,7 +246,7 @@ const BlogGrid: React.FC = () => {
 
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {posts.map((post) => (
+          {posts.map((post: any) => (
             <motion.div
               key={post.id}
               initial={{ opacity: 0, y: 20 }}
