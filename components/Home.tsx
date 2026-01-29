@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback, useMemo } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
 import {
@@ -115,11 +116,13 @@ const Hero: React.FC<HeroProps> = ({ data, loading }) => {
             <div className="lg:mt-5 pt-8 border-t border-gray-200 flex items-center gap-6">
               <div className="flex -space-x-3">
                 {[1, 2, 3, 4].map((i) => (
-                  <img
+                  <Image
                     key={i}
                     className="w-10 h-10 rounded-full border-2 border-white"
                     src={`https://i.pravatar.cc/100?img=${i + 10}`}
                     alt="User"
+                    width={40}
+                    height={40}
                   />
                 ))}
                 <div className="w-10 h-10 rounded-full border-2 border-white bg-gray-100 flex items-center justify-center text-xs font-bold text-slate-600">
@@ -150,14 +153,17 @@ const Hero: React.FC<HeroProps> = ({ data, loading }) => {
 
               {/* Main Visual Image */}
               <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
-                <img
+                <Image
                   src={
                     data?.hero_image?.url
                       ? data.hero_image.url
                       : "/images/hero.png"
                   }
                   alt={data?.hero_image?.alternativeText || "Hero Image"}
+                  width={600}
+                  height={400}
                   className="w-full h-auto object-cover opacity-90"
+                  priority
                 />
                 <div className="absolute inset-0 bg-neobyte-navy/20 mix-blend-multiply"></div>
               </div>
@@ -462,11 +468,13 @@ const AboutAgency = ({ data }: any) => {
           <div className="relative">
             <div className="absolute top-0 right-0 w-2/3 h-full bg-gray-100 rounded-3xl -z-10 transform translate-x-10 -translate-y-10"></div>
 
-            <img
+            <Image
               src={
                 data?.image?.url ? data.image.url : "/images/about-agency.png"
               }
               alt="Office Team"
+              width={600}
+              height={500}
               className="rounded-2xl shadow-xl w-full object-cover h-[500px]"
             />
 
@@ -717,9 +725,11 @@ const FeaturedCaseStudy = ({ data }: any) => {
             <div className="relative mt-10 lg:mt-0">
               <div className="relative z-10 transform lg:rotate-[-5deg] hover:rotate-0 transition-transform duration-700 ease-out">
                 {currentProject?.image && (
-                  <img
-                    src={`${currentProject.image}`} // လိုအပ်ရင် Strapi URL prefix ထည့်ပါ
+                  <Image
+                    src={currentProject.image}
                     alt={currentProject.title}
+                    width={600}
+                    height={400}
                     className="rounded-xl shadow-2xl border-4 border-white/10 w-full h-auto object-cover max-h-[400px]"
                   />
                 )}
@@ -758,7 +768,8 @@ const FeaturedCaseStudy = ({ data }: any) => {
 // 6. VIDEO / EXPLANATION (2-Column Layout)
 // ============================================
 
-const VideoIntro: React.FC = () => {
+const VideoIntro: React.FC<{ data: any }> = ({ data }) => {
+  console.log("VideoIntro data:", data);
   return (
     <section className="relative py-12 md:py-18 lg:py-24 overflow-hidden min-h-[600px] flex items-center">
       {/* --- BACKGROUND VIDEO SECTION START --- */}
@@ -791,18 +802,22 @@ const VideoIntro: React.FC = () => {
           {/* ======================= LEFT COLUMN ======================= */}
           <div className="text-left">
             <span className="text-neobyte-teal font-bold tracking-wider uppercase text-sm mb-2 block [text-shadow:_0_2px_8px_rgb(0_0_0_/_60%)]">
-              Behind the Scenes
+              {/* Behind the Scenes */}
+              {data?.sub_title || "Behind the Scenes"}
             </span>
 
             {/* Drop Shadow ထည့်ထားပါတယ် */}
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight [text-shadow:_0_4px_12px_rgb(0_0_0_/_60%)]">
-              How do we build <br /> your digital product?
+              {/* How do we build <br /> your digital product? */}
+              {data?.title || "How do we build your digital product?"}
             </h2>
 
             <p className="text-white/90 text-lg mb-8 leading-relaxed [text-shadow:_0_2px_8px_rgb(0_0_0_/_50%)]">
-              It's not just about writing code; it's about understanding your
+              {/* It's not just about writing code; it's about understanding your
               vision. See our transparent process of transforming rough concepts
-              into functioning, scalable digital products.
+              into functioning, scalable digital products. */}
+              {data?.description ||
+                "It's not just about writing code; it's about understanding your vision. See our transparent process of transforming rough concepts into functioning, scalable digital products."}
             </p>
 
             {/* Bullet points */}
@@ -812,7 +827,8 @@ const VideoIntro: React.FC = () => {
                   <span className="font-bold text-white text-sm">01</span>
                 </div>
                 <p className="font-medium text-white [text-shadow:_0_2px_8px_rgb(0_0_0_/_50%)]">
-                  Strategic Planning
+                  {/* Strategic Planning */}
+                  {data?.lists[0]?.label || "Strategic Planning"}
                 </p>
               </div>
               <div className="flex items-center gap-3">
@@ -820,7 +836,8 @@ const VideoIntro: React.FC = () => {
                   <span className="font-bold text-white text-sm">02</span>
                 </div>
                 <p className="font-medium text-white [text-shadow:_0_2px_8px_rgb(0_0_0_/_50%)]">
-                  Agile Development
+                  {/* Agile Development */}
+                  {data?.lists[1]?.label || "Agile Development"}
                 </p>
               </div>
             </div>
@@ -889,39 +906,73 @@ const VideoIntro: React.FC = () => {
 // ============================================
 // 7. DEVELOPMENT PROCESS (Timeline)
 // ============================================
-const DevelopmentProcess: React.FC = () => {
-  const steps = [
-    {
-      num: "01",
-      title: "Discovery",
-      text: "We analyze requirements and market gaps.",
-    },
-    {
-      num: "02",
-      title: "Design",
-      text: "Wireframing and high-fidelity prototyping.",
-    },
-    {
-      num: "03",
-      title: "Development",
-      text: "Coding with clean, scalable architecture.",
-    },
-    {
-      num: "04",
-      title: "Launch",
-      text: "Testing, deployment and post-launch support.",
-    },
-  ];
+const DevelopmentProcess = ({ data }: { data: any }) => {
+  const steps = useMemo(() => {
+    return (
+      data?.cards?.map((el: any, index: any) => ({
+        num: `0${index + 1}`,
+        title: el.label,
+        text: el.value,
+      })) ||
+      ([
+        {
+          num: "01",
+          title: "Discovery",
+          text: "We analyze requirements and market gaps.",
+        },
+        {
+          num: "02",
+          title: "Design",
+          text: "Wireframing and high-fidelity prototyping.",
+        },
+        {
+          num: "03",
+          title: "Development",
+          text: "Coding with clean, scalable architecture.",
+        },
+        {
+          num: "04",
+          title: "Launch",
+          text: "Testing, deployment and post-launch support.",
+        },
+      ] as any)
+    );
+  }, [data]);
+
+  // const steps = [
+  //   {
+  //     num: "01",
+  //     title: "Discovery",
+  //     text: "We analyze requirements and market gaps.",
+  //   },
+  //   {
+  //     num: "02",
+  //     title: "Design",
+  //     text: "Wireframing and high-fidelity prototyping.",
+  //   },
+  //   {
+  //     num: "03",
+  //     title: "Development",
+  //     text: "Coding with clean, scalable architecture.",
+  //   },
+  //   {
+  //     num: "04",
+  //     title: "Launch",
+  //     text: "Testing, deployment and post-launch support.",
+  //   },
+  // ];
 
   return (
     <section id="process" className="py-12 md:py-18 lg:py-24 bg-slate-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-12 md:mb-14 lg:mb-16 text-center">
           <span className="text-neobyte-teal font-bold tracking-wider uppercase">
-            Workflow
+            {/* Workflow */}
+            {data?.sub_title || "Workflow"}
           </span>
           <h2 className="text-3xl font-bold text-neobyte-navy mt-2">
-            Simple 4-Step Process
+            {/* Simple 4-Step Process */}
+            {data?.title || "Simple 4-Step Process"}
           </h2>
         </div>
 
@@ -930,7 +981,7 @@ const DevelopmentProcess: React.FC = () => {
           <div className="hidden lg:block absolute top-12 left-0 w-full h-0.5 bg-gray-200 -z-0"></div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 lg:gap-10 relative z-10">
-            {steps.map((step, i) => (
+            {steps.map((step: any, i: any) => (
               <div
                 key={i}
                 // 'group' class added here for hover effects
@@ -1052,11 +1103,12 @@ const Blog: React.FC = () => {
               key={i}
               className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow group"
             >
-              <div className="overflow-hidden h-48">
-                <img
+              <div className="overflow-hidden h-48 relative">
+                <Image
                   src={post.img}
                   alt={post.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-500"
                 />
               </div>
               <div className="p-6">
@@ -1094,7 +1146,8 @@ const Home: React.FC = () => {
       setLoading(true);
       const response = await api.get(
         // ...HomeProjectsSection][populate]=* ပြီးရင် & ခံဖို့လိုပါတယ်
-        `/api/home-page?populate[herosection][populate]=*&populate[HomeWhoWeAre][populate]=*&populate[HomeCoreServices][populate]=*&populate[HomeProjectsSection][populate][projects][populate]=*&locale=${locale}`,
+        // & .... =*
+        `/api/home-page?populate[herosection][populate]=*&populate[HomeWhoWeAre][populate]=*&populate[HomeCoreServices][populate]=*&populate[HomeProjectsSection][populate][projects][populate]=*&populate[HomeWorkFlow][populate]=*&populate[HomeBehindTheScene][populate]=*&locale=${locale}`,
       );
 
       setData(response.data.data);
@@ -1119,8 +1172,8 @@ const Home: React.FC = () => {
       <ServicesList data={data?.HomeCoreServices} />
       <FeaturedCaseStudy data={data?.HomeProjectsSection} />
 
-      <DevelopmentProcess />
-      <VideoIntro />
+      <DevelopmentProcess data={data?.HomeWorkFlow} />
+      <VideoIntro data={data?.HomeBehindTheScene} />
       <TechStack />
       <Blog />
     </main>
