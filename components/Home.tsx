@@ -1060,7 +1060,7 @@ interface BlogProps {
   posts?: any[];
 }
 
-const Blog: React.FC<BlogProps> = ({ posts = [] }) => {
+const Blog = ({ posts = [], button, title }: any) => {
   const displayPosts = posts.length > 0 ? posts : [];
 
   return (
@@ -1071,18 +1071,19 @@ const Blog: React.FC<BlogProps> = ({ posts = [] }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center mb-12">
           <h2 className="text-3xl font-bold text-neobyte-navy">
-            Latest Insights
+            {/* Latest Insights */}
+            {title || "Latest Insights"}
           </h2>
           <a
             href="#"
             className="hidden md:block text-neobyte-navy font-semibold hover:text-neobyte-teal transition-colors"
           >
-            View Blog
+            {button?.label}
           </a>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-          {displayPosts.map((post, i) => (
+          {displayPosts.map((post: any, i: any) => (
             <div
               key={i}
               className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow group"
@@ -1142,7 +1143,7 @@ const Home: React.FC = () => {
       const response = await api.get(
         // ...HomeProjectsSection][populate]=* ပြီးရင် & ခံဖို့လိုပါတယ်
         // & .... =*
-        `/api/home-page?populate[herosection][populate]=*&populate[HomeWhoWeAre][populate]=*&populate[HomeCoreServices][populate]=*&populate[HomeProjectsSection][populate][projects][populate]=*&populate[HomeWorkFlow][populate]=*&populate[HomeBehindTheScene][populate]=*&locale=${locale}`,
+        `/api/home-page?populate[herosection][populate]=*&populate[HomeWhoWeAre][populate]=*&populate[HomeCoreServices][populate]=*&populate[HomeProjectsSection][populate][projects][populate]=*&populate[HomeWorkFlow][populate]=*&populate[HomeBehindTheScene][populate]=*&populate[view_all_blog_button][populate]=*&locale=${locale}`,
       );
 
       setData(response.data.data);
@@ -1183,7 +1184,11 @@ const Home: React.FC = () => {
       <DevelopmentProcess data={data?.HomeWorkFlow} />
       <VideoIntro data={data?.HomeBehindTheScene} />
       {/* <TechStack /> */}
-      <Blog posts={blogPosts} />
+      <Blog
+        posts={blogPosts}
+        button={data?.view_all_blog_button}
+        title={data?.blog_section_title}
+      />
     </main>
   );
 };

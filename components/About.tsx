@@ -1,7 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { motion } from "framer-motion";
+import api from "@/lib/axios";
+import { useLanguage } from "@/context/LanguageContext";
 import {
   ArrowRight,
   Users,
@@ -15,6 +17,8 @@ import {
   Twitter,
   Github,
 } from "lucide-react";
+import Image from "next/image";
+import { desc } from "framer-motion/client";
 
 // ============================================
 // 1. ABOUT HERO SECTION
@@ -22,7 +26,12 @@ import {
 // ============================================
 // REVISED ABOUT HERO (Matches Home Style)
 // ============================================
-const AboutHero: React.FC = () => {
+interface AboutHeroProps {
+  data?: any;
+  loading?: boolean;
+}
+
+const AboutHero: React.FC<AboutHeroProps> = ({ data, loading }) => {
   return (
     <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden bg-slate-50">
       {/* 1. Dynamic Background Layer (Consistent with Home) */}
@@ -46,13 +55,14 @@ const AboutHero: React.FC = () => {
           >
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-gray-200 shadow-sm text-xs font-bold text-neobyte-navy mb-6">
               <span className="flex h-2 w-2 rounded-full bg-blue-500 animate-pulse"></span>
-              EST. 2010
+              {/* EST. 2010 */}
+              {data?.badge || "EST. 2010"}
             </div>
 
             <h1 className="text-4xl lg:text-6xl font-black text-neobyte-navy leading-[1.1] mb-6">
-              Architects of <br />
+              {data?.title1 || "Architects of"} <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-neobyte-teal relative">
-                Digital Innovation.
+                {data?.title2 || "Digital Innovation."}
                 {/* Decorative Underline */}
                 <svg
                   className="absolute w-full h-3 -bottom-2 left-0 text-neobyte-teal opacity-40"
@@ -70,30 +80,37 @@ const AboutHero: React.FC = () => {
             </h1>
 
             <p className="text-lg text-slate-600 mb-8 leading-relaxed">
-              Founded on the belief that technology should be human-centric,
+              {data?.description ||
+                `Founded on the belief that technology should be human-centric,
               Neobyte has grown from a small garage team to a global digital
               consultancy. We don't just write code; we write success stories
-              for ambitious brands.
+              for ambitious brands.`}
             </p>
 
             {/* Key Stats Row */}
             <div className="grid grid-cols-3 gap-6 border-t border-gray-200 pt-8">
               <div>
-                <h3 className="text-3xl font-bold text-neobyte-navy">15+</h3>
+                <h3 className="text-3xl font-bold text-neobyte-navy">
+                  {data?.stats[0]?.label || "15+"}
+                </h3>
                 <p className="text-xs text-slate-500 font-bold uppercase mt-1">
-                  Years Exp.
+                  {data?.stats[0]?.value || "Years Exp."}
                 </p>
               </div>
               <div>
-                <h3 className="text-3xl font-bold text-neobyte-navy">300+</h3>
+                <h3 className="text-3xl font-bold text-neobyte-navy">
+                  {data?.stats[0]?.label || "10+"}
+                </h3>
                 <p className="text-xs text-slate-500 font-bold uppercase mt-1">
-                  Clients
+                  {data?.stats[0]?.value || "Clients"}
                 </p>
               </div>
               <div>
-                <h3 className="text-3xl font-bold text-neobyte-navy">50+</h3>
+                <h3 className="text-3xl font-bold text-neobyte-navy">
+                  {data?.stats[0]?.label || "20+"}
+                </h3>
                 <p className="text-xs text-slate-500 font-bold uppercase mt-1">
-                  Experts
+                  {data?.stats[0]?.value || "Experts"}
                 </p>
               </div>
             </div>
@@ -113,10 +130,14 @@ const AboutHero: React.FC = () => {
 
               {/* Main Image */}
               <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
-                <img
-                  src="/images/about-meeting.png"
-                  alt="Neobyte Team Meeting"
+                {/* images/about-meeting.png */}
+                <Image
+                  src={data?.image?.url ? data.image.url : "/images/hero.png"}
+                  alt={data?.image?.alternativeText || "Neobyte Team Meeting"}
+                  width={600}
+                  height={400}
                   className="w-full h-auto object-cover"
+                  priority
                 />
                 <div className="absolute inset-0 bg-neobyte-navy/10"></div>
               </div>
@@ -138,10 +159,10 @@ const AboutHero: React.FC = () => {
                 </div>
                 <div>
                   <p className="text-[10px] lg:text-xs text-slate-400 font-bold">
-                    Award Winner
+                    {data?.stats[3]?.label || "Award Winner"}
                   </p>
                   <p className="text-xs lg:text-sm font-bold text-neobyte-navy">
-                    Best Tech Agency
+                    {data?.stats[3]?.value || "Best Tech Agency"}
                   </p>
                 </div>
               </div>
@@ -178,10 +199,10 @@ const AboutHero: React.FC = () => {
                 </div>
                 <div>
                   <p className="text-[10px] lg:text-xs text-neobyte-teal font-bold">
-                    Global Team
+                    {data?.stats[4]?.label || "Global Team"}
                   </p>
                   <p className="text-[10px] lg:text-xs text-gray-300">
-                    Working Remotely
+                    {data?.stats[4]?.value || "Working Remotely"}
                   </p>
                 </div>
               </div>
@@ -196,7 +217,7 @@ const AboutHero: React.FC = () => {
 // ============================================
 // 2. MISSION & VISION
 // ============================================
-const MissionVision: React.FC = () => {
+const MissionVision: React.FC<{ data: any }> = ({ data }) => {
   return (
     <section className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -206,13 +227,14 @@ const MissionVision: React.FC = () => {
             <div className="absolute top-0 left-0 w-12 h-12 bg-neobyte-teal/10 rounded-full -z-10 group-hover:scale-150 transition-transform duration-500"></div>
             <Target className="w-10 h-10 text-neobyte-teal mb-6" />
             <h3 className="text-2xl font-bold text-neobyte-navy mb-4">
-              Our Mission
+              {data?.card[0]?.label || "Our Mission"}
             </h3>
             <p className="text-slate-600 leading-relaxed">
-              To empower businesses by bridging the gap between complex
+              {data?.card[0]?.value ||
+                ` To empower businesses by bridging the gap between complex
               technology and human experience. We strive to deliver digital
               solutions that are not only functional but also intuitive and
-              impactful.
+              impactful.`}
             </p>
           </div>
 
@@ -221,12 +243,13 @@ const MissionVision: React.FC = () => {
             <div className="absolute top-0 left-0 w-12 h-12 bg-blue-100 rounded-full -z-10 group-hover:scale-150 transition-transform duration-500"></div>
             <Globe className="w-10 h-10 text-blue-600 mb-6" />
             <h3 className="text-2xl font-bold text-neobyte-navy mb-4">
-              Our Vision
+              {data?.card[1]?.label || "Our Vision"}
             </h3>
             <p className="text-slate-600 leading-relaxed">
-              To be the global standard for digital innovation, creating a world
+              {data?.card[1]?.value ||
+                `To be the global standard for digital innovation, creating a world
               where every idea has the potential to become a visible, scalable,
-              and successful digital reality.
+              and successful digital reality.`}
             </p>
           </div>
         </div>
@@ -238,29 +261,39 @@ const MissionVision: React.FC = () => {
 // ============================================
 // 3. CORE VALUES
 // ============================================
-const CoreValues: React.FC = () => {
-  const values = [
-    {
-      icon: Heart,
-      title: "Client First",
-      desc: "We don't just work for you; we work with you. Your success is our success.",
-    },
-    {
-      icon: Zap,
-      title: "Innovation",
-      desc: "We constantly push boundaries to find new, better ways to solve problems.",
-    },
-    {
-      icon: Award,
-      title: "Excellence",
-      desc: "Good isn't enough. We aim for pixel-perfect quality in every delivery.",
-    },
-    {
-      icon: Users,
-      title: "Collaboration",
-      desc: "Great things are never done by one person. They're done by a team of people.",
-    },
-  ];
+const CoreValues: React.FC<{ data: any }> = ({ data }) => {
+  const values = useMemo(() => {
+    return (
+      data?.cards?.map((card: any, index: any) => ({
+        icon:
+          index === 0 ? Heart : index === 1 ? Zap : index === 2 ? Award : Users,
+        title: card.label,
+        desc: card.value,
+      })) || []
+    );
+  }, [data]);
+  // const values = [
+  //   {
+  //     icon: Heart,
+  //     title: "Client First",
+  //     desc: "We don't just work for you; we work with you. Your success is our success.",
+  //   },
+  //   {
+  //     icon: Zap,
+  //     title: "Innovation",
+  //     desc: "We constantly push boundaries to find new, better ways to solve problems.",
+  //   },
+  //   {
+  //     icon: Award,
+  //     title: "Excellence",
+  //     desc: "Good isn't enough. We aim for pixel-perfect quality in every delivery.",
+  //   },
+  //   {
+  //     icon: Users,
+  //     title: "Collaboration",
+  //     desc: "Great things are never done by one person. They're done by a team of people.",
+  //   },
+  // ];
 
   return (
     <section className="py-24 bg-neobyte-navy text-white relative overflow-hidden">
@@ -270,15 +303,15 @@ const CoreValues: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16">
           <span className="text-neobyte-teal font-bold tracking-wider uppercase text-sm">
-            Our DNA
+            {data?.badge || "Our DNA"}
           </span>
           <h2 className="text-3xl md:text-4xl font-bold mt-2">
-            The Values That Drive Us
+            {data?.title || "The Values That Drive Us"}
           </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {values.map((val, idx) => (
+          {values?.map((val: any, idx: any) => (
             <motion.div
               key={idx}
               whileHover={{ y: -10 }}
@@ -302,7 +335,7 @@ const CoreValues: React.FC = () => {
 // ============================================
 // 4. TEAM SECTION
 // ============================================
-const TeamSection: React.FC = () => {
+const TeamSection: React.FC<{ data: any }> = ({ data }) => {
   const team = [
     {
       name: "Aung",
@@ -332,15 +365,17 @@ const TeamSection: React.FC = () => {
         <div className="flex flex-col md:flex-row justify-between items-end mb-16">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold text-neobyte-navy">
-              Meet the Minds
+              {data?.title || "Meet Our Team"}
             </h2>
             <p className="text-slate-500 mt-2 max-w-xl">
-              The talented individuals working tirelessly behind the scenes to
-              bring your ideas to life.
+              {data?.description ||
+                `The talented individuals working tirelessly behind the scenes to
+              bring your ideas to life.`}
             </p>
           </div>
           <button className="hidden md:flex items-center gap-2 text-neobyte-teal font-bold hover:underline mt-4 md:mt-0">
-            Join our team <ArrowRight className="w-4 h-4" />
+            {data?.join_team_button || "Join our team"}{" "}
+            <ArrowRight className="w-4 h-4" />
           </button>
         </div>
 
@@ -390,22 +425,22 @@ const TeamSection: React.FC = () => {
 // ============================================
 // 5. CTA SECTION
 // ============================================
-const SimpleCTA: React.FC = () => {
+const SimpleCTA = ({ data }: any) => {
   return (
     <section className="py-20 bg-white border-t border-gray-100">
       <div className="max-w-4xl mx-auto px-4 text-center">
         <h2 className="text-3xl font-bold text-neobyte-navy mb-6">
-          Ready to work with a team that cares?
+          {data?.title || "Ready to work with a team that cares?"}
         </h2>
         <p className="text-slate-600 mb-8">
-          Whether you have a fully fleshed-out idea or just a spark of
-          inspiration, we are here to help you navigate the digital landscape.
+          {data?.description || `Let's turn your vision into reality together.`}
         </p>
         <a
           href="#contact"
           className="inline-flex px-8 py-4 bg-neobyte-navy text-white font-bold rounded-lg hover:bg-neobyte-teal hover:text-neobyte-navy transition-all shadow-lg items-center gap-2"
         >
-          Let's Start a Conversation <Smile className="w-5 h-5" />
+          {data?.button || "Let's Start a Conversation"}{" "}
+          <Smile className="w-5 h-5" />
         </a>
       </div>
     </section>
@@ -416,13 +451,52 @@ const SimpleCTA: React.FC = () => {
 // MAIN ABOUT PAGE COMPONENT
 // ============================================
 const About: React.FC = () => {
+  const [data, setData] = useState<any>(undefined);
+  const [loading, setLoading] = useState(true);
+  const { locale } = useLanguage();
+
+  const fetchAboutPageData = useCallback(async () => {
+    try {
+      setLoading(true);
+      // AboutDNA
+      const response = await api.get(
+        `/api/about-page?populate[AboutHeroSection][populate]=*&populate[AboutMissionVision][populate]=*&populate[AboutDNA][populate]=*&populate[ready_to_work_button][populate]=*&populate[our_team_button][populate]=*&locale=${locale}`,
+      );
+
+      console.log(response.data.data, "about page data");
+
+      setData(response.data.data);
+    } catch (error) {
+      console.error("Error fetching about page data:", error);
+      setData(undefined);
+    } finally {
+      setLoading(false);
+    }
+  }, [locale]);
+
+  useEffect(() => {
+    fetchAboutPageData();
+  }, [fetchAboutPageData]);
+
   return (
     <main>
-      <AboutHero />
-      <MissionVision />
-      <CoreValues />
-      <TeamSection />
-      <SimpleCTA />
+      <AboutHero data={data?.AboutHeroSection} loading={loading} />
+      <MissionVision data={data?.AboutMissionVision} />
+      <CoreValues data={data?.AboutDNA} />
+      <TeamSection
+        data={{
+          title: data?.our_team_title,
+          description: data?.our_team_description,
+          join_team_button: data?.our_team_button?.[0]?.label,
+        }}
+      />
+      <SimpleCTA
+        data={{
+          title: data?.ready_to_work_title,
+          description: data?.ready_to_work_description,
+          button: data?.ready_to_work_button?.label,
+        }}
+      />
     </main>
   );
 };
