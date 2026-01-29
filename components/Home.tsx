@@ -634,56 +634,53 @@ const ServicesList = ({ data }: any) => {
 // ];
 
 const FeaturedCaseStudy = ({ data }: any) => {
-  // 1. Data Transformation (အပေါ်ဆုံးမှာ ထားပါ)
+  // 1. Data Transformation
   const projects = useMemo(() => {
-    // Data မရှိသေးရင် Empty Array ပြန်မယ်
     if (!data?.projects || !Array.isArray(data.projects)) return [];
 
     return data.projects.map((project: any) => ({
       id: project.id,
       title: project.title,
       description: project.description,
-      // API ကလာတဲ့ features က object array ဖြစ်နေရင် string ပြန်ယူဖို့လိုပါတယ်
-      // ဥပမာ - [{ item: "text" }] ဆိုရင် stat.item လို့ယူရပါမယ်။
-      // လောလောဆယ် string array လို့ယူဆထားပါတယ်
       stats: project.stats?.map((el: any) => el?.label) || [],
       color: project.color || "bg-slate-900",
-      accent: project.accent || "bg-emerald-500", // Default accent added
-      // Strapi image url handling (check formats if needed)
+      accent: project.accent || "bg-emerald-500",
       image: project.image?.url || "",
     }));
-  }, [data]); // data ပြောင်းတိုင်း projects ကို update လုပ်မယ်
+  }, [data]);
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false); // UX Improvement: Pause state
 
-  // 2. Auto Loop Logic
+  // 2. Auto Loop Logic with Pause Feature
   useEffect(() => {
-    // Projects မရှိသေးရင် timer မစဘူး
-    if (projects.length === 0) return;
+    // Projects မရှိရင် သို့မဟုတ် Mouse တင်ထားရင် (isPaused) timer အလုပ်မလုပ်ပါ
+    if (projects.length === 0 || isPaused) return;
 
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % projects.length);
-    }, 4000);
+    }, 5000); // 4000 အစား 5000 (၅ စက္ကန့်) သို့ ပြောင်းထားပါတယ်
 
     return () => clearInterval(timer);
-  }, [projects.length]); // projects.length ပြောင်းလဲမှ effect ကို reset လုပ်မယ်
+  }, [projects.length, isPaused]); // isPaused ပြောင်းလဲမှုကိုပါ နားထောင်ပါမယ်
 
   // Manual Click on Dot
   const handleDotClick = (index: number) => {
     setCurrentIndex(index);
   };
 
-  // 3. Loading State / Guard Clause
-  // Data မရောက်သေးရင် ဘာမှမပြဘဲ နေမယ် (သို့မဟုတ် Loading Spinner ထည့်လို့ရပါတယ်)
+  // 3. Guard Clause
   if (projects.length === 0) {
     return null;
   }
 
-  // Current Project Data
   const currentProject = projects[currentIndex];
 
   return (
     <section
+      // UX Improvement: Mouse တင်ရင် ရပ်မယ်၊ ဖယ်ရင် ပြန်သွားမယ်
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
       className={`py-12 md:py-18 lg:py-24 relative overflow-hidden text-white transition-colors duration-700 ease-in-out ${currentProject?.color}`}
     >
       <div className="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-white to-transparent pointer-events-none"></div>
@@ -714,7 +711,6 @@ const FeaturedCaseStudy = ({ data }: any) => {
                 {currentProject?.stats.map((stat: any, idx: number) => (
                   <li key={idx} className="flex items-center gap-3">
                     <CheckCircle2 className="w-5 h-5 text-white" />
-                    {/* Strapi က features ကို Component အနေနဲ့လာရင် string မဟုတ်တာဖြစ်နိုင်လို့ check ထားတာပါ */}
                     {typeof stat === "string" ? stat : stat?.name || "Feature"}
                   </li>
                 ))}
@@ -769,7 +765,6 @@ const FeaturedCaseStudy = ({ data }: any) => {
 // ============================================
 
 const VideoIntro: React.FC<{ data: any }> = ({ data }) => {
-  console.log("VideoIntro data:", data);
   return (
     <section className="relative py-12 md:py-18 lg:py-24 overflow-hidden min-h-[600px] flex items-center">
       {/* --- BACKGROUND VIDEO SECTION START --- */}
@@ -1171,10 +1166,9 @@ const Home: React.FC = () => {
       <AboutAgency data={data?.HomeWhoWeAre} />
       <ServicesList data={data?.HomeCoreServices} />
       <FeaturedCaseStudy data={data?.HomeProjectsSection} />
-
       <DevelopmentProcess data={data?.HomeWorkFlow} />
       <VideoIntro data={data?.HomeBehindTheScene} />
-      <TechStack />
+      {/* <TechStack /> */}
       <Blog />
     </main>
   );
