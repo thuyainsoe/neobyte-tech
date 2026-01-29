@@ -254,7 +254,7 @@ const BlogGrid: React.FC = () => {
               viewport={{ once: true }}
               className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 border border-gray-100 group flex flex-col h-full"
             >
-              <Link href={`/blogs/${post.id}`}>
+              <Link href={`/blogs/${post.slug}`}>
                 <div className="relative h-56 overflow-hidden">
                   <img
                     src={post.image}
@@ -278,7 +278,7 @@ const BlogGrid: React.FC = () => {
                   </span>
                 </div>
 
-                <Link href={`/blogs/${post.id}`}>
+                <Link href={`/blogs/${post.slug}`}>
                   <h3 className="text-xl font-bold text-neobyte-navy mb-3 group-hover:text-neobyte-teal transition-colors line-clamp-2 cursor-pointer">
                     {post.title}
                   </h3>
@@ -299,7 +299,7 @@ const BlogGrid: React.FC = () => {
                     </span>
                   </div>
                   <Link
-                    href={`/blogs/${post.id}`}
+                    href={`/blogs/${post.slug}`}
                     className="text-neobyte-navy font-bold text-sm hover:text-neobyte-teal transition-colors flex items-center gap-1 group/btn"
                   >
                     Read{" "}

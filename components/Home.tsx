@@ -32,6 +32,7 @@ import {
 } from "lucide-react";
 import api from "@/lib/axios";
 import { useLanguage } from "@/context/LanguageContext";
+import Link from "next/link";
 
 // ============================================
 // 1. HERO SECTION (City Theme)
@@ -1055,24 +1056,12 @@ const TechStack: React.FC = () => {
 // ============================================
 // 9. BLOG / INSIGHTS
 // ============================================
-const Blog: React.FC = () => {
-  const posts = [
-    {
-      title: "The Future of Web 3.0",
-      date: "Jan 20, 2024",
-      img: "https://picsum.photos/400/250?random=1",
-    },
-    {
-      title: "Optimizing UX for Mobile",
-      date: "Jan 15, 2024",
-      img: "https://picsum.photos/400/250?random=2",
-    },
-    {
-      title: "Why SEO matters in 2024",
-      date: "Jan 10, 2024",
-      img: "https://picsum.photos/400/250?random=3",
-    },
-  ];
+interface BlogProps {
+  posts?: any[];
+}
+
+const Blog: React.FC<BlogProps> = ({ posts = [] }) => {
+  const displayPosts = posts.length > 0 ? posts : [];
 
   return (
     <section
@@ -1093,32 +1082,42 @@ const Blog: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-          {posts.map((post, i) => (
+          {displayPosts.map((post, i) => (
             <div
               key={i}
               className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow group"
             >
               <div className="overflow-hidden h-48 relative">
                 <Image
-                  src={post.img}
-                  alt={post.title}
+                  src={
+                    post.image?.url ||
+                    post.img ||
+                    "https://picsum.photos/400/250"
+                  }
+                  alt={post.cover?.alternativeText || post.title}
                   fill
                   className="object-cover group-hover:scale-110 transition-transform duration-500"
                 />
               </div>
               <div className="p-6">
                 <span className="text-xs font-bold text-neobyte-teal uppercase">
-                  {post.date}
+                  {post.publishedAt
+                    ? new Date(post.publishedAt).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      })
+                    : post.date}
                 </span>
                 <h3 className="text-lg font-bold text-neobyte-navy mt-2 mb-4 group-hover:text-neobyte-teal transition-colors">
                   {post.title}
                 </h3>
-                <a
-                  href="#"
+                <Link
+                  href={`/blogs/${post.slug}`} // (2) href မှာ Dynamic link ထည့်ပါ
                   className="text-sm font-semibold text-slate-500 flex items-center gap-1 group-hover:gap-2 transition-all"
                 >
                   Read More <ArrowRight className="w-3 h-3" />
-                </a>
+                </Link>
               </div>
             </div>
           ))}
@@ -1134,6 +1133,7 @@ const Blog: React.FC = () => {
 const Home: React.FC = () => {
   const [data, setData] = useState<any>(undefined);
   const [loading, setLoading] = useState(true);
+  const [blogPosts, setBlogPosts] = useState<any[]>([]);
   const { locale } = useLanguage();
 
   const fetchHomePageData = useCallback(async () => {
@@ -1155,9 +1155,23 @@ const Home: React.FC = () => {
     }
   }, [locale]);
 
+  const fetchBlogPosts = useCallback(async () => {
+    try {
+      const response = await api.get(
+        `/api/blogs?populate=*&pagination[limit]=3&locale=${locale}`,
+      );
+
+      setBlogPosts(response.data.data);
+    } catch (error) {
+      console.error("Error fetching blog posts:", error);
+      setBlogPosts([]);
+    }
+  }, [locale]);
+
   useEffect(() => {
     fetchHomePageData();
-  }, [fetchHomePageData]);
+    fetchBlogPosts();
+  }, [fetchHomePageData, fetchBlogPosts]);
 
   return (
     <main>
@@ -1169,7 +1183,7 @@ const Home: React.FC = () => {
       <DevelopmentProcess data={data?.HomeWorkFlow} />
       <VideoIntro data={data?.HomeBehindTheScene} />
       {/* <TechStack /> */}
-      <Blog />
+      <Blog posts={blogPosts} />
     </main>
   );
 };
