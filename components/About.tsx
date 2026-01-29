@@ -99,18 +99,18 @@ const AboutHero: React.FC<AboutHeroProps> = ({ data, loading }) => {
               </div>
               <div>
                 <h3 className="text-3xl font-bold text-neobyte-navy">
-                  {data?.stats[0]?.label || "10+"}
+                  {data?.stats[1]?.label || "10+"}
                 </h3>
                 <p className="text-xs text-slate-500 font-bold uppercase mt-1">
-                  {data?.stats[0]?.value || "Clients"}
+                  {data?.stats[2]?.value || "Clients"}
                 </p>
               </div>
               <div>
                 <h3 className="text-3xl font-bold text-neobyte-navy">
-                  {data?.stats[0]?.label || "20+"}
+                  {data?.stats[2]?.label || "20+"}
                 </h3>
                 <p className="text-xs text-slate-500 font-bold uppercase mt-1">
-                  {data?.stats[0]?.value || "Experts"}
+                  {data?.stats[2]?.value || "Experts"}
                 </p>
               </div>
             </div>
