@@ -1,10 +1,9 @@
 "use client";
 
-import { ArrowRight, Menu, X, ChevronDown, ShoppingCart } from "lucide-react";
-import { useEffect, useState, useRef } from "react";
+import { ArrowRight, Menu, X, ShoppingCart } from "lucide-react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation"; // Active Link စစ်ဖို့အတွက်
-import { useLanguage, languages } from "@/context/LanguageContext";
 
 export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,27 +12,8 @@ export const Navbar: React.FC = () => {
   // Active Path Detection
   const pathname = usePathname();
 
-  // Language State (from global context)
-  const { currentLang, setCurrentLang, t } = useLanguage();
-  const [isLangOpen, setIsLangOpen] = useState(false);
-  const langDropdownRef = useRef<HTMLDivElement>(null);
-
   // Mock Cart Count (နောက်ပိုင်း Context/Redux နဲ့ ချိတ်ပါ)
   const cartCount = 3;
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        langDropdownRef.current &&
-        !langDropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsLangOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
 
   // Body Scroll Lock
   useEffect(() => {
@@ -52,11 +32,11 @@ export const Navbar: React.FC = () => {
   }, []);
 
   const navLinks = [
-    { name: t.nav.about, href: "/about" },
-    { name: t.nav.services, href: "/services" },
-    { name: t.nav.ourWork, href: "/our-work" },
-    { name: t.nav.blogs, href: "/blogs" },
-    { name: t.nav.store, href: "/store" },
+    { name: "About", href: "/about" },
+    { name: "Services", href: "/services" },
+    { name: "Our Work", href: "/our-work" },
+    { name: "Blogs", href: "/blogs" },
+    { name: "Store", href: "/store" },
   ];
 
   return (
@@ -119,59 +99,12 @@ export const Navbar: React.FC = () => {
               )}
             </Link>
 
-            {/* --- Desktop Language Switcher --- */}
-            <div className="relative" ref={langDropdownRef}>
-              <button
-                onClick={() => setIsLangOpen(!isLangOpen)}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-gray-200 hover:border-neobyte-teal transition-colors bg-white/50 backdrop-blur-sm"
-              >
-                <img
-                  src={currentLang.flag}
-                  alt={currentLang.label}
-                  className="w-5 h-5 rounded-full object-cover"
-                />
-                <span className="text-xs font-bold text-neobyte-navy">
-                  {currentLang.label}
-                </span>
-                <ChevronDown
-                  className={`w-3 h-3 text-slate-500 transition-transform ${isLangOpen ? "rotate-180" : ""}`}
-                />
-              </button>
-
-              {/* Dropdown Menu */}
-              {isLangOpen && (
-                <div className="absolute top-full right-0 mt-2 w-32 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden py-1 animate-in fade-in slide-in-from-top-2 duration-200">
-                  {languages.map((lang) => (
-                    <button
-                      key={lang.code}
-                      onClick={() => {
-                        setCurrentLang(lang);
-                        setIsLangOpen(false);
-                      }}
-                      className={`w-full flex items-center gap-3 px-4 py-2 text-sm hover:bg-slate-50 transition-colors ${
-                        currentLang.code === lang.code
-                          ? "bg-slate-50 text-neobyte-teal font-semibold"
-                          : "text-slate-600"
-                      }`}
-                    >
-                      <img
-                        src={lang.flag}
-                        alt={lang.label}
-                        className="w-5 h-5 rounded-full object-cover"
-                      />
-                      {lang.name}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
             {/* CTA Button */}
             <Link
               href="/contact"
               className="px-5 py-2.5 bg-neobyte-navy text-white text-sm font-semibold rounded-full hover:bg-neobyte-teal hover:text-neobyte-navy transition-all duration-300 shadow-md flex items-center gap-2 group"
             >
-              {t.nav.letsTalk}{" "}
+              Let's Talk{" "}
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
@@ -235,42 +168,13 @@ export const Navbar: React.FC = () => {
               );
             })}
 
-            <hr className="w-full border-gray-100 my-2" />
-
-            {/* Mobile Language Switcher */}
-            <div className="flex flex-col gap-3">
-              <span className="text-sm font-bold text-slate-400 uppercase tracking-wider">
-                {t.nav.selectLanguage}
-              </span>
-              <div className="flex gap-4">
-                {languages.map((lang) => (
-                  <button
-                    key={lang.code}
-                    onClick={() => setCurrentLang(lang)}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all ${
-                      currentLang.code === lang.code
-                        ? "border-neobyte-teal bg-neobyte-teal/10 text-neobyte-navy font-bold shadow-sm"
-                        : "border-gray-200 text-slate-500 hover:border-gray-300"
-                    }`}
-                  >
-                    <img
-                      src={lang.flag}
-                      alt={lang.label}
-                      className="w-6 h-6 rounded-full object-cover"
-                    />
-                    <span className="text-sm">{lang.name}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-
             <div className="mt-6 w-full">
               <Link
                 href="/contact"
                 onClick={() => setIsOpen(false)}
                 className="w-full justify-center px-8 py-4 bg-neobyte-navy text-white text-base font-bold rounded-full hover:bg-neobyte-teal hover:text-neobyte-navy transition-all duration-300 shadow-xl flex items-center gap-3"
               >
-                {t.nav.letsTalk} <ArrowRight className="w-4 h-4" />
+                Let's Talk <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
