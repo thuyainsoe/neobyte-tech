@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, Menu, X, ShoppingCart } from "lucide-react";
+import { ArrowRight, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation"; // Active Link စစ်ဖို့အတွက်
@@ -12,8 +12,8 @@ export const Navbar: React.FC = () => {
   // Active Path Detection
   const pathname = usePathname();
 
-  // Mock Cart Count (နောက်ပိုင်း Context/Redux နဲ့ ချိတ်ပါ)
-  const cartCount = 3;
+  // Mock Cart Count (Temporarily Disabled)
+  // const cartCount = 3;
 
   // Body Scroll Lock
   useEffect(() => {
@@ -36,7 +36,7 @@ export const Navbar: React.FC = () => {
     { name: "Services", href: "/services" },
     { name: "Our Work", href: "/our-work" },
     { name: "Blogs", href: "/blogs" },
-    { name: "Store", href: "/store" },
+    // { name: "Store", href: "/store" }, // Temporarily disabled
   ];
 
   return (
@@ -84,10 +84,10 @@ export const Navbar: React.FC = () => {
             })}
 
             {/* Divider */}
-            <div className="h-6 w-px bg-gray-200 mx-2"></div>
+            {/* <div className="h-6 w-px bg-gray-200 mx-2"></div> */}
 
-            {/* --- Cart Icon (New Addition) --- */}
-            <Link
+            {/* --- Cart Icon (Temporarily Disabled) --- */}
+            {/* <Link
               href="/cart"
               className="relative p-2 text-slate-600 hover:text-neobyte-teal transition-colors"
             >
@@ -97,7 +97,7 @@ export const Navbar: React.FC = () => {
                   {cartCount}
                 </span>
               )}
-            </Link>
+            </Link> */}
 
             {/* CTA Button */}
             <Link
@@ -111,8 +111,8 @@ export const Navbar: React.FC = () => {
 
           {/* --- Mobile Menu Toggle & Cart --- */}
           <div className="md:hidden flex items-center gap-3">
-            {/* Mobile Cart Icon (Always visible) */}
-            <Link
+            {/* Mobile Cart Icon (Temporarily Disabled) */}
+            {/* <Link
               href="/cart"
               className="relative p-2 text-neobyte-navy hover:text-neobyte-teal transition-colors"
             >
@@ -122,7 +122,7 @@ export const Navbar: React.FC = () => {
                   {cartCount}
                 </span>
               )}
-            </Link>
+            </Link> */}
 
             <button
               onClick={() => setIsOpen(!isOpen)}

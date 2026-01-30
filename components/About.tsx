@@ -18,7 +18,7 @@ import {
   Github,
 } from "lucide-react";
 import Image from "next/image";
-import { desc } from "framer-motion/client";
+import { desc, pattern } from "framer-motion/client";
 
 // ============================================
 // 1. ABOUT HERO SECTION
@@ -219,38 +219,66 @@ const AboutHero: React.FC<AboutHeroProps> = ({ data, loading }) => {
 // ============================================
 const MissionVision: React.FC<{ data: any }> = ({ data }) => {
   return (
-    <section className="py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-          {/* Mission */}
-          <div className="relative group">
-            <div className="absolute top-0 left-0 w-12 h-12 bg-neobyte-teal/10 rounded-full -z-10 group-hover:scale-150 transition-transform duration-500"></div>
-            <Target className="w-10 h-10 text-neobyte-teal mb-6" />
-            <h3 className="text-2xl font-bold text-neobyte-navy mb-4">
-              {data?.card[0]?.label || "Our Mission"}
-            </h3>
-            <p className="text-slate-600 leading-relaxed">
-              {data?.card[0]?.value ||
-                ` To empower businesses by bridging the gap between complex
-              technology and human experience. We strive to deliver digital
-              solutions that are not only functional but also intuitive and
-              impactful.`}
-            </p>
+    <section className="relative py-12 md:py-16 bg-gray-50 overflow-hidden">
+      {/* --- BACKGROUND DECORATION START (Making it 'busy') --- */}
+      {/* 1. Dot Grid Pattern */}
+      <div
+        className="absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: "radial-gradient(#1e293b 1px, transparent 1px)",
+          backgroundSize: "32px 32px",
+        }}
+      ></div>
+
+      {/* 2. Abstract Blurred Blobs */}
+      <div className="absolute top-0 left-0 w-96 h-96 bg-neobyte-teal/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
+      {/* --- BACKGROUND DECORATION END --- */}
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10">
+          {/* --- MISSION CARD --- */}
+          <div className="group relative bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden">
+            {/* Decorative Corner Shape (Matches ServicesList) */}
+            <div className="absolute -top-12 -right-12 w-40 h-40 bg-neobyte-teal opacity-[0.05] rounded-[3rem] rotate-12 pointer-events-none transition-all duration-500 group-hover:rotate-45 group-hover:scale-110 group-hover:opacity-10"></div>
+
+            <div className="relative z-10">
+              {/* Icon Container */}
+              <div className="w-14 h-14 rounded-xl bg-neobyte-teal/10 flex items-center justify-center mb-6 group-hover:bg-neobyte-teal group-hover:text-white transition-colors duration-300">
+                <Target className="w-7 h-7 text-neobyte-teal group-hover:text-white transition-colors" />
+              </div>
+
+              <h3 className="text-2xl font-bold text-neobyte-navy mb-3 group-hover:translate-x-1 transition-transform">
+                {data?.card[0]?.label || "Our Mission"}
+              </h3>
+
+              <p className="text-slate-500 leading-relaxed text-base">
+                {data?.card[0]?.value ||
+                  "To empower businesses by bridging the gap between complex technology and human experience. We strive to deliver digital solutions that are not only functional but also intuitive and impactful."}
+              </p>
+            </div>
           </div>
 
-          {/* Vision */}
-          <div className="relative group">
-            <div className="absolute top-0 left-0 w-12 h-12 bg-blue-100 rounded-full -z-10 group-hover:scale-150 transition-transform duration-500"></div>
-            <Globe className="w-10 h-10 text-blue-600 mb-6" />
-            <h3 className="text-2xl font-bold text-neobyte-navy mb-4">
-              {data?.card[1]?.label || "Our Vision"}
-            </h3>
-            <p className="text-slate-600 leading-relaxed">
-              {data?.card[1]?.value ||
-                `To be the global standard for digital innovation, creating a world
-              where every idea has the potential to become a visible, scalable,
-              and successful digital reality.`}
-            </p>
+          {/* --- VISION CARD --- */}
+          <div className="group relative bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden">
+            {/* Decorative Corner Shape (Matches ServicesList - Blue Variation) */}
+            <div className="absolute -top-12 -right-12 w-40 h-40 bg-blue-600 opacity-[0.05] rounded-[3rem] rotate-12 pointer-events-none transition-all duration-500 group-hover:rotate-45 group-hover:scale-110 group-hover:opacity-10"></div>
+
+            <div className="relative z-10">
+              {/* Icon Container */}
+              <div className="w-14 h-14 rounded-xl bg-blue-50 flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
+                <Globe className="w-7 h-7 text-blue-600 group-hover:text-white transition-colors" />
+              </div>
+
+              <h3 className="text-2xl font-bold text-neobyte-navy mb-3 group-hover:translate-x-1 transition-transform">
+                {data?.card[1]?.label || "Our Vision"}
+              </h3>
+
+              <p className="text-slate-500 leading-relaxed text-base">
+                {data?.card[1]?.value ||
+                  "To be the global standard for digital innovation, creating a world where every idea has the potential to become a visible, scalable, and successful digital reality."}
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -261,6 +289,7 @@ const MissionVision: React.FC<{ data: any }> = ({ data }) => {
 // ============================================
 // 3. CORE VALUES
 // ============================================
+
 const CoreValues: React.FC<{ data: any }> = ({ data }) => {
   const values = useMemo(() => {
     return (
@@ -269,61 +298,99 @@ const CoreValues: React.FC<{ data: any }> = ({ data }) => {
           index === 0 ? Heart : index === 1 ? Zap : index === 2 ? Award : Users,
         title: card.label,
         desc: card.value,
-      })) || []
+      })) || [
+        {
+          icon: Heart,
+          title: "Client First",
+          desc: "We don't just work for you; we work with you. Your success is our success.",
+        },
+        {
+          icon: Zap,
+          title: "Innovation",
+          desc: "We constantly push boundaries to find new, better ways to solve problems.",
+        },
+        {
+          icon: Award,
+          title: "Excellence",
+          desc: "Good isn't enough. We aim for pixel-perfect quality in every delivery.",
+        },
+        {
+          icon: Users,
+          title: "Collaboration",
+          desc: "Great things are never done by one person. They're done by a team of people.",
+        },
+      ]
     );
   }, [data]);
-  // const values = [
-  //   {
-  //     icon: Heart,
-  //     title: "Client First",
-  //     desc: "We don't just work for you; we work with you. Your success is our success.",
-  //   },
-  //   {
-  //     icon: Zap,
-  //     title: "Innovation",
-  //     desc: "We constantly push boundaries to find new, better ways to solve problems.",
-  //   },
-  //   {
-  //     icon: Award,
-  //     title: "Excellence",
-  //     desc: "Good isn't enough. We aim for pixel-perfect quality in every delivery.",
-  //   },
-  //   {
-  //     icon: Users,
-  //     title: "Collaboration",
-  //     desc: "Great things are never done by one person. They're done by a team of people.",
-  //   },
-  // ];
 
   return (
-    <section className="py-24 bg-neobyte-navy text-white relative overflow-hidden">
-      {/* Decor */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-neobyte-teal/5 rounded-full blur-3xl pointer-events-none" />
+    <section className="relative py-16 lg:py-20 bg-neobyte-navy overflow-hidden">
+      {/* --- BACKGROUND DECORATION START --- */}
+      {/* 1. Cyber Grid Background (CSS Pattern) */}
+      <div
+        className="absolute inset-0 z-0 opacity-[0.07]"
+        style={{
+          backgroundImage: `linear-gradient(to right, #ffffff 1px, transparent 1px),
+                            linear-gradient(to bottom, #ffffff 1px, transparent 1px)`,
+          backgroundSize: "40px 40px",
+        }}
+      ></div>
+
+      {/* 2. Radial Gradient Overlay to fade grid at edges */}
+      <div className="absolute inset-0 bg-gradient-to-b from-neobyte-navy/20 via-transparent to-neobyte-navy z-0"></div>
+
+      {/* 3. Glowing Orbs */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-neobyte-teal/10 rounded-full blur-[100px] pointer-events-none translate-x-1/2 -translate-y-1/2"></div>
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[100px] pointer-events-none -translate-x-1/2 translate-y-1/2"></div>
+      {/* --- BACKGROUND DECORATION END --- */}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-16">
-          <span className="text-neobyte-teal font-bold tracking-wider uppercase text-sm">
+        {/* Header */}
+        <div className="text-center mb-12 md:mb-16">
+          <span className="inline-block py-1 px-3 rounded-full bg-neobyte-teal/10 border border-neobyte-teal/20 text-neobyte-teal font-semibold tracking-wider uppercase text-xs mb-4">
             {data?.badge || "Our DNA"}
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold mt-2">
+          <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
             {data?.title || "The Values That Drive Us"}
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {/* Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {values?.map((val: any, idx: any) => (
             <motion.div
               key={idx}
-              whileHover={{ y: -10 }}
-              className="bg-white/5 border border-white/10 p-8 rounded-2xl hover:bg-white/10 transition-colors"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.1, duration: 0.5 }}
+              whileHover={{ y: -5 }}
+              className="group relative h-full"
             >
-              <div className="w-12 h-12 bg-neobyte-teal rounded-lg flex items-center justify-center text-neobyte-navy mb-6">
-                <val.icon className="w-6 h-6" />
+              {/* Card Border Gradient (appears on hover) */}
+              <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-b from-white/20 to-white/0 opacity-50 group-hover:from-neobyte-teal group-hover:to-purple-500 group-hover:opacity-100 transition-all duration-500 blur-[1px]"></div>
+
+              {/* Main Card Content */}
+              <div className="relative h-full bg-[#0f172a] rounded-2xl p-6 lg:p-8 flex flex-col items-start border border-white/5 overflow-hidden">
+                {/* Subtle sheen effect */}
+                <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                {/* Icon Box */}
+                <div className="mb-6 relative">
+                  <div className="absolute inset-0 bg-neobyte-teal blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-500"></div>
+                  <div className="relative w-12 h-12 bg-gray-800 rounded-xl flex items-center justify-center border border-gray-700 group-hover:border-neobyte-teal/50 group-hover:bg-gray-800/80 transition-colors duration-300">
+                    <val.icon className="w-6 h-6 text-gray-300 group-hover:text-neobyte-teal transition-colors" />
+                  </div>
+                </div>
+
+                <h4 className="text-xl font-bold text-white mb-3 group-hover:text-neobyte-teal transition-colors duration-300">
+                  {val.title}
+                </h4>
+
+                <p className="text-gray-400 text-sm leading-relaxed group-hover:text-gray-300 transition-colors">
+                  {val.desc}
+                </p>
               </div>
-              <h4 className="text-xl font-bold mb-3">{val.title}</h4>
-              <p className="text-gray-400 text-sm leading-relaxed">
-                {val.desc}
-              </p>
             </motion.div>
           ))}
         </div>
@@ -335,84 +402,105 @@ const CoreValues: React.FC<{ data: any }> = ({ data }) => {
 // ============================================
 // 4. TEAM SECTION
 // ============================================
+
 const TeamSection: React.FC<{ data: any }> = ({ data }) => {
   const team = [
     {
       name: "Aung",
       role: "DevOps Engineer",
       img: "/images/profile/aung.jpeg",
+      socials: { twitter: "#", linkedin: "#", github: "#" },
     },
     {
       name: "Thu",
       role: "Frontend Developer",
       img: "/images/profile/thu.jpeg",
+      socials: { twitter: "#", linkedin: "#", github: "#" },
     },
-    // {
-    //   name: "Aung Nay Htet",
-    //   role: "Lead Developer",
-    //   img: "/images/profile/ceo2.jpg",
-    // },
-    // {
-    //   name: "Htet Nay Aung",
-    //   role: "Product Manager",
-    //   img: "/images/profile/ceo3.png",
-    // },
+    // Add dummy data for layout visualization if array is small
+    // { name: "Aung Nay Htet", role: "Lead Developer", img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fit=crop&w=800&q=80" },
+    // { name: "Htet Nay Aung", role: "Product Manager", img: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?fit=crop&w=800&q=80" },
   ];
 
   return (
-    <section className="py-24 bg-slate-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-neobyte-navy">
+    <section className="relative py-16 md:py-24 bg-slate-50 overflow-hidden">
+      {/* --- BACKGROUND DECORATION --- */}
+      {/* Large faint circle for subtle depth */}
+      <div className="absolute top-0 left-0 w-[800px] h-[800px] bg-neobyte-navy/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row justify-between items-end mb-12 md:mb-16 gap-6">
+          <div className="max-w-2xl">
+            <h2 className="text-3xl md:text-4xl font-bold text-neobyte-navy mb-4">
               {data?.title || "Meet Our Team"}
             </h2>
-            <p className="text-slate-500 mt-2 max-w-xl">
+            <p className="text-slate-500 text-lg leading-relaxed">
               {data?.description ||
-                `The talented individuals working tirelessly behind the scenes to
-              bring your ideas to life.`}
+                "The talented individuals working tirelessly behind the scenes to bring your ideas to life."}
             </p>
           </div>
-          <button className="hidden md:flex items-center gap-2 text-neobyte-teal font-bold hover:underline mt-4 md:mt-0">
-            {data?.join_team_button || "Join our team"}{" "}
-            <ArrowRight className="w-4 h-4" />
-          </button>
+
+          <a
+            href="#"
+            className="group flex items-center gap-2 text-neobyte-navy font-bold hover:text-neobyte-teal transition-colors"
+          >
+            {data?.join_team_button || "Join our team"}
+            <span className="bg-neobyte-teal/10 p-2 rounded-full group-hover:bg-neobyte-teal group-hover:text-white transition-all duration-300">
+              <ArrowRight className="w-4 h-4" />
+            </span>
+          </a>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        {/* Team Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           {team.map((member, i) => (
-            <div key={i} className="group relative">
-              <div className="relative overflow-hidden rounded-xl aspect-[4/5] bg-gray-200">
+            <div
+              key={i}
+              className="group relative h-[400px] rounded-2xl overflow-hidden cursor-pointer shadow-sm hover:shadow-2xl transition-all duration-500"
+            >
+              {/* 1. Image Layer */}
+              <div className="absolute inset-0 bg-gray-200">
                 <img
                   src={member.img}
                   alt={member.name}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"
                 />
-
-                {/* Social Overlay */}
-                <div className="absolute inset-0 bg-neobyte-navy/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
-                  <a
-                    href="#"
-                    className="p-2 bg-white rounded-full text-neobyte-navy hover:text-neobyte-teal hover:bg-neobyte-navy transition-colors"
-                  >
-                    <Linkedin className="w-4 h-4" />
-                  </a>
-                  <a
-                    href="#"
-                    className="p-2 bg-white rounded-full text-neobyte-navy hover:text-neobyte-teal hover:bg-neobyte-navy transition-colors"
-                  >
-                    <Twitter className="w-4 h-4" />
-                  </a>
-                </div>
+                {/* Gradient Overlay to make text pop if image is light */}
+                <div className="absolute inset-0 bg-gradient-to-t from-neobyte-navy/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300"></div>
               </div>
 
-              <div className="mt-4 text-center">
-                <h3 className="text-lg font-bold text-neobyte-navy">
-                  {member.name}
-                </h3>
-                <p className="text-sm text-neobyte-teal font-medium">
-                  {member.role}
-                </p>
+              {/* 2. Floating Glass Card (Info) */}
+              <div className="absolute bottom-4 left-4 right-4 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                <div className="bg-white/90 backdrop-blur-md p-4 rounded-xl border border-white/20 shadow-lg">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h3 className="text-lg font-bold text-neobyte-navy">
+                        {member.name}
+                      </h3>
+                      <p className="text-xs font-semibold text-neobyte-teal uppercase tracking-wider mt-1">
+                        {member.role}
+                      </p>
+                    </div>
+
+                    {/* Status Dot */}
+                    <div
+                      className="w-2 h-2 rounded-full bg-green-500 animate-pulse mt-2"
+                      title="Online"
+                    ></div>
+                  </div>
+
+                  {/* Hidden Socials Row (Expands on Hover) */}
+                  <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-[grid-template-rows] duration-300 ease-out">
+                    <div className="overflow-hidden">
+                      <div className="pt-4 flex items-center gap-3 border-t border-slate-200/60 mt-3">
+                        <SocialIcon icon={Linkedin} />
+                        <SocialIcon icon={Twitter} />
+                        <SocialIcon icon={Github} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           ))}
@@ -421,6 +509,16 @@ const TeamSection: React.FC<{ data: any }> = ({ data }) => {
     </section>
   );
 };
+
+// Helper component for cleaner code
+const SocialIcon = ({ icon: Icon }: any) => (
+  <a
+    href="#"
+    className="text-slate-400 hover:text-neobyte-teal transition-colors p-1"
+  >
+    <Icon className="w-4 h-4" />
+  </a>
+);
 
 // ============================================
 // 5. CTA SECTION
