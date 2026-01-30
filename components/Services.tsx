@@ -303,7 +303,7 @@ const WorkingProcess: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex flex-col md:flex-row gap-16 items-start">
           {/* Left Content */}
-          <div className="md:w-1/3 sticky top-24">
+          <div className="md:w-1/3 sticky">
             <span className="inline-block py-1 px-3 rounded-full bg-white/10 border border-white/10 text-neobyte-teal font-bold tracking-wider uppercase text-xs mb-6">
               How We Work
             </span>
