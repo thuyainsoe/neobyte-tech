@@ -56,7 +56,7 @@ export const Navbar: React.FC = () => {
               className="text-2xl font-extrabold tracking-tighter text-neobyte-navy"
               onClick={() => setIsOpen(false)}
             >
-              Neo<span className="text-neobyte-teal">Byte</span>.
+              Nexify<span className="text-neobyte-teal">Lab</span>.
             </Link>
           </div>
 

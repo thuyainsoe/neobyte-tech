@@ -35,7 +35,7 @@ export const Footer: React.FC = () => {
               href="#"
               className="text-3xl font-extrabold tracking-tighter text-white mb-6 block"
             >
-              Neo<span className="text-neobyte-teal">byte</span>.
+              Nexify<span className="text-neobyte-teal">Lab</span>.
             </a>
             <p className="text-gray-400 text-sm leading-relaxed">
               We build digital experiences that matter. From startup to

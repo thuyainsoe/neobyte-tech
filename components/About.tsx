@@ -83,7 +83,7 @@ const AboutHero: React.FC<AboutHeroProps> = ({ data, loading }) => {
             </p>
 
             {/* Key Stats Row */}
-            <div className="grid grid-cols-3 gap-6 border-t border-gray-200 pt-8">
+            {/* <div className="grid grid-cols-3 gap-6 border-t border-gray-200 pt-8">
               <div>
                 <h3 className="text-3xl font-bold text-neobyte-navy">
                   {data?.stats[0]?.label || "15+"}
@@ -108,7 +108,7 @@ const AboutHero: React.FC<AboutHeroProps> = ({ data, loading }) => {
                   {data?.stats[2]?.value || "Experts"}
                 </p>
               </div>
-            </div>
+            </div> */}
           </motion.div>
 
           {/* Right Column: Visual Composition */}
@@ -137,7 +137,7 @@ const AboutHero: React.FC<AboutHeroProps> = ({ data, loading }) => {
               </div>
 
               {/* Floating Card 1 (Static Position) */}
-              <div className="absolute left-2 top-4 scale-90 origin-top-left lg:-left-8 lg:top-12 lg:scale-100 bg-white p-4 rounded-xl shadow-xl border border-gray-100 flex items-center gap-3 max-w-[180px] lg:max-w-[200px] z-20 hover:-translate-y-1 transition-transform">
+              {/* <div className="absolute left-2 top-4 scale-90 origin-top-left lg:-left-8 lg:top-12 lg:scale-100 bg-white p-4 rounded-xl shadow-xl border border-gray-100 flex items-center gap-3 max-w-[180px] lg:max-w-[200px] z-20 hover:-translate-y-1 transition-transform">
                 <div className="w-8 h-8 lg:w-10 lg:h-10 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600">
                   <Award className="w-4 h-4 lg:w-5 lg:h-5" />
                 </div>
@@ -149,7 +149,7 @@ const AboutHero: React.FC<AboutHeroProps> = ({ data, loading }) => {
                     {data?.stats[3]?.value || "Best Tech Agency"}
                   </p>
                 </div>
-              </div>
+              </div> */}
 
               {/* Floating Card 2 (Static Position) */}
               <div className="absolute right-2 bottom-4 scale-90 origin-bottom-right lg:-right-4 lg:bottom-10 lg:scale-100 bg-neobyte-navy text-white p-4 rounded-xl shadow-xl flex items-center gap-3 z-20 hover:-translate-y-1 transition-transform">

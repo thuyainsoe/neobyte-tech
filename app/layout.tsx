@@ -10,7 +10,7 @@ import ChatBot from "@/components/ChatBot";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Neobyte - IT Software Services",
+  title: "NexifyLab - IT Software Services",
   description:
     "Transforming your digital presence with innovative strategies that spotlight your brand in the digital world.",
 };

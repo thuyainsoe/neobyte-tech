@@ -114,7 +114,7 @@ const Hero: React.FC<HeroProps> = ({ data, loading }) => {
             </div>
 
             {/* Social Proof / Trust Mini-section */}
-            <div className="lg:mt-5 pt-8 border-t border-gray-200 flex items-center gap-6">
+            {/* <div className="lg:mt-5 pt-8 border-t border-gray-200 flex items-center gap-6">
               <div className="flex -space-x-3">
                 {[1, 2, 3, 4].map((i) => (
                   <Image
@@ -137,7 +137,7 @@ const Hero: React.FC<HeroProps> = ({ data, loading }) => {
                     "Rated 5 Stars by 2,000+ clients worldwide"}
                 </p>
               </div>
-            </div>
+            </div> */}
           </motion.div>
 
           {/* Right Column: Visual / Illustration */}
@@ -437,7 +437,7 @@ const AboutAgency = ({ data }: any) => {
             </p>
 
             {/* Stats within text */}
-            <div className="grid grid-cols-2 gap-8 mb-6">
+            {/* <div className="grid grid-cols-2 gap-8 mb-6">
               <div>
                 <h3 className="text-3xl font-bold text-neobyte-navy">
                   {data?.stats[0]?.label || "250+"}
@@ -454,7 +454,7 @@ const AboutAgency = ({ data }: any) => {
                   {data?.stats[1]?.value || "Years Experience"}
                 </p>
               </div>
-            </div>
+            </div> */}
 
             <a
               href="#contact"

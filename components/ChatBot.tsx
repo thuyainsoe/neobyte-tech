@@ -54,7 +54,7 @@ const ChatBot: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
-      text: "Hi there! 👋 I'm Neo, your virtual assistant. Need any help with our IT services or products?",
+      text: "Hi there! 👋 I'm from NexifyLab, your virtual assistant. Need any help with our IT services or products?",
       sender: "bot",
       timestamp: new Date(),
     },
