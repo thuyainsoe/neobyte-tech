@@ -47,7 +47,7 @@ interface HeroProps {
 
 const Hero: React.FC<HeroProps> = ({ data, loading }) => {
   return (
-    <section className="relative pt-32 pb-12 lg:pt-40 lg:pb-32 overflow-hidden bg-slate-50">
+    <section className="relative pt-16 pb-12 lg:pt-40 lg:pb-32 overflow-hidden bg-slate-50">
       {/* 1. Dynamic Background Layer */}
       <div className="absolute inset-0 z-0">
         {/* Grid Pattern */}
